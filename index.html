@@ -1449,5 +1449,22 @@
     });
   });
 </script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    // Gère la connexion classique
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+    // Ouvre automatiquement la fenêtre si on arrive avec un lien d'invitation ou de récupération
+    if (window.location.hash && (window.location.hash.indexOf("invite_token") !== -1 || window.location.hash.indexOf("recovery_token") !== -1)) {
+      window.netlifyIdentity.open();
+    }
+  }
+</script>
 </body>
 </html>
