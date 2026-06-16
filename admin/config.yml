@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: accannes-cloud/site-acc
+  name: git-gateway
   branch: main
 
 # Langue de l'interface
