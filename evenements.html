@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda — Athletic Club de Cannes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu: #003DA5; --bleu-fonce: #001F5C; --bleu-clair: #1565C0;
+    --jaune: #FFD600; --jaune-clair: #FFF176; --blanc: #FFFFFF;
+    --gris-clair: #F4F6FB; --gris: #B0BEC5; --texte: #0D1B3E; --texte-doux: #455A7A;
+    --nav-h: 72px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--texte); background: var(--blanc); overflow-x: hidden; }
+
+  /* NAVBAR */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: var(--bleu-fonce); box-shadow: 0 2px 24px rgba(0,0,0,0.25); }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-img { width: 52px; height: 52px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+  .nav-logo-img img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-club-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; color: var(--blanc); line-height: 1.05; }
+  .nav-club-name span { color: var(--jaune); }
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a { display: block; padding: 8px 14px; color: rgba(255,255,255,0.9); text-decoration: none; font-size: 14px; letter-spacing: 0.5px; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+  .nav-links > li > a:hover { color: var(--jaune); background: rgba(255,255,255,0.08); }
+  .dropdown-menu { display: none; position: absolute; top: 100%; margin-top: 10px; left: 50%; transform: translateX(-50%); background: var(--blanc); border-radius: 10px; box-shadow: 0 8px 40px rgba(0,30,90,0.18); min-width: 200px; padding: 8px 0; }
+  .dropdown-menu::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; background: transparent; }
+  .nav-links > li:hover .dropdown-menu { display: block; }
+  .dropdown-menu a { display: flex; align-items: center; gap: 10px; padding: 10px 18px; color: var(--texte); text-decoration: none; font-size: 14px; transition: background 0.15s, color 0.15s; }
+  .dropdown-menu a:hover { background: var(--gris-clair); color: var(--bleu); }
+  .dropdown-menu a .dm-icon { width: 28px; height: 28px; background: var(--bleu); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--jaune); flex-shrink: 0; }
+  .dropdown-menu a:hover .dm-icon { background: var(--jaune); color: var(--bleu-fonce); }
+  .nav-cta { background: var(--jaune); color: var(--bleu-fonce) !important; font-weight: 600 !important; padding: 9px 20px !important; border-radius: 8px !important; }
+  .nav-cta:hover { background: var(--jaune-clair) !important; }
+
+  /* PAGE HEADER */
+  .page-header { background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu) 60%, var(--bleu-clair) 100%); padding: calc(var(--nav-h) + 70px) 40px 70px; text-align: center; color: var(--blanc); position: relative; overflow: hidden; }
+  .page-header::after { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='rgba(255,214,0,0.1)'/%3E%3C/svg%3E") repeat; }
+  .page-header-content { position: relative; z-index: 1; }
+  .page-breadcrumb { font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 1px; margin-bottom: 16px; }
+  .page-breadcrumb a { color: var(--jaune); text-decoration: none; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 7vw, 76px); letter-spacing: 2px; line-height: 1; margin-bottom: 14px; }
+  .page-title span { color: var(--jaune); }
+  .page-subtitle { font-size: 17px; font-weight: 300; opacity: 0.9; max-width: 640px; margin: 0 auto; line-height: 1.6; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+  section { padding: 64px 0; }
+
+  .section-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--bleu); margin-bottom: 12px; }
+  .section-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--jaune); }
+  .block-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 5vw, 48px); letter-spacing: 1px; line-height: 1.05; margin-bottom: 16px; }
+  .block-title span { color: var(--bleu); }
+  .intro-text { font-size: 15px; color: var(--texte-doux); max-width: 640px; margin-bottom: 40px; line-height: 1.7; }
+
+  /* COMPETITIONS LIST */
+  .competitions-list { display: flex; flex-direction: column; gap: 20px; }
+  .competition-card { background: var(--blanc); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 18px rgba(0,31,92,0.07); border: 1px solid #EEF1F8; display: grid; grid-template-columns: 120px 1fr auto; align-items: stretch; transition: transform 0.25s, box-shadow 0.25s; }
+  .competition-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,61,165,0.14); }
+  .comp-date-box { background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu)); color: var(--blanc); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+  .comp-date-day { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; color: var(--jaune); }
+  .comp-date-month { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .comp-date-year { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+  .comp-body { padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; }
+  .comp-statut { display: inline-block; align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 10px; }
+  .statut-ouvert { background: #E3F9ED; color: #18A05E; }
+  .statut-bientot { background: #FFF4D6; color: #B8860B; }
+  .statut-ferme { background: #FCE8E8; color: #D14343; }
+  .statut-termine { background: var(--gris-clair); color: var(--texte-doux); }
+  .comp-nom { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.5px; color: var(--texte); line-height: 1.1; margin-bottom: 8px; }
+  .comp-infos { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--texte-doux); margin-bottom: 8px; }
+  .comp-infos span { display: inline-flex; align-items: center; gap: 5px; }
+  .comp-categories { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .comp-cat-tag { background: rgba(0,61,165,0.08); color: var(--bleu); font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 4px; }
+  .comp-action { padding: 24px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border-left: 1px solid #EEF1F8; min-width: 180px; }
+  .comp-limite { font-size: 11px; color: var(--texte-doux); text-align: center; }
+  .comp-limite strong { color: #D14343; }
+  .comp-btn { background: var(--jaune); color: var(--bleu-fonce); font-weight: 700; font-size: 13px; padding: 11px 22px; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+  .comp-btn:hover { background: var(--jaune-clair); transform: translateY(-2px); }
+  .comp-btn.disabled { background: var(--gris-clair); color: var(--gris); pointer-events: none; }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--texte-doux); }
+  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-state h3 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--texte); margin-bottom: 8px; letter-spacing: 1px; }
+
+  /* FOOTER */
+  footer { background: #080E1F; color: rgba(255,255,255,0.7); padding: 64px 40px 32px; }
+  .footer-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--blanc); margin-bottom: 12px; }
+  .footer-logo-name span { color: var(--jaune); }
+  .footer-desc { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .social-btn { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; color: inherit; transition: background 0.2s; }
+  .social-btn:hover { background: var(--jaune); }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blanc); margin-bottom: 16px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 14px; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--jaune); }
+  .footer-bottom { max-width: 1160px; margin: 28px auto 0; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.35); }
+  .footer-bottom a { color: var(--jaune); text-decoration: none; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 800px) {
+    .competition-card { grid-template-columns: 90px 1fr; }
+    .comp-action { grid-column: 1 / -1; border-left: none; border-top: 1px solid #EEF1F8; flex-direction: row; justify-content: space-between; min-width: 0; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    nav, .page-header, .container, footer { padding-left: 20px; padding-right: 20px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-img"><img src="Logo_bleu.png" alt="Logo ACC - Athletic Club de Cannes"></div>
+    <div class="nav-club-name">ATHLETIC CLUB<br><span>DE CANNES</span></div>
+  </a>
+  <ul class="nav-links">
+    <li>
+      <a href="le-club.html">Le Club ▾</a>
+      <div class="dropdown-menu">
+        <a href="le-club.html"><span class="dm-icon">🏛️</span> Histoire du club</a>
+        <a href="equipe.html"><span class="dm-icon">👥</span> Notre équipe</a>
+        <a href="installations.html"><span class="dm-icon">🏟️</span> Installations</a>
+        <a href="palmares.html"><span class="dm-icon">🏆</span> Palmarès</a>
+      </div>
+    </li>
+    <li>
+      <a href="athle-jeune.html">Nos Activités ▾</a>
+      <div class="dropdown-menu">
+        <a href="athle-jeune.html"><span class="dm-icon">👶</span> Athlé Jeune</a>
+        <a href="athle-piste.html"><span class="dm-icon">⚡</span> Athlé Piste</a>
+        <a href="athle-running.html"><span class="dm-icon">🛣️</span> Athlé Running</a>
+        <a href="athle-sante.html"><span class="dm-icon">❤️</span> Athlé Santé</a>
+        <a href="athle-parasport.html"><span class="dm-icon">♿</span> Athlé Parasport</a>
+      </div>
+    </li>
+    <li><a href="blog.html">Actualités</a></li>
+    <li><a href="evenements.html">Agenda</a></li>
+    <li><a href="boutique.html">Boutique</a></li>
+    <li><a href="inscription.html" class="nav-cta">S'inscrire</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-header-content">
+    <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Agenda</div>
+    <h1 class="page-title">L'<span>AGENDA</span></h1>
+    <p class="page-subtitle">Toutes les compétitions à venir et les inscriptions ouvertes pour les athlètes du club.</p>
+  </div>
+</header>
+
+<!-- COMPETITIONS -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow reveal">Compétitions à venir</div>
+    <h2 class="block-title reveal">PROCHAINES <span>ÉCHÉANCES</span></h2>
+    <p class="intro-text reveal">Retrouve ici les compétitions où le club engage ses athlètes. Clique sur "S'inscrire" pour rejoindre la liste des participants avant la date limite.</p>
+
+    <div class="competitions-list" id="competitions-container">
+      <!-- Exemple affiché tant qu'aucune compétition n'est publiée dans le CMS -->
+      <div class="competition-card reveal">
+        <div class="comp-date-box">
+          <div class="comp-date-day">14</div>
+          <div class="comp-date-month">Mars</div>
+          <div class="comp-date-year">2026</div>
+        </div>
+        <div class="comp-body">
+          <span class="comp-statut statut-ouvert">Inscriptions ouvertes</span>
+          <div class="comp-nom">Championnats Régionaux Indoor</div>
+          <div class="comp-infos">
+            <span>📍 Miramas</span>
+            <span>🏃 Piste couverte</span>
+          </div>
+          <div class="comp-categories">
+            <span class="comp-cat-tag">Cadets</span>
+            <span class="comp-cat-tag">Juniors</span>
+            <span class="comp-cat-tag">Seniors</span>
+          </div>
+        </div>
+        <div class="comp-action">
+          <div class="comp-limite">Limite : <strong>1er mars</strong></div>
+          <a href="#" class="comp-btn">S'inscrire</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:#000;overflow:hidden;flex-shrink:0;">
+          <img src="Logo_bleu.png" alt="Logo ACC" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="footer-logo-name" style="margin-bottom:0;">ATHLETIC CLUB <span>DE CANNES</span></div>
+      </div>
+      <p class="footer-desc">Un club passionné, engagé pour le développement de l'athlétisme pour tous. Rejoignez-nous et vivez l'aventure du sport !</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="https://www.facebook.com/ACCannes/" target="_blank" aria-label="Facebook">f</a>
+        <a class="social-btn" href="#" aria-label="Instagram">in</a>
+        <a class="social-btn" href="#" aria-label="YouTube">▶</a>
+        <a class="social-btn" href="#" aria-label="Strava">S</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Le Club</div>
+      <ul class="footer-links">
+        <li><a href="le-club.html">Notre histoire</a></li>
+        <li><a href="equipe.html">L'équipe</a></li>
+        <li><a href="installations.html">Installations</a></li>
+        <li><a href="palmares.html">Palmarès</a></li>
+        <li><a href="inscription.html">Inscription</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Activités</div>
+      <ul class="footer-links">
+        <li><a href="athle-jeune.html">Athlé Jeune</a></li>
+        <li><a href="athle-piste.html">Athlé Piste</a></li>
+        <li><a href="athle-running.html">Athlé Running</a></li>
+        <li><a href="athle-sante.html">Athlé Santé</a></li>
+        <li><a href="athle-parasport.html">Athlé Parasport</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Informations</div>
+      <ul class="footer-links">
+        <li><a href="blog.html">Actualités</a></li>
+        <li><a href="evenements.html">Agenda</a></li>
+        <li><a href="boutique.html">Boutique</a></li>
+        <li><a href="partenaires.html">Partenaires</a></li>
+        <li><a href="installations.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Athletic Club de Cannes. Tous droits réservés.</span>
+    <span>Affilié à la <a href="https://www.athle.fr" target="_blank">Fédération Française d'Athlétisme</a></span>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+
+<!-- Chargement automatique des compétitions depuis le CMS -->
+<script>
+(async function loadCompetitions() {
+  const REPO = 'accannes-cloud/site-acc';
+  const FOLDER = 'contenu/competitions';
+  const apiUrl = `https://api.github.com/repos/${REPO}/contents/${FOLDER}`;
+
+  function parseFrontmatter(text) {
+    const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
+    if (!match) return { data: {}, body: text };
+    const data = {};
+    let currentKey = null;
+    match[1].split('\n').forEach(line => {
+      // Gère les listes (catégories multiples)
+      if (line.match(/^\s*-\s+/) && currentKey) {
+        if (!Array.isArray(data[currentKey])) data[currentKey] = [];
+        data[currentKey].push(line.replace(/^\s*-\s+/, '').trim().replace(/^["']|["']$/g, ''));
+        return;
+      }
+      const idx = line.indexOf(':');
+      if (idx === -1) return;
+      const key = line.slice(0, idx).trim();
+      let val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+      currentKey = key;
+      if (val === '') { data[key] = []; }
+      else { data[key] = val; }
+    });
+    return { data, body: match[2] };
+  }
+
+  function dateParts(dateStr) {
+    if (!dateStr) return { day: '', month: '', year: '' };
+    const d = new Date(dateStr);
+    if (isNaN(d)) return { day: '', month: '', year: '' };
+    const mois = ['JANV','FÉVR','MARS','AVR','MAI','JUIN','JUIL','AOÛT','SEPT','OCT','NOV','DÉC'];
+    return { day: d.getDate(), month: mois[d.getMonth()], year: d.getFullYear() };
+  }
+
+  function formatLimite(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+  }
+
+  function statutClass(statut) {
+    if (!statut) return 'statut-ouvert';
+    const s = statut.toLowerCase();
+    if (s.includes('ouvert')) return 'statut-ouvert';
+    if (s.includes('bientôt') || s.includes('bientot')) return 'statut-bientot';
+    if (s.includes('fermé') || s.includes('ferme')) return 'statut-ferme';
+    if (s.includes('terminé') || s.includes('termine')) return 'statut-termine';
+    return 'statut-ouvert';
+  }
+
+  try {
+    const res = await fetch(apiUrl);
+    if (!res.ok) return;
+    const files = await res.json();
+    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+    if (mdFiles.length === 0) return;
+
+    const comps = [];
+    for (const file of mdFiles) {
+      const contentRes = await fetch(file.download_url);
+      const text = await contentRes.text();
+      const { data } = parseFrontmatter(text);
+      comps.push(data);
+    }
+
+    // Trie par date de compétition croissante (la plus proche en premier)
+    comps.sort((a, b) => new Date(a.date_competition) - new Date(b.date_competition));
+
+    const container = document.getElementById('competitions-container');
+    if (container && comps.length > 0) {
+      container.innerHTML = comps.map(c => {
+        const dp = dateParts(c.date_competition);
+        const cats = Array.isArray(c.categories) ? c.categories : (c.categories ? [c.categories] : []);
+        const catsHtml = cats.map(cat => `<span class="comp-cat-tag">${cat}</span>`).join('');
+        const sClass = statutClass(c.statut);
+        const ouvert = sClass === 'statut-ouvert';
+        const btnHtml = c.lien_inscription && ouvert
+          ? `<a href="${c.lien_inscription}" target="_blank" class="comp-btn">S'inscrire</a>`
+          : `<a href="#" class="comp-btn disabled">${c.statut || 'Indisponible'}</a>`;
+        return `
+          <div class="competition-card reveal visible">
+            <div class="comp-date-box">
+              <div class="comp-date-day">${dp.day}</div>
+              <div class="comp-date-month">${dp.month}</div>
+              <div class="comp-date-year">${dp.year}</div>
+            </div>
+            <div class="comp-body">
+              <span class="comp-statut ${sClass}">${c.statut || 'Inscriptions ouvertes'}</span>
+              <div class="comp-nom">${c.nom || ''}</div>
+              <div class="comp-infos">
+                ${c.lieu ? '<span>📍 ' + c.lieu + '</span>' : ''}
+              </div>
+              <div class="comp-categories">${catsHtml}</div>
+            </div>
+            <div class="comp-action">
+              ${c.date_limite ? '<div class="comp-limite">Limite : <strong>' + formatLimite(c.date_limite) + '</strong></div>' : ''}
+              ${btnHtml}
+            </div>
+          </div>`;
+      }).join('');
+    }
+  } catch (e) {
+    console.log('Compétitions CMS non chargées, affichage de l\'exemple.', e);
+  }
+})();
+</script>
+</body>
+</html>
