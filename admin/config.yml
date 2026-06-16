@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: accannes-cloud/site-acc
   branch: main
+  base_url: https://decap-oauth.accannes.workers.dev
 
 # Langue de l'interface
 locale: 'fr'
