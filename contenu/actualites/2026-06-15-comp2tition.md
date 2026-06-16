@@ -1,5 +1,5 @@
 ---
-title: COMPeTITION
+title: COMPiTITION
 date: 2026-06-16
 categorie: Compétition
 featured: true
