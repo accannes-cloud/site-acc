@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Activer mon accès — Athletic Club de Cannes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bleu: #003DA5; --bleu-fonce: #001F5C; --bleu-clair: #1565C0;
+      --jaune: #FFD600; --blanc: #FFFFFF; --texte: #0D1B3E; --texte-doux: #455A7A;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu) 60%, var(--bleu-clair) 100%);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 20px; color: var(--texte);
+    }
+    .card {
+      background: var(--blanc); border-radius: 24px; padding: 48px 40px;
+      max-width: 480px; width: 100%; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .logo { width: 90px; height: 90px; border-radius: 50%; background: #000; margin: 0 auto 24px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .logo img { width: 100%; height: 100%; object-fit: cover; }
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1.5px; color: var(--texte); margin-bottom: 8px; line-height: 1.1; }
+    h1 span { color: var(--bleu); }
+    p { font-size: 15px; color: var(--texte-doux); line-height: 1.7; margin-bottom: 28px; }
+    .btn {
+      display: inline-block; background: var(--bleu-fonce); color: var(--blanc);
+      font-weight: 600; font-size: 15px; padding: 15px 36px; border-radius: 10px;
+      text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .btn:hover { background: var(--bleu); transform: translateY(-2px); }
+    .status { margin-top: 24px; font-size: 14px; color: var(--texte-doux); }
+    .help { margin-top: 28px; padding-top: 24px; border-top: 1px solid #E8EBF5; font-size: 13px; color: var(--texte-doux); }
+    .help a { color: var(--bleu); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo"><img src="Logo_bleu.png" alt="Logo ACC"></div>
+    <h1>BIENVENUE DANS<br><span>L'ESPACE D'ADMINISTRATION</span></h1>
+    <p>Tu as été invité·e à participer à la gestion du site de l'Athletic Club de Cannes. Clique ci-dessous pour créer ton mot de passe et accéder à l'interface.</p>
+    <button class="btn" onclick="ouvrirInscription()">Créer mon mot de passe</button>
+    <div class="status" id="status"></div>
+    <div class="help">
+      Une fois ton mot de passe créé, tu accèderas à l'espace d'administration sur <a href="/admin/">/admin/</a>.<br>
+      Un souci ? Contacte le responsable du site.
+    </div>
+  </div>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    function ouvrirInscription() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.open();
+      }
+    }
+
+    if (window.netlifyIdentity) {
+      // Quand l'utilisateur a créé son mot de passe avec succès → direction le CMS
+      window.netlifyIdentity.on('login', () => {
+        document.getElementById('status').textContent = 'Connexion réussie ! Redirection vers l\'espace d\'administration...';
+        setTimeout(() => { document.location.href = '/admin/'; }, 1500);
+      });
+
+      // À l'ouverture de la page : si un lien d'invitation/récupération est détecté, ouvre automatiquement la fenêtre
+      window.netlifyIdentity.on('init', () => {
+        if (window.location.hash &&
+            (window.location.hash.indexOf('invite_token') !== -1 ||
+             window.location.hash.indexOf('recovery_token') !== -1)) {
+          window.netlifyIdentity.open();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
