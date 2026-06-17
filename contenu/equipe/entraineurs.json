@@ -1,0 +1,7 @@
+{
+  "membres": [
+    { "nom": "Entraîneur", "role": "Athlé Piste", "photo": "" },
+    { "nom": "Entraîneur", "role": "Athlé Running", "photo": "" },
+    { "nom": "Entraîneur", "role": "Athlé Jeune", "photo": "" }
+  ]
+}
