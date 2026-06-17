@@ -85,14 +85,14 @@
   }
 
   // ========== 3. ÉQUIPE / BUREAU ==========
-  // Injecte dans <div data-equipe="bureau"></div> et <div data-equipe="entraineurs"></div>
+  // Bureau : <div data-equipe="bureau"></div>
+  // Entraîneurs par catégorie : <div data-equipe-entraineurs></div>
   async function injectEquipe() {
-    const conteneurs = document.querySelectorAll('[data-equipe]');
-    for (const conteneur of conteneurs) {
-      const type = conteneur.getAttribute('data-equipe');
-      const data = await getJSON(`contenu/equipe/${type}.json`);
+    // --- Bureau (liste simple) ---
+    const conteneursBureau = document.querySelectorAll('[data-equipe="bureau"]');
+    for (const conteneur of conteneursBureau) {
+      const data = await getJSON('contenu/equipe/bureau.json');
       if (!data || !data.membres || data.membres.length === 0) continue;
-
       let html = '';
       data.membres.forEach(m => {
         const initiales = (m.nom || '?').split(' ').map(x => x[0]).join('').substring(0, 2).toUpperCase();
@@ -103,6 +103,55 @@
               <h4>${m.nom || ''}</h4>
               <p>${m.role || ''}</p>
             </div>
+          </div>`;
+      });
+      conteneur.innerHTML = html;
+    }
+
+    // --- Entraîneurs (liste simple regroupée par catégorie à l'affichage) ---
+    const conteneursCoachs = document.querySelectorAll('[data-equipe-entraineurs]');
+    for (const conteneur of conteneursCoachs) {
+      const data = await getJSON('contenu/equipe/entraineurs.json');
+      if (!data || !data.entraineurs || data.entraineurs.length === 0) continue;
+
+      // Définition des catégories : ordre d'affichage + icône + description
+      const categories = [
+        { nom: 'BABY ATHLÉ', icone: '👶', sous: "Les tout-petits, premiers pas dans l'athlétisme" },
+        { nom: 'ÉVEIL ATHLÉTISME', icone: '🌱', sous: 'Découverte ludique et motricité' },
+        { nom: 'POUSSINS', icone: '🏃', sous: 'Premières disciplines athlétiques' },
+        { nom: 'BENJAMINS / MINIMES', icone: '⚡', sous: 'Vers la spécialisation et la compétition' },
+        { nom: 'CADETS ET +', icone: '🥇', sous: 'Spécialisation par discipline & haut niveau' },
+        { nom: 'ATHLÉ SANTÉ & BIEN-ÊTRE', icone: '❤️', sous: 'Marche, fitness et pratique santé pour tous' }
+      ];
+
+      let html = '';
+      categories.forEach(cat => {
+        const coachs = data.entraineurs.filter(e => (e.categorie || '') === cat.nom);
+        if (coachs.length === 0) return; // on n'affiche pas une catégorie vide
+        let cards = '';
+        coachs.forEach(c => {
+          const nomComplet = ((c.prenom || '') + ' ' + (c.nom || '')).trim();
+          const initiales = ((c.prenom || '?')[0] + (c.nom || '')[0] || '?').toUpperCase();
+          const photoHtml = c.photo
+            ? `<img src="${c.photo}" alt="${nomComplet}" style="width:100%;height:100%;object-fit:cover;">`
+            : `<div class="coach-initials">${initiales}</div>`;
+          cards += `
+            <div class="coach-card-dyn">
+              <div class="coach-photo-dyn">${photoHtml}</div>
+              <div class="coach-name-dyn">${nomComplet}</div>
+            </div>`;
+        });
+        html += `
+          <div class="coach-group-dyn">
+            <div class="coach-group-head-dyn">
+              <div class="coach-group-icon-dyn">${cat.icone}</div>
+              <div class="coach-group-text-dyn">
+                <div class="coach-group-title-dyn">${cat.nom}</div>
+                <div class="coach-group-sub-dyn">${cat.sous}</div>
+              </div>
+              <div class="coach-group-count-dyn">${coachs.length} coach${coachs.length > 1 ? 's' : ''}</div>
+            </div>
+            <div class="coach-grid-dyn">${cards}</div>
           </div>`;
       });
       conteneur.innerHTML = html;
@@ -125,6 +174,20 @@
       .equipe-avatar-dyn img { width: 100%; height: 100%; object-fit: cover; }
       .equipe-info-dyn h4 { font-size: 16px; font-weight: 600; margin-bottom: 3px; color: var(--texte, #0D1B3E); }
       .equipe-info-dyn p { font-size: 13px; color: var(--bleu, #003DA5); font-weight: 600; }
+      .coach-group-dyn { margin-bottom: 40px; }
+      .coach-group-head-dyn { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid #EEF1F8; }
+      .coach-group-icon-dyn { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #001F5C, #003DA5); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+      .coach-group-text-dyn { flex: 1; }
+      .coach-group-title-dyn { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; color: var(--bleu, #003DA5); line-height: 1.1; }
+      .coach-group-sub-dyn { font-size: 13px; color: var(--texte-doux, #455A7A); margin-top: 2px; }
+      .coach-group-count-dyn { background: var(--jaune, #FFD600); color: var(--bleu-fonce, #001F5C); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 100px; white-space: nowrap; }
+      .coach-grid-dyn { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+      .coach-card-dyn { background: var(--blanc, #fff); border-radius: 14px; padding: 18px; text-align: center; box-shadow: 0 4px 18px rgba(0,31,92,0.06); transition: transform 0.2s; }
+      .coach-card-dyn:hover { transform: translateY(-4px); }
+      .coach-photo-dyn { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 12px; overflow: hidden; background: linear-gradient(135deg, #001F5C, #003DA5); display: flex; align-items: center; justify-content: center; }
+      .coach-initials { color: var(--jaune, #FFD600); font-family: 'Bebas Neue', sans-serif; font-size: 26px; }
+      .coach-name-dyn { font-size: 14px; font-weight: 600; color: var(--texte, #0D1B3E); }
+      @media (max-width: 600px) { .coach-grid-dyn { grid-template-columns: repeat(2, 1fr); } .coach-group-head-dyn { flex-wrap: wrap; } }
     `;
     const style = document.createElement('style');
     style.textContent = css;
