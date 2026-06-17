@@ -208,13 +208,25 @@ collections:
       - name: "entraineurs"
         label: "🏃 Les Entraîneurs"
         file: "contenu/equipe/entraineurs.json"
+        description: "La liste de tous les entraîneurs. Pour en ajouter un : clique sur '+ Ajouter un entraîneur', remplis son prénom, son nom, sa photo et choisis sa catégorie."
         fields:
-          - name: "membres"
-            label: "Entraîneurs"
+          - name: "entraineurs"
+            label: "Liste des entraîneurs"
             label_singular: "un entraîneur"
             widget: "list"
-            summary: "{{fields.nom}} — {{fields.role}}"
+            summary: "{{fields.prenom}} {{fields.nom}} — {{fields.categorie}}"
             fields:
-              - { name: "nom", label: "Nom et prénom", widget: "string" }
-              - { name: "role", label: "Spécialité / Groupe", widget: "string", hint: "Ex : Athlé Piste, Athlé Jeune..." }
-              - { name: "photo", label: "Photo", widget: "image", required: false }
+              - { name: "prenom", label: "Prénom", widget: "string", hint: "Ex : Joachim" }
+              - { name: "nom", label: "Nom", widget: "string", hint: "Ex : Berland" }
+              - { name: "photo", label: "Photo", widget: "image", required: false, hint: "Photo de l'entraîneur (facultatif)" }
+              - name: "categorie"
+                label: "Catégorie"
+                widget: "select"
+                hint: "Le groupe que cet entraîneur encadre"
+                options:
+                  - "BABY ATHLÉ"
+                  - "ÉVEIL ATHLÉTISME"
+                  - "POUSSINS"
+                  - "BENJAMINS / MINIMES"
+                  - "CADETS ET +"
+                  - "ATHLÉ SANTÉ & BIEN-ÊTRE"
