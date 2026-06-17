@@ -2,7 +2,7 @@
 title: "Retour à l'entrainement "
 date: 2026-06-17
 categorie: Jeunes
-featured: true
+featured: false
 resume: dsqfdfsd
 auteur: Athletic Club de Cannes
 ---
