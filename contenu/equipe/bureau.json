@@ -1,0 +1,7 @@
+{
+  "membres": [
+    { "nom": "Frédéric Serrat", "role": "Président", "photo": "" },
+    { "nom": "Membre du bureau", "role": "Secrétaire", "photo": "" },
+    { "nom": "Membre du bureau", "role": "Trésorier", "photo": "" }
+  ]
+}
