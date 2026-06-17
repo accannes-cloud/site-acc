@@ -11,9 +11,6 @@ locale: 'fr'
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-# Message affiché en haut de l'interface
-site_url: https://accannes.netlify.app
-display_url: https://accannes.netlify.app
 logo_url: /Logo_bleu.png
 
 collections:
@@ -109,3 +106,115 @@ collections:
         widget: "select"
         options: ["Inscriptions ouvertes", "Inscriptions bientôt", "Inscriptions fermées", "Terminée"]
         default: "Inscriptions ouvertes"
+
+  # ====================================================
+  # 4. RÉGLAGES DU CLUB (coordonnées)
+  # ====================================================
+  - name: "reglages"
+    label: "⚙️ Réglages du club"
+    files:
+      - name: "coordonnees"
+        label: "📞 Coordonnées du club"
+        file: "contenu/reglages/coordonnees.json"
+        description: "Téléphone, email et adresse affichés partout sur le site"
+        fields:
+          - { name: "telephone", label: "Téléphone", widget: "string", hint: "Ex : 04 93 47 03 54" }
+          - { name: "email", label: "Email", widget: "string", hint: "Ex : accannes@gmail.com" }
+          - { name: "adresse", label: "Adresse", widget: "string", hint: "Adresse complète du club" }
+          - { name: "facebook", label: "Lien Facebook", widget: "string", required: false }
+
+  # ====================================================
+  # 5. HORAIRES D'ENTRAÎNEMENT
+  # ====================================================
+  - name: "horaires"
+    label: "📅 Horaires d'entraînement"
+    files:
+      - name: "running"
+        label: "🛣️ Horaires Running"
+        file: "contenu/horaires/running.json"
+        fields:
+          - name: "creneaux"
+            label: "Créneaux"
+            label_singular: "un créneau"
+            widget: "list"
+            summary: "{{fields.jour}} — {{fields.horaire}}"
+            fields:
+              - { name: "jour", label: "Jour", widget: "string", hint: "Ex : Mardi" }
+              - { name: "horaire", label: "Horaire", widget: "string", hint: "Ex : 18h30 - 20h00" }
+              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false, hint: "Ex : Tous niveaux" }
+              - { name: "lieu", label: "Lieu", widget: "string", required: false, hint: "Ex : Stade Maurice Chevalier" }
+      - name: "sante"
+        label: "❤️ Horaires Santé"
+        file: "contenu/horaires/sante.json"
+        fields:
+          - name: "creneaux"
+            label: "Créneaux"
+            label_singular: "un créneau"
+            widget: "list"
+            summary: "{{fields.jour}} — {{fields.horaire}}"
+            fields:
+              - { name: "jour", label: "Jour", widget: "string" }
+              - { name: "horaire", label: "Horaire", widget: "string" }
+              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false }
+              - { name: "lieu", label: "Lieu", widget: "string", required: false }
+      - name: "jeune"
+        label: "👶 Horaires Athlé Jeune"
+        file: "contenu/horaires/jeune.json"
+        fields:
+          - name: "creneaux"
+            label: "Créneaux"
+            label_singular: "un créneau"
+            widget: "list"
+            summary: "{{fields.jour}} — {{fields.horaire}}"
+            fields:
+              - { name: "jour", label: "Jour", widget: "string" }
+              - { name: "horaire", label: "Horaire", widget: "string" }
+              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false }
+              - { name: "lieu", label: "Lieu", widget: "string", required: false }
+      - name: "piste"
+        label: "⚡ Horaires Athlé Piste"
+        file: "contenu/horaires/piste.json"
+        fields:
+          - name: "creneaux"
+            label: "Créneaux"
+            label_singular: "un créneau"
+            widget: "list"
+            summary: "{{fields.jour}} — {{fields.horaire}}"
+            fields:
+              - { name: "jour", label: "Jour", widget: "string" }
+              - { name: "horaire", label: "Horaire", widget: "string" }
+              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false }
+              - { name: "lieu", label: "Lieu", widget: "string", required: false }
+
+  # ====================================================
+  # 6. ÉQUIPE DU CLUB
+  # ====================================================
+  - name: "equipe"
+    label: "👥 Équipe du club"
+    files:
+      - name: "bureau"
+        label: "👔 Le Bureau"
+        file: "contenu/equipe/bureau.json"
+        fields:
+          - name: "membres"
+            label: "Membres du bureau"
+            label_singular: "un membre"
+            widget: "list"
+            summary: "{{fields.nom}} — {{fields.role}}"
+            fields:
+              - { name: "nom", label: "Nom et prénom", widget: "string" }
+              - { name: "role", label: "Fonction", widget: "string", hint: "Ex : Président, Trésorier..." }
+              - { name: "photo", label: "Photo", widget: "image", required: false }
+      - name: "entraineurs"
+        label: "🏃 Les Entraîneurs"
+        file: "contenu/equipe/entraineurs.json"
+        fields:
+          - name: "membres"
+            label: "Entraîneurs"
+            label_singular: "un entraîneur"
+            widget: "list"
+            summary: "{{fields.nom}} — {{fields.role}}"
+            fields:
+              - { name: "nom", label: "Nom et prénom", widget: "string" }
+              - { name: "role", label: "Spécialité / Groupe", widget: "string", hint: "Ex : Athlé Piste, Athlé Jeune..." }
+              - { name: "photo", label: "Photo", widget: "image", required: false }
