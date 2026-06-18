@@ -1,0 +1,21 @@
+{
+  "icone": "",
+  "ordre": 0,
+  "discipline": "Poussin(e)s",
+  "creneaux": [
+    {
+      "jour": "Mercredi",
+      "horaire": "14h00 - 16h00",
+      "groupe": "Poussin(e)s",
+      "categorie": "2016 / 2017",
+      "lieu": "Stade Maurice Chevalier"
+    },
+    {
+      "jour": "Samedi",
+      "horaire": "10h00 - 12h00",
+      "groupe": "Poussin(e)s",
+      "categorie": "2016 / 2017",
+      "lieu": "Stade Maurice Chevalier"
+    }
+  ]
+}
