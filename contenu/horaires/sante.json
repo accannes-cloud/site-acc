@@ -1,23 +1,23 @@
 {
   "discipline": "Athlé Santé",
-  "icone": "❤️",
+  "icone": "",
   "ordre": 4,
   "creneaux": [
     {
-      "jour": "Lundi",
-      "horaire": "09h30 - 11h00",
-      "groupe": "Marche Nordique",
+      "jour": "Jeudi",
+      "horaire": "18h30 - 20h00",
+      "groupe": "Athlé santé",
       "categorie": "Adultes",
-      "lieu": "Lieu variable (nature)",
-      "coach": ""
+      "lieu": "Stade Maurice Chevalier",
+      "coach": "Sébastien Franck / Stella Gnagni"
     },
     {
-      "jour": "Mercredi",
-      "horaire": "18h00 - 19h30",
+      "jour": "Samedi",
+      "horaire": "10h15 - 12h00",
       "groupe": "Athlé Santé",
       "categorie": "Adultes",
       "lieu": "Stade Maurice Chevalier",
-      "coach": ""
+      "coach": "Sébastien Franck / Stella Gnagni"
     }
   ]
 }
