@@ -374,27 +374,46 @@
   (async function chargerTousHoraires() {
     const REPO = 'accannes-cloud/site-acc';
     const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
-    const disciplines = [
-      { id: 'jeune', nom: 'Athlé Jeune', icone: '👶' },
-      { id: 'piste', nom: 'Athlé Piste', icone: '⚡' },
-      { id: 'running', nom: 'Athlé Running', icone: '🛣️' },
-      { id: 'sante', nom: 'Athlé Santé', icone: '❤️' }
-    ];
+    const API = `https://api.github.com/repos/${REPO}/contents/contenu/horaires`;
     const ordreJours = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
 
-    async function getJSON(path) {
-      try { const r = await fetch(`${RAW}/${path}?t=${Date.now()}`); if (!r.ok) return null; return await r.json(); }
+    async function getJSON(url) {
+      try { const r = await fetch(`${url}?t=${Date.now()}`); if (!r.ok) return null; return await r.json(); }
       catch(e) { return null; }
     }
 
-    // Récupère tous les créneaux
-    let tous = [];
+    // 1. Liste tous les fichiers de disciplines (y compris ceux créés par le club)
+    let fichiers = [];
+    try {
+      const res = await fetch(API);
+      if (res.ok) {
+        const liste = await res.json();
+        fichiers = liste.filter(f => f.name.endsWith('.json'));
+      }
+    } catch(e) {}
+
+    // 2. Charge chaque discipline
     const blocsDiscipline = [];
-    for (const d of disciplines) {
-      const data = await getJSON(`contenu/horaires/${d.id}.json`);
+    let tous = [];
+    for (const f of fichiers) {
+      const data = await getJSON(f.download_url);
       if (!data || !data.creneaux || data.creneaux.length === 0) continue;
-      blocsDiscipline.push({ ...d, creneaux: data.creneaux });
-      data.creneaux.forEach(c => tous.push({ ...c, discipline: d.nom, disciplineIcone: d.icone }));
+      const nom = data.discipline || f.name.replace('.json', '');
+      const icone = data.icone || '🏃';
+      const ordre = (typeof data.ordre === 'number') ? data.ordre : 99;
+      blocsDiscipline.push({ nom, icone, ordre, creneaux: data.creneaux });
+      data.creneaux.forEach(c => tous.push({ ...c, discipline: nom, disciplineIcone: icone }));
+    }
+
+    // Trie les disciplines par ordre d'affichage
+    blocsDiscipline.sort((a, b) => a.ordre - b.ordre);
+
+    function ligneDetails(c) {
+      const parts = [];
+      if (c.categorie) parts.push(c.categorie);
+      if (c.lieu) parts.push('📍 ' + c.lieu);
+      if (c.coach) parts.push('👤 ' + c.coach);
+      return parts.join(' · ');
     }
 
     // ===== VUE PAR DISCIPLINE =====
@@ -412,7 +431,7 @@
             <div class="creneau-card">
               <div class="creneau-heure">📅 ${c.jour || ''}<br>${c.horaire || ''}</div>
               <div class="creneau-groupe">${c.groupe || ''}</div>
-              <div class="creneau-lieu">${c.lieu ? '📍 ' + c.lieu : ''}</div>
+              <div class="creneau-lieu">${ligneDetails(c)}</div>
             </div>`).join('')}
         </div>`).join('');
     }
@@ -428,11 +447,12 @@
         if (duJour.length === 0) return;
         html += `<div class="jour-block"><div class="jour-head">${jour}</div>`;
         duJour.forEach(c => {
+          const extra = [c.groupe, ligneDetails(c)].filter(Boolean).join(' · ');
           html += `
             <div class="creneau-card">
               <div class="creneau-heure">${c.horaire || ''}</div>
               <div class="creneau-disc">${c.disciplineIcone} ${c.discipline}</div>
-              <div class="creneau-lieu">${c.groupe || ''}${c.lieu ? ' · 📍 ' + c.lieu : ''}</div>
+              <div class="creneau-lieu">${extra}</div>
             </div>`;
         });
         html += `</div>`;
