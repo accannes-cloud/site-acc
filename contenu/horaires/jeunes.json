@@ -1,7 +1,31 @@
 {
+  "discipline": "Athlé Jeune",
+  "icone": "👶",
+  "ordre": 1,
   "creneaux": [
-    { "jour": "Mercredi", "horaire": "14h00 - 15h30", "groupe": "Baby Athlé / Éveil", "lieu": "Stade Maurice Chevalier" },
-    { "jour": "Mercredi", "horaire": "15h30 - 17h00", "groupe": "Poussins / Benjamins", "lieu": "Stade Maurice Chevalier" },
-    { "jour": "Samedi", "horaire": "10h00 - 12h00", "groupe": "Benjamins / Minimes", "lieu": "Stade Maurice Chevalier" }
+    {
+      "jour": "Mercredi",
+      "horaire": "14h00 - 15h30",
+      "groupe": "Baby Athlé / Éveil",
+      "categorie": "4-7 ans",
+      "lieu": "Stade Maurice Chevalier",
+      "coach": ""
+    },
+    {
+      "jour": "Mercredi",
+      "horaire": "15h30 - 17h00",
+      "groupe": "Poussins / Benjamins",
+      "categorie": "8-13 ans",
+      "lieu": "Stade Maurice Chevalier",
+      "coach": ""
+    },
+    {
+      "jour": "Samedi",
+      "horaire": "10h00 - 12h00",
+      "groupe": "Benjamins / Minimes",
+      "categorie": "11-15 ans",
+      "lieu": "Stade Maurice Chevalier",
+      "coach": ""
+    }
   ]
 }
