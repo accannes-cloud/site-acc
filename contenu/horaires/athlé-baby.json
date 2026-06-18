@@ -1,0 +1,14 @@
+{
+  "icone": "",
+  "ordre": 1,
+  "discipline": "Athlé Baby",
+  "creneaux": [
+    {
+      "jour": "Mercredi",
+      "horaire": "14h30 - 15h30",
+      "groupe": "Athlé Baby",
+      "categorie": "2021 / 2022",
+      "lieu": "Stade Maurice Chevalier"
+    }
+  ]
+}
