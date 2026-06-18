@@ -1,6 +1,23 @@
 {
+  "discipline": "Athlé Santé",
+  "icone": "❤️",
+  "ordre": 4,
   "creneaux": [
-    { "jour": "Lundi", "horaire": "09h30 - 11h00", "groupe": "Marche Nordique", "lieu": "Lieu variable (nature)" },
-    { "jour": "Mercredi", "horaire": "18h00 - 19h30", "groupe": "Athlé Santé", "lieu": "Stade Maurice Chevalier" }
+    {
+      "jour": "Lundi",
+      "horaire": "09h30 - 11h00",
+      "groupe": "Marche Nordique",
+      "categorie": "Adultes",
+      "lieu": "Lieu variable (nature)",
+      "coach": ""
+    },
+    {
+      "jour": "Mercredi",
+      "horaire": "18h00 - 19h30",
+      "groupe": "Athlé Santé",
+      "categorie": "Adultes",
+      "lieu": "Stade Maurice Chevalier",
+      "coach": ""
+    }
   ]
 }
