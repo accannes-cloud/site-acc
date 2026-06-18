@@ -1,29 +1,13 @@
 {
-  "discipline": "Athlé Jeune",
-  "icone": "👶",
-  "ordre": 1,
+  "discipline": "Eveil Athletic",
+  "icone": "",
+  "ordre": 2,
   "creneaux": [
-    {
-      "jour": "Mercredi",
-      "horaire": "14h00 - 15h30",
-      "groupe": "Baby Athlé / Éveil",
-      "categorie": "4-7 ans",
-      "lieu": "Stade Maurice Chevalier",
-      "coach": ""
-    },
-    {
-      "jour": "Mercredi",
-      "horaire": "15h30 - 17h00",
-      "groupe": "Poussins / Benjamins",
-      "categorie": "8-13 ans",
-      "lieu": "Stade Maurice Chevalier",
-      "coach": ""
-    },
     {
       "jour": "Samedi",
       "horaire": "10h00 - 12h00",
-      "groupe": "Benjamins / Minimes",
-      "categorie": "11-15 ans",
+      "groupe": "Eveil Athletic",
+      "categorie": "Année de naissance : 2018 / 2020",
       "lieu": "Stade Maurice Chevalier",
       "coach": ""
     }
