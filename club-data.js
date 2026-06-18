@@ -69,13 +69,17 @@
 
       let html = '<div class="horaires-table">';
       data.creneaux.forEach(c => {
+        const details = [];
+        if (c.groupe) details.push('<span class="horaire-groupe">' + c.groupe + '</span>');
+        if (c.categorie) details.push('<span class="horaire-cat">' + c.categorie + '</span>');
         html += `
           <div class="horaire-row">
             <div class="horaire-jour">${c.jour || ''}</div>
             <div class="horaire-heure">${c.horaire || ''}</div>
             <div class="horaire-detail">
-              ${c.groupe ? '<span class="horaire-groupe">' + c.groupe + '</span>' : ''}
+              ${details.join('')}
               ${c.lieu ? '<span class="horaire-lieu">📍 ' + c.lieu + '</span>' : ''}
+              ${c.coach ? '<span class="horaire-coach">👤 ' + c.coach + '</span>' : ''}
             </div>
           </div>`;
       });
@@ -167,7 +171,9 @@
       .horaire-heure { font-weight: 600; color: var(--texte, #0D1B3E); font-size: 15px; }
       .horaire-detail { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
       .horaire-groupe { background: rgba(0,61,165,0.08); color: var(--bleu, #003DA5); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; }
+      .horaire-cat { background: rgba(255,214,0,0.2); color: #8a6d00; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; }
       .horaire-lieu { font-size: 13px; color: var(--texte-doux, #455A7A); }
+      .horaire-coach { font-size: 13px; color: var(--texte-doux, #455A7A); font-weight: 600; }
       @media (max-width: 700px) { .horaire-row { grid-template-columns: 1fr; gap: 6px; text-align: left; } }
       .equipe-card-dyn { display: flex; align-items: center; gap: 16px; background: var(--blanc, #fff); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 18px rgba(0,31,92,0.06); }
       .equipe-avatar-dyn { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #001F5C, #003DA5); color: #FFD600; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 22px; flex-shrink: 0; overflow: hidden; }
