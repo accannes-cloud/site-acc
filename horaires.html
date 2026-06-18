@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Partenaires — Athletic Club de Cannes</title>
+<title>Horaires d'entraînement — Athletic Club de Cannes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -195,6 +195,27 @@
     .records-cta { flex-direction: column; align-items: flex-start; }
     .footer-grid { grid-template-columns: 1fr; }
   }
+  .vue-toggle { display: flex; gap: 8px; justify-content: center; background: var(--gris-clair); padding: 6px; border-radius: 14px; max-width: 420px; margin: 0 auto; }
+  .vue-btn { flex: 1; padding: 14px 20px; border: none; background: transparent; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--texte-doux); cursor: pointer; transition: background 0.2s, color 0.2s; }
+  .vue-btn.active { background: var(--bleu-fonce); color: #fff; box-shadow: 0 4px 14px rgba(0,31,92,0.18); }
+  .disc-horaire-block { margin-bottom: 36px; }
+  .disc-horaire-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .disc-horaire-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu)); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .disc-horaire-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--bleu); line-height: 1; }
+  .jour-block { margin-bottom: 28px; }
+  .jour-head { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1.5px; color: var(--bleu-fonce); padding-bottom: 10px; margin-bottom: 16px; border-bottom: 3px solid var(--jaune); }
+  .creneau-card { display: grid; grid-template-columns: 150px 1fr 160px; gap: 16px; align-items: center; background: #fff; border-radius: 12px; padding: 16px 22px; box-shadow: 0 4px 18px rgba(0,31,92,0.06); border-left: 4px solid var(--jaune); margin-bottom: 10px; }
+  .creneau-heure { font-weight: 600; color: var(--texte); font-size: 15px; }
+  .creneau-disc { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.5px; color: var(--bleu); }
+  .creneau-groupe { font-size: 13px; color: var(--texte-doux); }
+  .creneau-lieu { font-size: 13px; color: var(--texte-doux); text-align: right; }
+  .horaires-info-box { background: rgba(255,214,0,0.13); border-left: 4px solid var(--jaune); border-radius: 0 12px 12px 0; padding: 20px 24px; font-size: 14px; color: var(--texte); line-height: 1.7; }
+  .horaires-info-box a { color: var(--bleu); font-weight: 600; }
+  @media (max-width: 700px) {
+    .creneau-card { grid-template-columns: 1fr; gap: 6px; }
+    .creneau-lieu { text-align: left; }
+  }
+
 </style>
 </head>
 <body>
@@ -236,148 +257,45 @@
 <!-- PAGE HEADER -->
 <header class="page-header">
   <div class="page-header-content">
-    <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Partenaires</div>
-    <h1 class="page-title">NOS <span>PARTENAIRES</span></h1>
-    <p class="page-subtitle">Le soutien de nos partenaires est essentiel à la vie du club. Grâce à eux, nous pouvons faire vivre l'athlétisme à Cannes et accompagner nos athlètes vers la réussite.</p>
+    <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Horaires</div>
+    <h1 class="page-title">LES <span>HORAIRES</span></h1>
+    <p class="page-subtitle">Tous les créneaux d'entraînement du club, en un coup d'œil. Choisis ton affichage : par discipline ou par jour de la semaine.</p>
   </div>
 </header>
 
-<!-- SUB NAV -->
-<div class="subnav">
-  <a href="#merci">💙 Merci</a>
-  <a href="#partenaires">🤝 Nos partenaires</a>
-  <a href="#devenir">⭐ Devenir partenaire</a>
-</div>
-
-<!-- INTRO -->
-<section class="intro-block" id="merci">
+<!-- TOGGLE VUES -->
+<section style="padding:48px 0 0;">
   <div class="container">
-    <div class="section-eyebrow reveal" style="justify-content:center;">Un grand merci</div>
-    <h2 class="block-title reveal">ILS NOUS <span>SOUTIENNENT</span></h2>
-    <p class="intro-text reveal">L'Athlétic Club de Cannes remercie chaleureusement l'ensemble de ses partenaires, institutionnels et privés, pour leur <strong>soutien précieux</strong>. Leur engagement permet au club de proposer un encadrement de qualité, d'organiser des événements et d'accompagner les athlètes de tous niveaux.</p>
-  </div>
-</section>
-
-<!-- PARTENAIRES INSTITUTIONNELS -->
-<section id="partenaires" style="padding-top:40px;background:var(--gris-clair);">
-  <div class="container">
-    <div class="section-eyebrow reveal">Institutions & collectivités</div>
-    <h2 class="block-title reveal">PARTENAIRES <span>INSTITUTIONNELS</span></h2>
-    <p class="disc-intro reveal">Les institutions publiques qui accompagnent le développement de l'athlétisme cannois.</p>
-
-    <div class="cats-grid" style="grid-template-columns:repeat(4,1fr);">
-      <div class="cat-pill reveal">
-        <div class="cat-pill-code">🏛️</div>
-        <div class="cat-pill-name">Ville de Cannes</div>
-        <div class="cat-pill-age">Soutien municipal</div>
-      </div>
-      <div class="cat-pill reveal">
-        <div class="cat-pill-code">🌊</div>
-        <div class="cat-pill-name">Département 06</div>
-        <div class="cat-pill-age">Alpes-Maritimes</div>
-      </div>
-      <div class="cat-pill reveal">
-        <div class="cat-pill-code">🏃</div>
-        <div class="cat-pill-name">FFA</div>
-        <div class="cat-pill-age">Fédération Française d'Athlétisme</div>
-      </div>
-      <div class="cat-pill reveal">
-        <div class="cat-pill-code">⚜️</div>
-        <div class="cat-pill-name">Région SUD</div>
-        <div class="cat-pill-age">PACA</div>
-      </div>
+    <div class="vue-toggle">
+      <button class="vue-btn active" id="btn-discipline" onclick="switchVue('discipline')">🏃 Par discipline</button>
+      <button class="vue-btn" id="btn-jour" onclick="switchVue('jour')">📅 Par jour</button>
     </div>
   </div>
 </section>
 
-<!-- PARTENAIRES PRIVES -->
-<section id="partenaires-prives">
+<!-- VUE PAR DISCIPLINE -->
+<section id="vue-discipline" style="padding-top:40px;">
   <div class="container">
-    <div class="section-eyebrow reveal">Entreprises & sponsors</div>
-    <h2 class="block-title reveal">PARTENAIRES <span>PRIVÉS</span></h2>
-    <p class="disc-intro reveal">Les entreprises qui font confiance à l'ACC et soutiennent nos projets. Cet espace est prêt à accueillir vos logos et présentations.</p>
-
-    <div class="disciplines-grid">
-      <div class="discipline-block reveal">
-        <div class="discipline-head">
-          <div class="discipline-icon">👕</div>
-          <div>
-            <div class="discipline-title">42K Custom Line</div>
-            <div class="discipline-sub">Équipementier officiel</div>
-          </div>
-        </div>
-        <div class="discipline-body">
-          <p>Notre partenaire pour les tenues techniques personnalisées du club. Retrouvez la collection officielle ACC dans notre boutique en ligne.</p>
-          <div class="epreuves-list">
-            <span class="epreuve-tag">Textile sportif</span>
-            <span class="epreuve-tag">Personnalisation</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="discipline-block reveal">
-        <div class="discipline-head">
-          <div class="discipline-icon">⭐</div>
-          <div>
-            <div class="discipline-title">Votre entreprise ?</div>
-            <div class="discipline-sub">Emplacement disponible</div>
-          </div>
-        </div>
-        <div class="discipline-body">
-          <p>Vous souhaitez associer votre image à un club dynamique et porteur de valeurs ? Rejoignez nos partenaires et bénéficiez d'une belle visibilité.</p>
-          <div class="epreuves-list">
-            <span class="epreuve-tag">Visibilité</span>
-            <span class="epreuve-tag">Valeurs sportives</span>
-          </div>
-        </div>
-      </div>
+    <div id="horaires-par-discipline">
+      <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des horaires…</p>
     </div>
   </div>
 </section>
 
-<!-- DEVENIR PARTENAIRE -->
-<section id="devenir" style="background:var(--bleu-fonce);color:var(--blanc);padding:96px 0;">
+<!-- VUE PAR JOUR (cachée par défaut) -->
+<section id="vue-jour" style="padding-top:40px;display:none;">
   <div class="container">
-    <div class="section-eyebrow reveal" style="color:var(--jaune);">Rejoignez l'aventure</div>
-    <h2 class="block-title reveal" style="color:var(--blanc);">POURQUOI DEVENIR <span style="color:var(--jaune);">PARTENAIRE</span> ?</h2>
-    <p class="comp-intro reveal">Soutenir l'ACC, c'est s'associer à un club historique, porteur de valeurs fortes et profondément ancré dans le tissu local cannois.</p>
-
-    <div class="comp-grid">
-      <div class="comp-card reveal">
-        <div class="comp-card-head">
-          <div class="comp-icon">👁️</div>
-          <div class="comp-title">Visibilité</div>
-        </div>
-        <p>Votre marque exposée lors de nos événements, sur nos supports de communication, notre site et nos réseaux sociaux suivis par toute la communauté cannoise.</p>
-      </div>
-      <div class="comp-card reveal">
-        <div class="comp-card-head">
-          <div class="comp-icon">💙</div>
-          <div class="comp-title">Valeurs</div>
-        </div>
-        <p>Associez votre image aux valeurs du sport : dépassement de soi, esprit d'équipe, inclusion et engagement pour la jeunesse.</p>
-      </div>
-      <div class="comp-card reveal">
-        <div class="comp-card-head">
-          <div class="comp-icon">🤝</div>
-          <div class="comp-title">Ancrage local</div>
-        </div>
-        <p>Participez au dynamisme sportif de Cannes et soutenez concrètement la pratique de l'athlétisme pour tous les âges sur le territoire.</p>
-      </div>
+    <div id="horaires-par-jour">
+      <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des horaires…</p>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-essai">
+<!-- NOTE -->
+<section style="padding:20px 0 64px;">
   <div class="container">
-    <div class="cta-box reveal">
-      <h2 class="block-title">DEVENEZ <span>PARTENAIRE</span> DE L'ACC</h2>
-      <p>Vous souhaitez soutenir le club et associer votre entreprise à nos valeurs ? Contactez-nous pour construire ensemble un partenariat sur-mesure.</p>
-      <div class="cta-actions">
-        <a href="installations.html#contact" class="btn-dark">📞 Nous contacter</a>
-        <a href="mailto:accannes@gmail.com" class="btn-outline-dark">✉ Envoyer un email</a>
-      </div>
+    <div class="horaires-info-box">
+      <strong>ℹ️ Bon à savoir :</strong> Les horaires peuvent évoluer en cours de saison. Pour confirmer un créneau ou organiser une séance d'essai, contacte le club au <a data-club-tel href="tel:0493470354">04 93 47 03 54</a> ou par email à <a data-club-email href="mailto:accannes@gmail.com">accannes@gmail.com</a>.
     </div>
   </div>
 </section>
@@ -445,5 +363,85 @@
   reveals.forEach(r => observer.observe(r));
 </script>
   <script src="club-data.js"></script>
+<script>
+  function switchVue(vue) {
+    document.getElementById('vue-discipline').style.display = (vue === 'discipline') ? 'block' : 'none';
+    document.getElementById('vue-jour').style.display = (vue === 'jour') ? 'block' : 'none';
+    document.getElementById('btn-discipline').classList.toggle('active', vue === 'discipline');
+    document.getElementById('btn-jour').classList.toggle('active', vue === 'jour');
+  }
+
+  (async function chargerTousHoraires() {
+    const REPO = 'accannes-cloud/site-acc';
+    const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
+    const disciplines = [
+      { id: 'jeune', nom: 'Athlé Jeune', icone: '👶' },
+      { id: 'piste', nom: 'Athlé Piste', icone: '⚡' },
+      { id: 'running', nom: 'Athlé Running', icone: '🛣️' },
+      { id: 'sante', nom: 'Athlé Santé', icone: '❤️' }
+    ];
+    const ordreJours = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+
+    async function getJSON(path) {
+      try { const r = await fetch(`${RAW}/${path}?t=${Date.now()}`); if (!r.ok) return null; return await r.json(); }
+      catch(e) { return null; }
+    }
+
+    // Récupère tous les créneaux
+    let tous = [];
+    const blocsDiscipline = [];
+    for (const d of disciplines) {
+      const data = await getJSON(`contenu/horaires/${d.id}.json`);
+      if (!data || !data.creneaux || data.creneaux.length === 0) continue;
+      blocsDiscipline.push({ ...d, creneaux: data.creneaux });
+      data.creneaux.forEach(c => tous.push({ ...c, discipline: d.nom, disciplineIcone: d.icone }));
+    }
+
+    // ===== VUE PAR DISCIPLINE =====
+    const contDisc = document.getElementById('horaires-par-discipline');
+    if (blocsDiscipline.length === 0) {
+      contDisc.innerHTML = '<p style="text-align:center;color:var(--texte-doux);padding:40px;">Les horaires seront bientôt disponibles. Contacte le club pour plus d\'informations.</p>';
+    } else {
+      contDisc.innerHTML = blocsDiscipline.map(b => `
+        <div class="disc-horaire-block">
+          <div class="disc-horaire-head">
+            <div class="disc-horaire-icon">${b.icone}</div>
+            <div class="disc-horaire-title">${b.nom}</div>
+          </div>
+          ${b.creneaux.map(c => `
+            <div class="creneau-card">
+              <div class="creneau-heure">📅 ${c.jour || ''}<br>${c.horaire || ''}</div>
+              <div class="creneau-groupe">${c.groupe || ''}</div>
+              <div class="creneau-lieu">${c.lieu ? '📍 ' + c.lieu : ''}</div>
+            </div>`).join('')}
+        </div>`).join('');
+    }
+
+    // ===== VUE PAR JOUR =====
+    const contJour = document.getElementById('horaires-par-jour');
+    if (tous.length === 0) {
+      contJour.innerHTML = '<p style="text-align:center;color:var(--texte-doux);padding:40px;">Les horaires seront bientôt disponibles.</p>';
+    } else {
+      let html = '';
+      ordreJours.forEach(jour => {
+        const duJour = tous.filter(c => (c.jour || '').toLowerCase() === jour.toLowerCase());
+        if (duJour.length === 0) return;
+        html += `<div class="jour-block"><div class="jour-head">${jour}</div>`;
+        duJour.forEach(c => {
+          html += `
+            <div class="creneau-card">
+              <div class="creneau-heure">${c.horaire || ''}</div>
+              <div class="creneau-disc">${c.disciplineIcone} ${c.discipline}</div>
+              <div class="creneau-lieu">${c.groupe || ''}${c.lieu ? ' · 📍 ' + c.lieu : ''}</div>
+            </div>`;
+        });
+        html += `</div>`;
+      });
+      contJour.innerHTML = html;
+    }
+  })();
+</script>
+
+<script src="club-data.js"></script>
 </body>
 </html>
