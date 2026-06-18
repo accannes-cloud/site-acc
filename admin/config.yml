@@ -124,67 +124,37 @@ collections:
           - { name: "facebook", label: "Lien Facebook", widget: "string", required: false }
 
   # ====================================================
-  # 5. HORAIRES D'ENTRAÎNEMENT
+  # 5. HORAIRES D'ENTRAÎNEMENT (disciplines modifiables)
   # ====================================================
   - name: "horaires"
     label: "📅 Horaires d'entraînement"
-    files:
-      - name: "running"
-        label: "🛣️ Horaires Running"
-        file: "contenu/horaires/running.json"
+    label_singular: "une discipline"
+    folder: "contenu/horaires"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "discipline"
+    summary: "{{discipline}}"
+    description: "Chaque discipline a ses créneaux. Tu peux ajouter une discipline, la renommer, la supprimer, et gérer chaque créneau (jour, horaire, groupe, catégorie, lieu, coach)."
+    fields:
+      - { name: "discipline", label: "Nom de la discipline", widget: "string", hint: "Ex : Athlé Running, Athlé Jeune, Marche Nordique..." }
+      - { name: "icone", label: "Icône (emoji)", widget: "string", required: false, default: "🏃", hint: "Ex : 👶 ⚡ 🛣️ ❤️ 🥾" }
+      - { name: "ordre", label: "Ordre d'affichage", widget: "number", required: false, default: 1, hint: "1 = affiché en premier, 2 ensuite, etc." }
+      - name: "creneaux"
+        label: "Créneaux d'entraînement"
+        label_singular: "un créneau"
+        widget: "list"
+        summary: "{{fields.jour}} {{fields.horaire}} — {{fields.groupe}}"
         fields:
-          - name: "creneaux"
-            label: "Créneaux"
-            label_singular: "un créneau"
-            widget: "list"
-            summary: "{{fields.jour}} — {{fields.horaire}}"
-            fields:
-              - { name: "jour", label: "Jour", widget: "string", hint: "Ex : Mardi" }
-              - { name: "horaire", label: "Horaire", widget: "string", hint: "Ex : 18h30 - 20h00" }
-              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false, hint: "Ex : Tous niveaux" }
-              - { name: "lieu", label: "Lieu", widget: "string", required: false, hint: "Ex : Stade Maurice Chevalier" }
-      - name: "sante"
-        label: "❤️ Horaires Santé"
-        file: "contenu/horaires/sante.json"
-        fields:
-          - name: "creneaux"
-            label: "Créneaux"
-            label_singular: "un créneau"
-            widget: "list"
-            summary: "{{fields.jour}} — {{fields.horaire}}"
-            fields:
-              - { name: "jour", label: "Jour", widget: "string" }
-              - { name: "horaire", label: "Horaire", widget: "string" }
-              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false }
-              - { name: "lieu", label: "Lieu", widget: "string", required: false }
-      - name: "jeune"
-        label: "👶 Horaires Athlé Jeune"
-        file: "contenu/horaires/jeune.json"
-        fields:
-          - name: "creneaux"
-            label: "Créneaux"
-            label_singular: "un créneau"
-            widget: "list"
-            summary: "{{fields.jour}} — {{fields.horaire}}"
-            fields:
-              - { name: "jour", label: "Jour", widget: "string" }
-              - { name: "horaire", label: "Horaire", widget: "string" }
-              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false }
-              - { name: "lieu", label: "Lieu", widget: "string", required: false }
-      - name: "piste"
-        label: "⚡ Horaires Athlé Piste"
-        file: "contenu/horaires/piste.json"
-        fields:
-          - name: "creneaux"
-            label: "Créneaux"
-            label_singular: "un créneau"
-            widget: "list"
-            summary: "{{fields.jour}} — {{fields.horaire}}"
-            fields:
-              - { name: "jour", label: "Jour", widget: "string" }
-              - { name: "horaire", label: "Horaire", widget: "string" }
-              - { name: "groupe", label: "Groupe / Niveau", widget: "string", required: false }
-              - { name: "lieu", label: "Lieu", widget: "string", required: false }
+          - name: "jour"
+            label: "Jour"
+            widget: "select"
+            options: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+          - { name: "horaire", label: "Horaire", widget: "string", hint: "Ex : 18h00 - 20h00" }
+          - { name: "groupe", label: "Nom du groupe", widget: "string", required: false, hint: "Ex : Groupe compétition, Baby Athlé..." }
+          - { name: "categorie", label: "Catégorie d'âge", widget: "string", required: false, hint: "Ex : Cadets et +, 8-13 ans..." }
+          - { name: "lieu", label: "Lieu", widget: "string", required: false, hint: "Ex : Stade Maurice Chevalier" }
+          - { name: "coach", label: "Coach / Entraîneur", widget: "string", required: false, hint: "Nom de l'entraîneur du créneau (facultatif)" }
 
   # ====================================================
   # 6. ÉQUIPE DU CLUB
@@ -230,4 +200,3 @@ collections:
                   - "BENJAMINS / MINIMES"
                   - "CADETS ET +"
                   - "ATHLÉ SANTÉ & BIEN-ÊTRE"
-
