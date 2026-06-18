@@ -286,6 +286,7 @@
         <a href="athle-parasport.html"><span class="dm-icon">♿</span> Athlé Parasport</a>
       </div>
     </li>
+    <li><a href="horaires.html">Horaires</a></li>
     <li><a href="blog.html">Actualités</a></li>
     <li><a href="evenements.html">Agenda</a></li>
     <li><a href="boutique.html">Boutique</a></li>
@@ -512,6 +513,7 @@
           <input type="text" id="form-prenom" placeholder="Prénom *" required>
           <input type="email" id="form-email" placeholder="Email *" required>
           <input type="tel" id="form-phone" placeholder="Téléphone *" required>
+          <textarea id="form-remarques" placeholder="Remarques (facultatif)"></textarea>
           <button type="submit" class="cart-btn-order">📧 Envoyer ma commande</button>
           <button type="button" class="cart-btn-secondary" onclick="hideForm()">Modifier ma sélection</button>
         </form>
@@ -877,6 +879,7 @@
     <div>
       <div class="footer-col-title">Informations</div>
       <ul class="footer-links">
+        <li><a href="horaires.html">Horaires</a></li>
         <li><a href="blog.html">Actualités</a></li>
         <li><a href="evenements.html">Agenda</a></li>
         <li><a href="boutique.html">Boutique</a></li>
@@ -1000,6 +1003,7 @@
     const prenom = document.getElementById('form-prenom').value;
     const email = document.getElementById('form-email').value;
     const phone = document.getElementById('form-phone').value;
+    const remarques = document.getElementById('form-remarques').value;
 
     // Construit la liste des articles
     const selected = document.querySelectorAll('.config-option.selected');
@@ -1015,7 +1019,6 @@
     const articlesStr = articlesList.join('\n');
 
     // ===== ENVOI VERS GOOGLE FORMS =====
-    // Construction de l'URL avec les paramètres
     const formId = '1FAIpQLSeWRDmyNOoiUhLvny8b3cptTYp4r7_0YFt68nPISMVdZUKMXA';
     const formUrl = 'https://docs.google.com/forms/d/e/' + formId + '/formResponse';
 
@@ -1026,18 +1029,15 @@
     formData.append('entry.1714618830', phone);           // Téléphone
     formData.append('entry.539823533', articlesStr);      // Articles
     formData.append('entry.1153936010', total);           // Total
+    formData.append('entry.681939393', remarques);        // Remarques
 
-    // Envoi en mode "no-cors" : ne renvoie pas d'erreur même si Google bloque la réponse
-    // (on ne peut pas lire la réponse mais l'envoi fonctionne)
     fetch(formUrl, {
       method: 'POST',
       mode: 'no-cors',
       body: formData
     }).then(() => {
-      // Succès : afficher le toast et réinitialiser
       showSuccess();
     }).catch(() => {
-      // Même en cas d'erreur "apparente", le formulaire est généralement envoyé
       showSuccess();
     });
   }
@@ -1053,5 +1053,6 @@
   }
   window.submitOrder = submitOrder;
 </script>
+  <script src="club-data.js"></script>
 </body>
 </html>
