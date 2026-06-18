@@ -1,29 +1,29 @@
 {
-  "discipline": "Athlé Jeune",
-  "icone": "👶",
-  "ordre": 1,
+  "discipline": "Athlé Piste",
+  "icone": "⚡",
+  "ordre": 2,
   "creneaux": [
     {
-      "jour": "Mercredi",
-      "horaire": "14h00 - 15h30",
-      "groupe": "Baby Athlé / Éveil",
-      "categorie": "4-7 ans",
+      "jour": "Mardi",
+      "horaire": "18h00 - 20h00",
+      "groupe": "Groupe compétition",
+      "categorie": "Cadets et +",
       "lieu": "Stade Maurice Chevalier",
       "coach": ""
     },
     {
-      "jour": "Mercredi",
-      "horaire": "15h30 - 17h00",
-      "groupe": "Poussins / Benjamins",
-      "categorie": "8-13 ans",
+      "jour": "Jeudi",
+      "horaire": "18h00 - 20h00",
+      "groupe": "Groupe compétition",
+      "categorie": "Cadets et +",
       "lieu": "Stade Maurice Chevalier",
       "coach": ""
     },
     {
       "jour": "Samedi",
       "horaire": "10h00 - 12h00",
-      "groupe": "Benjamins / Minimes",
-      "categorie": "11-15 ans",
+      "groupe": "Toutes catégories",
+      "categorie": "Cadets et +",
       "lieu": "Stade Maurice Chevalier",
       "coach": ""
     }
