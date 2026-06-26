@@ -13,22 +13,26 @@
       "jour": "Mercredi",
       "horaire": "18h00 - 20h00",
       "categorie": "Cadets et +",
-      "coach": "Berland Joachim"
+      "coach": "Berland Joachim",
+      "groupe": ""
     },
     {
       "jour": "Jeudi",
       "coach": "Berland Joachim",
-      "horaire": "18h00 - 20h00"
+      "horaire": "18h00 - 20h00",
+      "categorie": "Cadets et +"
     },
     {
       "jour": "Vendredi",
       "horaire": "18h00 - 20h00",
-      "coach": "Berland Joachim"
+      "coach": "Berland Joachim",
+      "categorie": "Cadets et +"
     },
     {
       "jour": "Samedi",
       "horaire": "12h00 - 14h00",
-      "coach": "Berland Joachim"
+      "coach": "Berland Joachim",
+      "categorie": "Cadets et +"
     }
   ]
 }
