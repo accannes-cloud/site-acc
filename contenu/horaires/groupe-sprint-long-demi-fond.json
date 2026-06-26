@@ -1,0 +1,34 @@
+{
+  "icone": "",
+  "ordre": 6,
+  "discipline": "Groupe sprint Long / Demi fond",
+  "creneaux": [
+    {
+      "jour": "Lundi",
+      "horaire": "18h00 - 20h00",
+      "categorie": "Cadets et +",
+      "coach": "Berland Joachim"
+    },
+    {
+      "jour": "Mercredi",
+      "horaire": "18h00 - 20h00",
+      "categorie": "Cadets et +",
+      "coach": "Berland Joachim"
+    },
+    {
+      "jour": "Jeudi",
+      "coach": "Berland Joachim",
+      "horaire": "18h00 - 20h00"
+    },
+    {
+      "jour": "Vendredi",
+      "horaire": "18h00 - 20h00",
+      "coach": "Berland Joachim"
+    },
+    {
+      "jour": "Samedi",
+      "horaire": "12h00 - 14h00",
+      "coach": "Berland Joachim"
+    }
+  ]
+}
