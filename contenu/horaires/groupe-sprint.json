@@ -1,0 +1,27 @@
+{
+  "icone": "",
+  "ordre": 5,
+  "discipline": "Groupe sprint ",
+  "creneaux": [
+    {
+      "jour": "Mardi",
+      "horaire": "18h00 - 20h00",
+      "categorie": "Cadets et +"
+    },
+    {
+      "jour": "Mercredi",
+      "horaire": "18h00 - 20h00",
+      "categorie": "Cadets et +"
+    },
+    {
+      "jour": "Vendredi",
+      "horaire": "18h00 - 20h00",
+      "categorie": "Cadets et +"
+    },
+    {
+      "jour": "Samedi",
+      "horaire": "12h15 - 14h15",
+      "categorie": "Cadets et +"
+    }
+  ]
+}
