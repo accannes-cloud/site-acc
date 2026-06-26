@@ -1,0 +1,11 @@
+{
+  "icone": "🏃",
+  "ordre": 1,
+  "discipline": "Benjamins / Minimes",
+  "creneaux": [
+    {
+      "jour": "Mercredi",
+      "horaire": "16h00 - 18h00"
+    }
+  ]
+}
