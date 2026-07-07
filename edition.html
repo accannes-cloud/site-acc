@@ -179,17 +179,40 @@ function login() {
   const haut = (screen.height - hauteur) / 2;
   const popup = window.open(OAUTH + '/auth', 'github-login', `width=${largeur},height=${hauteur},left=${gauche},top=${haut}`);
 
-  window.addEventListener('message', function handler(e) {
-    if (typeof e.data === 'string' && e.data.startsWith('authorization:github:success:')) {
+  let handshakeFait = false;
+
+  function handler(e) {
+    // Le contenu doit être une chaîne de texte
+    if (typeof e.data !== 'string') return;
+
+    // Étape 1 : la popup annonce qu'elle est prête ("authorizing:github")
+    if (!handshakeFait && e.data.indexOf('authorizing:github') !== -1) {
+      handshakeFait = true;
+      // On répond à la popup pour lui dire qu'on est prêt à recevoir le token
+      if (popup) popup.postMessage('authorizing:github', '*');
+      return;
+    }
+
+    // Étape 2 : la popup envoie le résultat (succès + token)
+    if (e.data.indexOf('authorization:github:success:') !== -1) {
       try {
-        const payload = JSON.parse(e.data.split('authorization:github:success:')[1]);
+        const json = e.data.split('authorization:github:success:')[1];
+        const payload = JSON.parse(json);
         token = payload.token;
         window.removeEventListener('message', handler);
         if (popup) popup.close();
         demarrer();
-      } catch (err) { toast('Erreur de connexion', true); }
+      } catch (err) {
+        toast('Erreur de connexion', true);
+      }
+    } else if (e.data.indexOf('authorization:github:error:') !== -1) {
+      window.removeEventListener('message', handler);
+      if (popup) popup.close();
+      toast('Connexion refusée', true);
     }
-  });
+  }
+
+  window.addEventListener('message', handler);
 }
 
 // ====== DÉMARRAGE APRÈS CONNEXION ======
