@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Édition de la page d'accueil — ACC</title>
+<link rel="icon" href="Logo_bleu.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu: #003DA5; --bleu-fonce: #001F5C; --jaune: #FFD600;
+    --blanc: #fff; --texte: #0D1B3E; --texte-doux: #455A7A; --gris-clair: #F4F6FB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--texte); background: var(--gris-clair); }
+
+  /* Barre d'outils fixe en haut */
+  .edit-toolbar {
+    position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; gap: 14px;
+    background: var(--bleu-fonce); padding: 12px 20px; box-shadow: 0 2px 14px rgba(0,0,0,0.25);
+  }
+  .edit-toolbar .brand { color: var(--jaune); font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .edit-toolbar .info { color: #B5D4F4; font-size: 13px; }
+  .edit-toolbar .spacer { margin-left: auto; }
+  .edit-toolbar button {
+    border: none; border-radius: 8px; padding: 9px 18px; font-family: inherit;
+    font-weight: 600; font-size: 14px; cursor: pointer; transition: transform 0.15s, opacity 0.15s;
+  }
+  .edit-toolbar button:hover { transform: translateY(-1px); }
+  .btn-save { background: var(--jaune); color: var(--bleu-fonce); }
+  .btn-view { background: rgba(255,255,255,0.12); color: #fff; }
+  .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Écran de connexion */
+  .login-screen {
+    min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center;
+  }
+  .login-card { background: #fff; border-radius: 20px; padding: 44px 36px; max-width: 440px; box-shadow: 0 12px 40px rgba(0,31,92,0.12); }
+  .login-card .logo { width: 80px; height: 80px; border-radius: 50%; background: #000; margin: 0 auto 20px; overflow: hidden; }
+  .login-card .logo img { width: 100%; height: 100%; object-fit: cover; }
+  .login-card h1 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 10px; color: var(--texte); }
+  .login-card p { font-size: 14px; color: var(--texte-doux); line-height: 1.6; margin-bottom: 24px; }
+  .login-card button { background: var(--bleu-fonce); color: #fff; border: none; border-radius: 10px; padding: 14px 28px; font-family: inherit; font-weight: 600; font-size: 15px; cursor: pointer; }
+
+  /* Zones éditables */
+  .editable { position: relative; cursor: pointer; transition: background 0.15s; border-radius: 4px; outline-offset: 3px; }
+  body.edit-mode .editable { outline: 2px dashed rgba(255,214,0,0.8); }
+  body.edit-mode .editable:hover { background: rgba(255,214,0,0.22); }
+  .edit-pencil { display: none; }
+  body.edit-mode .editable:hover .edit-pencil {
+    display: flex; position: absolute; top: -10px; right: -10px; width: 24px; height: 24px;
+    background: var(--jaune); color: var(--bleu-fonce); border-radius: 50%; align-items: center; justify-content: center; font-size: 12px; z-index: 5;
+  }
+
+  /* Rendu de la page d'accueil (simplifié mais fidèle) */
+  .hero { background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu)); padding: 70px 24px; text-align: center; }
+  .hero-badge { display: inline-block; color: var(--jaune); font-size: 13px; letter-spacing: 1px; margin-bottom: 16px; border: 1px solid rgba(255,214,0,0.4); padding: 6px 16px; border-radius: 100px; }
+  .hero-titre { color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 64px; letter-spacing: 2px; margin-bottom: 16px; }
+  .hero-sub { color: #E6F1FB; font-size: 16px; max-width: 560px; margin: 0 auto 28px; line-height: 1.6; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-btns a { padding: 13px 26px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; }
+  .hb1 { background: var(--jaune); color: var(--bleu-fonce); }
+  .hb2 { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+
+  .stats { display: flex; flex-wrap: wrap; background: var(--bleu); padding: 24px 0; }
+  .stat { flex: 1; min-width: 120px; text-align: center; padding: 8px; }
+  .stat-num { color: var(--jaune); font-family: 'Bebas Neue', sans-serif; font-size: 40px; }
+  .stat-lab { color: #fff; font-size: 13px; }
+
+  .pres { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
+  .pres-eyebrow { color: var(--bleu); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .pres-titre { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 1px; color: var(--texte); margin-bottom: 16px; }
+  .pres-texte { font-size: 15px; color: var(--texte-doux); line-height: 1.7; margin-bottom: 32px; }
+  .valeurs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+  .valeur { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 18px rgba(0,31,92,0.06); }
+  .valeur-icone { font-size: 30px; margin-bottom: 10px; }
+  .valeur-titre { font-weight: 600; font-size: 16px; margin-bottom: 6px; }
+  .valeur-texte { font-size: 13px; color: var(--texte-doux); line-height: 1.6; }
+
+  /* Fenêtre de modification */
+  .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,20,60,0.55); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-bg.open { display: flex; }
+  .modal { background: #fff; border-radius: 16px; padding: 24px; max-width: 480px; width: 100%; }
+  .modal h3 { font-size: 16px; margin-bottom: 4px; }
+  .modal .sub { font-size: 13px; color: var(--texte-doux); margin-bottom: 14px; }
+  .modal textarea, .modal input { width: 100%; font-family: inherit; font-size: 15px; padding: 12px; border: 1.5px solid #E0E5F0; border-radius: 10px; margin-bottom: 14px; }
+  .modal textarea { min-height: 90px; resize: vertical; }
+  .modal-actions { display: flex; gap: 10px; }
+  .modal-actions button { flex: 1; border: none; border-radius: 10px; padding: 12px; font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .m-ok { background: var(--bleu); color: #fff; }
+  .m-cancel { background: var(--gris-clair); color: var(--texte-doux); }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0F6E56; color: #fff; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 3000; transition: transform 0.35s; box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { background: #A32D2D; }
+
+  #app { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ÉCRAN DE CONNEXION -->
+<div id="login" class="login-screen">
+  <div class="login-card">
+    <div class="logo"><img src="Logo_bleu.png" alt="ACC"></div>
+    <h1>ÉDITION DU SITE</h1>
+    <p>Connecte-toi avec le compte GitHub du club pour modifier la page d'accueil directement sur le site.</p>
+    <button onclick="login()">Se connecter avec GitHub</button>
+  </div>
+</div>
+
+<!-- APPLICATION D'ÉDITION -->
+<div id="app">
+  <div class="edit-toolbar">
+    <span class="brand">✏️ Mode édition</span>
+    <span class="info">Clique sur un texte surligné pour le modifier</span>
+    <span class="spacer"></span>
+    <a href="index.html" class="btn-view" style="text-decoration:none; display:inline-block; line-height:1;">👁️ Voir le site</a>
+    <button class="btn-save" id="saveBtn" onclick="sauvegarder()" disabled>💾 Enregistrer</button>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge editable" data-champ="hero_badge"></div>
+    <div class="hero-titre editable" data-champ="hero_titre"></div>
+    <div class="hero-sub editable" data-champ="hero_sous_titre"></div>
+    <div class="hero-btns">
+      <a class="hb1 editable" data-champ="hero_bouton1"></a>
+      <a class="hb2 editable" data-champ="hero_bouton2"></a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats" id="statsBox"></div>
+
+  <!-- PRÉSENTATION -->
+  <div class="pres">
+    <div class="pres-eyebrow editable" data-champ="presentation_eyebrow"></div>
+    <div class="pres-titre editable" data-champ="presentation_titre"></div>
+    <div class="pres-texte editable" data-champ="presentation_texte"></div>
+    <div class="valeurs" id="valeursBox"></div>
+  </div>
+</div>
+
+<!-- MODALE DE MODIFICATION -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3 id="modalTitre">Modifier</h3>
+    <div class="sub" id="modalSub">Modifie le texte puis valide.</div>
+    <textarea id="modalInput"></textarea>
+    <div class="modal-actions">
+      <button class="m-cancel" onclick="fermerModal()">Annuler</button>
+      <button class="m-ok" onclick="validerModal()">Valider</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ====== CONFIG ======
+const REPO = 'accannes-cloud/site-acc';
+const FICHIER = 'contenu/pages/accueil.json';
+const OAUTH = 'https://decap-oauth.accannes.workers.dev';
+
+let token = null;
+let data = null;
+let sha = null;       // version du fichier sur GitHub (nécessaire pour sauvegarder)
+let modif = false;    // y a-t-il des modifications non enregistrées ?
+let champActuel = null;
+
+// ====== CONNEXION GITHUB ======
+function login() {
+  const largeur = 600, hauteur = 700;
+  const gauche = (screen.width - largeur) / 2;
+  const haut = (screen.height - hauteur) / 2;
+  const popup = window.open(OAUTH + '/auth', 'github-login', `width=${largeur},height=${hauteur},left=${gauche},top=${haut}`);
+
+  window.addEventListener('message', function handler(e) {
+    if (typeof e.data === 'string' && e.data.startsWith('authorization:github:success:')) {
+      try {
+        const payload = JSON.parse(e.data.split('authorization:github:success:')[1]);
+        token = payload.token;
+        window.removeEventListener('message', handler);
+        if (popup) popup.close();
+        demarrer();
+      } catch (err) { toast('Erreur de connexion', true); }
+    }
+  });
+}
+
+// ====== DÉMARRAGE APRÈS CONNEXION ======
+async function demarrer() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.body.classList.add('edit-mode');
+  await chargerDonnees();
+}
+
+// ====== CHARGER LE FICHIER JSON DEPUIS GITHUB ======
+async function chargerDonnees() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FICHIER}`, {
+      headers: { 'Authorization': 'token ' + token }
+    });
+    const json = await res.json();
+    sha = json.sha;
+    data = JSON.parse(decodeURIComponent(escape(atob(json.content))));
+    afficher();
+  } catch (e) {
+    toast('Impossible de charger la page', true);
+  }
+}
+
+// ====== AFFICHER LES DONNÉES DANS LA PAGE ======
+function afficher() {
+  // Textes simples
+  document.querySelectorAll('[data-champ]').forEach(el => {
+    const champ = el.getAttribute('data-champ');
+    el.textContent = data[champ] || '';
+    el.onclick = () => ouvrirModal(champ, el.textContent);
+    ajoutCrayon(el);
+  });
+
+  // Stats
+  const statsBox = document.getElementById('statsBox');
+  statsBox.innerHTML = '';
+  (data.stats || []).forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'stat';
+    div.innerHTML = `
+      <div class="stat-num editable" data-stat-num="${i}">${s.nombre}</div>
+      <div class="stat-lab editable" data-stat-lab="${i}">${s.label}</div>`;
+    statsBox.appendChild(div);
+  });
+  statsBox.querySelectorAll('[data-stat-num]').forEach(el => {
+    const i = el.getAttribute('data-stat-num');
+    el.onclick = () => ouvrirModalListe('stats', i, 'nombre', el.textContent);
+    ajoutCrayon(el);
+  });
+  statsBox.querySelectorAll('[data-stat-lab]').forEach(el => {
+    const i = el.getAttribute('data-stat-lab');
+    el.onclick = () => ouvrirModalListe('stats', i, 'label', el.textContent);
+    ajoutCrayon(el);
+  });
+
+  // Valeurs
+  const valBox = document.getElementById('valeursBox');
+  valBox.innerHTML = '';
+  (data.valeurs || []).forEach((v, i) => {
+    const div = document.createElement('div');
+    div.className = 'valeur';
+    div.innerHTML = `
+      <div class="valeur-icone editable" data-val="${i}-icone">${v.icone}</div>
+      <div class="valeur-titre editable" data-val="${i}-titre">${v.titre}</div>
+      <div class="valeur-texte editable" data-val="${i}-texte">${v.texte}</div>`;
+    valBox.appendChild(div);
+  });
+  valBox.querySelectorAll('[data-val]').forEach(el => {
+    const [i, prop] = el.getAttribute('data-val').split('-');
+    el.onclick = () => ouvrirModalListe('valeurs', i, prop, el.textContent);
+    ajoutCrayon(el);
+  });
+}
+
+function ajoutCrayon(el) {
+  if (el.querySelector('.edit-pencil')) return;
+  const p = document.createElement('span');
+  p.className = 'edit-pencil';
+  p.textContent = '✏️';
+  el.appendChild(p);
+}
+
+// ====== MODALES ======
+function ouvrirModal(champ, valeur) {
+  champActuel = { type: 'simple', champ };
+  document.getElementById('modalTitre').textContent = 'Modifier le texte';
+  document.getElementById('modalInput').value = valeur;
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('modalInput').focus();
+}
+function ouvrirModalListe(liste, index, prop, valeur) {
+  champActuel = { type: 'liste', liste, index: parseInt(index), prop };
+  document.getElementById('modalTitre').textContent = 'Modifier';
+  document.getElementById('modalInput').value = valeur;
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('modalInput').focus();
+}
+function fermerModal() {
+  document.getElementById('modalBg').classList.remove('open');
+  champActuel = null;
+}
+function validerModal() {
+  const nouvelle = document.getElementById('modalInput').value;
+  if (champActuel.type === 'simple') {
+    data[champActuel.champ] = nouvelle;
+  } else {
+    data[champActuel.liste][champActuel.index][champActuel.prop] = nouvelle;
+  }
+  modif = true;
+  document.getElementById('saveBtn').disabled = false;
+  fermerModal();
+  afficher();
+}
+
+// ====== SAUVEGARDER SUR GITHUB ======
+async function sauvegarder() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Enregistrement...';
+  try {
+    const contenu = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FICHIER}`, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Modification de la page d\'accueil via l\'éditeur',
+        content: contenu,
+        sha: sha
+      })
+    });
+    if (!res.ok) throw new Error('échec');
+    const json = await res.json();
+    sha = json.content.sha;
+    modif = false;
+    btn.textContent = '💾 Enregistrer';
+    toast('✓ Enregistré ! Le site se met à jour dans 1 minute.');
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = '💾 Enregistrer';
+    toast('Erreur lors de l\'enregistrement', true);
+  }
+}
+
+// ====== TOAST ======
+function toast(msg, erreur) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (erreur ? ' error' : '');
+  setTimeout(() => { t.className = 'toast' + (erreur ? ' error' : ''); }, 4000);
+}
+
+// Prévenir avant de quitter si modifications non enregistrées
+window.addEventListener('beforeunload', (e) => {
+  if (modif) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</body>
+</html>
