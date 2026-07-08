@@ -79,6 +79,12 @@
   .valeur-titre { font-weight: 600; font-size: 16px; margin-bottom: 6px; }
   .valeur-texte { font-size: 13px; color: var(--texte-doux); line-height: 1.6; }
 
+  .section-bloc { padding: 40px 24px; max-width: 900px; margin: 0 auto; }
+  .section-bloc.alt { background: var(--gris-clair); max-width: none; }
+  .section-bloc.alt > * { max-width: 900px; margin-left: auto; margin-right: auto; }
+  .note-bloc { margin-top: 16px; font-size: 13px; color: var(--texte-doux); background: rgba(0,61,165,0.06); border-left: 3px solid var(--bleu); padding: 12px 16px; border-radius: 0 8px 8px 0; }
+  .lien-edit { display: inline-block; color: var(--bleu); font-weight: 600; font-size: 14px; margin-top: 8px; }
+
   /* Fenêtre de modification */
   .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,20,60,0.55); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
   .modal-bg.open { display: flex; }
@@ -142,6 +148,47 @@
     <div class="pres-titre editable" data-champ="presentation_titre"></div>
     <div class="pres-texte editable" data-champ="presentation_texte"></div>
     <div class="valeurs" id="valeursBox"></div>
+  </div>
+
+  <!-- DISCIPLINES (en-tête) -->
+  <div class="section-bloc">
+    <div class="pres-eyebrow editable" data-champ="disciplines_eyebrow"></div>
+    <div class="pres-titre editable" data-champ="disciplines_titre"></div>
+    <div class="pres-texte editable" data-champ="disciplines_texte"></div>
+    <div class="note-bloc">Les cartes des disciplines (Athlé Jeune, Piste...) se modifient sur leurs pages respectives.</div>
+  </div>
+
+  <!-- BLOG (en-tête) -->
+  <div class="section-bloc alt">
+    <div class="pres-eyebrow editable" data-champ="blog_eyebrow"></div>
+    <div class="pres-titre editable" data-champ="blog_titre"></div>
+    <div class="lien-edit editable" data-champ="blog_lien"></div>
+    <div class="note-bloc">Les articles s'ajoutent via la rubrique « Actualités ».</div>
+  </div>
+
+  <!-- AGENDA (en-tête) -->
+  <div class="section-bloc">
+    <div class="pres-eyebrow editable" data-champ="agenda_eyebrow"></div>
+    <div class="pres-titre editable" data-champ="agenda_titre"></div>
+    <div class="lien-edit editable" data-champ="agenda_lien"></div>
+    <div class="note-bloc">Les événements s'ajoutent via la rubrique « Inscriptions compétitions ».</div>
+  </div>
+
+  <!-- PARTENAIRES (en-tête) -->
+  <div class="section-bloc alt">
+    <div class="pres-eyebrow editable" data-champ="partenaires_eyebrow"></div>
+    <div class="lien-edit editable" data-champ="partenaires_lien"></div>
+  </div>
+
+  <!-- REJOINDRE -->
+  <div class="section-bloc">
+    <div class="pres-eyebrow editable" data-champ="rejoindre_eyebrow"></div>
+    <div class="pres-titre editable" data-champ="rejoindre_titre"></div>
+    <div class="pres-texte editable" data-champ="rejoindre_texte"></div>
+    <div class="hero-btns" style="justify-content:flex-start;">
+      <a class="hb1 editable" data-champ="rejoindre_bouton1" style="color:#001F5C;"></a>
+      <a class="hb2 editable" data-champ="rejoindre_bouton2" style="background:#E8EBF5;color:#001F5C;border:none;"></a>
+    </div>
   </div>
 </div>
 
