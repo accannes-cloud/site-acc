@@ -162,6 +162,43 @@
     }
   }
 
+  // ========== 4. PAGE D'ACCUEIL (textes modifiables) ==========
+  async function injectAccueil() {
+    // On n'agit que si la page contient des éléments d'accueil
+    if (!document.querySelector('[data-accueil], [data-accueil-stats], [data-accueil-valeurs]')) return;
+    const data = await getJSON('contenu/pages/accueil.json');
+    if (!data) return;
+
+    // Textes simples
+    document.querySelectorAll('[data-accueil]').forEach(el => {
+      const key = el.getAttribute('data-accueil');
+      if (data[key] !== undefined && data[key] !== '') {
+        el.textContent = data[key];
+      }
+    });
+
+    // Bande de statistiques
+    const statsBar = document.querySelector('[data-accueil-stats]');
+    if (statsBar && Array.isArray(data.stats) && data.stats.length > 0) {
+      statsBar.innerHTML = data.stats.map(s => `
+        <div class="stat-item">
+          <div class="stat-number" data-target="${s.nombre}">${s.nombre}</div>
+          <div class="stat-label">${s.label}</div>
+        </div>`).join('');
+    }
+
+    // Cartes de valeurs
+    const valeursBox = document.querySelector('[data-accueil-valeurs]');
+    if (valeursBox && Array.isArray(data.valeurs) && data.valeurs.length > 0) {
+      valeursBox.innerHTML = data.valeurs.map((v, i) => `
+        <div class="value-card reveal reveal-delay-${(i % 4) + 1} visible">
+          <div class="value-icon">${v.icone || ''}</div>
+          <div class="value-title">${v.titre || ''}</div>
+          <div class="value-text">${v.texte || ''}</div>
+        </div>`).join('');
+    }
+  }
+
   // Styles minimaux injectés pour les horaires et l'équipe dynamiques
   function injectStyles() {
     const css = `
@@ -206,6 +243,7 @@
     injectCoordonnees();
     injectHoraires();
     injectEquipe();
+    injectAccueil();
   }
 
   if (document.readyState === 'loading') {
