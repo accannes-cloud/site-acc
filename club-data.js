@@ -10,11 +10,10 @@
   const BRANCH = 'main';
   const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 
-  // Récupère un JSON. On ajoute un paramètre anti-cache basé sur un intervalle court
-  // (change toutes les 60 secondes) pour forcer un rechargement fréquent sans épuiser l'API.
+  // Récupère un JSON via raw (aucune limite de requêtes pour les visiteurs).
+  // Un paramètre anti-cache qui change chaque minute limite le délai d'affichage.
   async function getJSON(path) {
     try {
-      // Le "buster" change chaque minute → le cache est contourné au maximum toutes les 60s
       const buster = Math.floor(Date.now() / 60000);
       const res = await fetch(`${RAW}/${path}?v=${buster}`, { cache: 'no-store' });
       if (!res.ok) return null;
@@ -192,18 +191,36 @@
     // Cartes de valeurs
     const valeursBox = document.querySelector('[data-accueil-valeurs]');
     if (valeursBox && Array.isArray(data.valeurs) && data.valeurs.length > 0) {
-      valeursBox.innerHTML = data.valeurs.map((v, i) => `
+      valeursBox.innerHTML = data.valeurs.map((v, i) => {
+        const visuel = v.photo
+          ? `<div class="value-photo"><img src="${v.photo}" alt="${v.titre || ''}"></div>`
+          : `<div class="value-icon">${v.icone || ''}</div>`;
+        return `
         <div class="value-card reveal reveal-delay-${(i % 4) + 1} visible">
-          <div class="value-icon">${v.icone || ''}</div>
+          ${visuel}
           <div class="value-title">${v.titre || ''}</div>
           <div class="value-text">${v.texte || ''}</div>
-        </div>`).join('');
+        </div>`;
+      }).join('');
+    }
+
+    // Bande des sponsors / partenaires
+    const sponsorsBox = document.querySelector('[data-accueil-sponsors]');
+    if (sponsorsBox && Array.isArray(data.sponsors) && data.sponsors.length > 0) {
+      sponsorsBox.innerHTML = data.sponsors.map(s => {
+        if (s.logo) {
+          return `<div class="part-logo"><img src="${s.logo}" alt="${s.nom || ''}" style="max-height:44px;max-width:120px;object-fit:contain;"></div>`;
+        }
+        return `<div class="part-logo">${s.nom || ''}</div>`;
+      }).join('');
     }
   }
 
   // Styles minimaux injectés pour les horaires et l'équipe dynamiques
   function injectStyles() {
     const css = `
+      .value-photo { width: 64px; height: 64px; border-radius: 14px; overflow: hidden; margin-bottom: 12px; background: var(--gris-clair, #F4F6FB); }
+      .value-photo img { width: 100%; height: 100%; object-fit: cover; }
       .horaires-table { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
       .horaire-row { display: grid; grid-template-columns: 140px 160px 1fr; gap: 16px; align-items: center; background: var(--blanc, #fff); border-radius: 12px; padding: 16px 22px; box-shadow: 0 4px 18px rgba(0,31,92,0.06); border-left: 4px solid var(--jaune, #FFD600); }
       .horaire-jour { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--bleu, #003DA5); }

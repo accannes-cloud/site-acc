@@ -104,6 +104,24 @@
   .toast.error { background: #A32D2D; }
 
   #app { display: none; }
+
+  /* Photos des valeurs */
+  .valeur-photo-edit { position: relative; width: 64px; height: 64px; border-radius: 14px; overflow: hidden; margin-bottom: 12px; cursor: pointer; background: var(--gris-clair); }
+  .valeur-photo-edit img { width: 100%; height: 100%; object-fit: cover; }
+  .valeur-photo-edit .photo-badge { position: absolute; inset: 0; background: rgba(0,20,60,0.6); color: #fff; font-size: 10px; display: none; align-items: center; justify-content: center; text-align: center; }
+  .valeur-photo-edit:hover .photo-badge { display: flex; }
+  .mini-photo-btn { margin-top: 10px; background: var(--gris-clair); border: 1px dashed var(--bleu); color: var(--bleu); border-radius: 8px; padding: 6px 10px; font-size: 11px; font-family: inherit; font-weight: 600; cursor: pointer; width: 100%; }
+
+  /* Sponsors */
+  .sponsors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin-top: 20px; }
+  .sponsor-edit { position: relative; background: #fff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 4px 18px rgba(0,31,92,0.06); }
+  .sponsor-suppr { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%; background: #A32D2D; color: #fff; border: none; font-size: 12px; cursor: pointer; z-index: 5; }
+  .sponsor-logo { height: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+  .sponsor-logo img { max-height: 60px; max-width: 100%; object-fit: contain; }
+  .sponsor-logo.vide { background: var(--gris-clair); border: 1px dashed var(--bleu); color: var(--bleu); font-size: 12px; line-height: 1.3; }
+  .sponsor-nom { font-weight: 600; font-size: 14px; color: var(--texte); }
+  .ajout-btn { margin-top: 18px; background: var(--bleu); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .ajout-btn:hover { background: var(--bleu-fonce); }
 </style>
 </head>
 <body>
@@ -178,6 +196,8 @@
   <div class="section-bloc alt">
     <div class="pres-eyebrow editable" data-champ="partenaires_eyebrow"></div>
     <div class="lien-edit editable" data-champ="partenaires_lien"></div>
+    <div class="sponsors-grid" id="sponsorsBox"></div>
+    <button class="ajout-btn" onclick="ajouterSponsor()">➕ Ajouter un sponsor</button>
   </div>
 
   <!-- REJOINDRE -->
@@ -323,10 +343,14 @@ function afficher() {
   (data.valeurs || []).forEach((v, i) => {
     const div = document.createElement('div');
     div.className = 'valeur';
+    const visuel = v.photo
+      ? `<div class="valeur-photo-edit" data-valphoto="${i}"><img src="${imgUrl(v.photo)}" alt=""><span class="photo-badge">📷 Changer</span></div>`
+      : `<div class="valeur-icone editable" data-val="${i}-icone">${v.icone || '📷'}</div>`;
     div.innerHTML = `
-      <div class="valeur-icone editable" data-val="${i}-icone">${v.icone}</div>
+      ${visuel}
       <div class="valeur-titre editable" data-val="${i}-titre">${v.titre}</div>
-      <div class="valeur-texte editable" data-val="${i}-texte">${v.texte}</div>`;
+      <div class="valeur-texte editable" data-val="${i}-texte">${v.texte}</div>
+      <button class="mini-photo-btn" data-valphotobtn="${i}">📷 ${v.photo ? 'Remplacer' : 'Mettre'} une photo</button>`;
     valBox.appendChild(div);
   });
   valBox.querySelectorAll('[data-val]').forEach(el => {
@@ -334,6 +358,79 @@ function afficher() {
     el.onclick = () => ouvrirModalListe('valeurs', i, prop, el.textContent);
     ajoutCrayon(el);
   });
+  // Clic sur la photo (ou le bouton) → upload
+  valBox.querySelectorAll('[data-valphoto], [data-valphotobtn]').forEach(el => {
+    const i = parseInt(el.getAttribute('data-valphoto') || el.getAttribute('data-valphotobtn'));
+    el.onclick = () => choisirImage(chemin => {
+      data.valeurs[i].photo = chemin;
+      marquerModifie();
+      afficher();
+    });
+  });
+
+  // Sponsors
+  const sponsBox = document.getElementById('sponsorsBox');
+  if (sponsBox) {
+    sponsBox.innerHTML = '';
+    (data.sponsors || []).forEach((s, i) => {
+      const div = document.createElement('div');
+      div.className = 'sponsor-edit';
+      const logo = s.logo
+        ? `<div class="sponsor-logo" data-sponslogo="${i}"><img src="${imgUrl(s.logo)}" alt=""></div>`
+        : `<div class="sponsor-logo vide" data-sponslogo="${i}">📷<br>Logo</div>`;
+      div.innerHTML = `
+        <button class="sponsor-suppr" data-sponssuppr="${i}" title="Supprimer ce sponsor">✕</button>
+        ${logo}
+        <div class="sponsor-nom editable" data-sponsnom="${i}">${s.nom || ''}</div>`;
+      sponsBox.appendChild(div);
+    });
+    // Nom éditable
+    sponsBox.querySelectorAll('[data-sponsnom]').forEach(el => {
+      const i = el.getAttribute('data-sponsnom');
+      el.onclick = () => ouvrirModalListe('sponsors', i, 'nom', el.textContent);
+      ajoutCrayon(el);
+    });
+    // Logo upload
+    sponsBox.querySelectorAll('[data-sponslogo]').forEach(el => {
+      const i = parseInt(el.getAttribute('data-sponslogo'));
+      el.onclick = () => choisirImage(chemin => {
+        data.sponsors[i].logo = chemin;
+        marquerModifie();
+        afficher();
+      });
+    });
+    // Suppression
+    sponsBox.querySelectorAll('[data-sponssuppr]').forEach(el => {
+      const i = parseInt(el.getAttribute('data-sponssuppr'));
+      el.onclick = () => {
+        if (confirm('Supprimer ce sponsor ?')) {
+          data.sponsors.splice(i, 1);
+          marquerModifie();
+          afficher();
+        }
+      };
+    });
+  }
+}
+
+// Transforme un chemin GitHub en URL affichable
+function imgUrl(chemin) {
+  if (!chemin) return '';
+  if (chemin.startsWith('http')) return chemin;
+  return `https://raw.githubusercontent.com/${REPO}/main/${chemin}?t=${Date.now()}`;
+}
+
+// Ajoute un sponsor
+function ajouterSponsor() {
+  if (!data.sponsors) data.sponsors = [];
+  data.sponsors.push({ nom: 'Nouveau sponsor', logo: '' });
+  marquerModifie();
+  afficher();
+}
+
+function marquerModifie() {
+  modif = true;
+  document.getElementById('saveBtn').disabled = false;
 }
 
 function ajoutCrayon(el) {
@@ -411,6 +508,68 @@ function toast(msg, erreur) {
   t.textContent = msg;
   t.className = 'toast show' + (erreur ? ' error' : '');
   setTimeout(() => { t.className = 'toast' + (erreur ? ' error' : ''); }, 4000);
+}
+
+// ====== UPLOAD D'IMAGE VERS GITHUB ======
+// Redimensionne l'image (max 800px) puis l'envoie dans images/uploads/
+function choisirImage(callback) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = () => {
+    const file = input.files[0];
+    if (!file) return;
+    redimensionner(file, (base64, ext) => {
+      envoyerImage(base64, ext, callback);
+    });
+  };
+  input.click();
+}
+
+// Redimensionne via un canvas pour garder des fichiers légers
+function redimensionner(file, callback) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 800;
+      let { width, height } = img;
+      if (width > MAX || height > MAX) {
+        if (width > height) { height = height * MAX / width; width = MAX; }
+        else { width = width * MAX / height; height = MAX; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      // On exporte en JPEG qualité 0.85 (bon compromis poids/qualité)
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+      const base64 = dataUrl.split(',')[1];
+      callback(base64, 'jpg');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function envoyerImage(base64, ext, callback) {
+  toast('⏳ Envoi de la photo...');
+  const nom = 'img-' + Date.now() + '.' + ext;
+  const chemin = 'images/uploads/' + nom;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${chemin}`, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Ajout d\'une image via l\'éditeur',
+        content: base64
+      })
+    });
+    if (!res.ok) throw new Error('échec upload');
+    callback(chemin);
+    toast('✓ Photo ajoutée');
+  } catch (e) {
+    toast('Erreur lors de l\'envoi de la photo', true);
+  }
 }
 
 // Prévenir avant de quitter si modifications non enregistrées

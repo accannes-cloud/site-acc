@@ -1,0 +1,100 @@
+{
+  "hero_badge": "Athletic Club de Cannes · Fondé en 1969",
+  "hero_titre": "AC CANNES",
+  "hero_sous_titre": "Rejoignez notre communauté d'athlètes passionnés. Toutes disciplines, tous âges, tous niveaux. L'athlétisme est pour tout le monde.",
+  "hero_bouton1": "Rejoindre le Club",
+  "hero_bouton2": "Blog / Actualités",
+  "stats": [
+    {
+      "nombre": "420",
+      "label": "Licenciés"
+    },
+    {
+      "nombre": "55",
+      "label": "Années d'existence"
+    },
+    {
+      "nombre": "12",
+      "label": "Disciplines"
+    },
+    {
+      "nombre": "24",
+      "label": "Entraîneurs certifiés"
+    },
+    {
+      "nombre": "150",
+      "label": "Médailles en 2024"
+    }
+  ],
+  "presentation_eyebrow": "Notre Club",
+  "presentation_titre": "UN CLUB AU SERVICE DE L'ATHLÉTISME",
+  "presentation_texte": "Depuis plus de 50 ans, notre club accompagne des centaines d'athlètes dans leur passion. Du bébé coureur aux compétiteurs régionaux, en passant par les adeptes du running santé, nous offrons un cadre d'entraînement adapté à chacun.",
+  "valeurs": [
+    {
+      "icone": "🏃",
+      "titre": "Performance",
+      "texte": "Des entraînements structurés pour progresser à tout niveau.",
+      "photo": ""
+    },
+    {
+      "icone": "🤝",
+      "titre": "Convivialité",
+      "texte": "Un esprit club fort, des liens durables entre athlètes.",
+      "photo": ""
+    },
+    {
+      "icone": "🌱",
+      "titre": "Inclusion",
+      "texte": "Ouvert à tous, sans distinction d'âge ni de niveau.",
+      "photo": ""
+    },
+    {
+      "icone": "🏆",
+      "titre": "Excellence",
+      "texte": "Des entraîneurs qualifiés et des méthodes éprouvées.",
+      "photo": ""
+    }
+  ],
+  "disciplines_eyebrow": "Nos Pratiques",
+  "disciplines_titre": "TOUTES LES DISCIPLINES",
+  "disciplines_texte": "De la piste au cross, du sprint au marathon — choisissez votre terrain de jeu.",
+  "blog_eyebrow": "Actualités",
+  "blog_titre": "VIE DU CLUB",
+  "blog_lien": "Tous les articles →",
+  "agenda_eyebrow": "Planning",
+  "agenda_titre": "PROCHAINS ÉVÉNEMENTS",
+  "agenda_lien": "Voir l'agenda complet →",
+  "partenaires_eyebrow": "ILS NOUS FONT CONFIANCE",
+  "partenaires_lien": "Devenir partenaire →",
+  "rejoindre_eyebrow": "Rejoindre le Club",
+  "rejoindre_titre": "PRÊT À COURIR ?",
+  "rejoindre_texte": "Venez essayer une séance d'entraînement gratuitement. Notre équipe vous accueillera et vous orientera vers la section la plus adaptée à vos objectifs.",
+  "rejoindre_bouton1": "S'inscrire au Club",
+  "rejoindre_bouton2": "Nous contacter",
+  "sponsors": [
+    {
+      "nom": "NIKE",
+      "logo": ""
+    },
+    {
+      "nom": "MAIRIE",
+      "logo": ""
+    },
+    {
+      "nom": "FFA",
+      "logo": ""
+    },
+    {
+      "nom": "DECATH.",
+      "logo": ""
+    },
+    {
+      "nom": "RÉGION",
+      "logo": ""
+    },
+    {
+      "nom": "SPONSOR",
+      "logo": ""
+    }
+  ]
+}
