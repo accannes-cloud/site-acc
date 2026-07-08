@@ -8,13 +8,15 @@
 (function () {
   const REPO = 'accannes-cloud/site-acc';
   const BRANCH = 'main';
-  // On lit directement les fichiers "raw" (pas l'API) pour éviter les limites de débit
   const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 
-  // Petit utilitaire : récupère un JSON, renvoie null si absent
+  // Récupère un JSON. On ajoute un paramètre anti-cache basé sur un intervalle court
+  // (change toutes les 60 secondes) pour forcer un rechargement fréquent sans épuiser l'API.
   async function getJSON(path) {
     try {
-      const res = await fetch(`${RAW}/${path}?t=${Date.now()}`);
+      // Le "buster" change chaque minute → le cache est contourné au maximum toutes les 60s
+      const buster = Math.floor(Date.now() / 60000);
+      const res = await fetch(`${RAW}/${path}?v=${buster}`, { cache: 'no-store' });
       if (!res.ok) return null;
       return await res.json();
     } catch (e) {
