@@ -5,19 +5,50 @@
   "hero_bouton1": "Rejoindre le Club",
   "hero_bouton2": "Blog / Actualités",
   "stats": [
-    { "nombre": "420", "label": "Licenciés" },
-    { "nombre": "55", "label": "Années d'existence" },
-    { "nombre": "12", "label": "Disciplines" },
-    { "nombre": "24", "label": "Entraîneurs certifiés" },
-    { "nombre": "150", "label": "Médailles en 2024" }
+    {
+      "nombre": "420",
+      "label": "Licenciés"
+    },
+    {
+      "nombre": "55",
+      "label": "Années d'existence"
+    },
+    {
+      "nombre": "12",
+      "label": "Disciplines"
+    },
+    {
+      "nombre": "24",
+      "label": "Entraîneurs certifiés"
+    },
+    {
+      "nombre": "150",
+      "label": "Médailles en 2024"
+    }
   ],
   "presentation_eyebrow": "Notre Club",
   "presentation_titre": "UN CLUB AU SERVICE DE L'ATHLÉTISME",
   "presentation_texte": "Depuis plus de 50 ans, notre club accompagne des centaines d'athlètes dans leur passion. Du bébé coureur aux compétiteurs régionaux, en passant par les adeptes du running santé, nous offrons un cadre d'entraînement adapté à chacun.",
   "valeurs": [
-    { "icone": "🏃", "titre": "Performance", "texte": "Des entraînements structurés pour progresser à tout niveau." },
-    { "icone": "🤝", "titre": "Convivialité", "texte": "Un esprit club fort, des liens durables entre athlètes." },
-    { "icone": "🌱", "titre": "Inclusion", "texte": "Ouvert à tous, sans distinction d'âge ni de niveau." },
-    { "icone": "🏆", "titre": "Excellence", "texte": "Des entraîneurs qualifiés et des méthodes éprouvées." }
+    {
+      "icone": "🏃",
+      "titre": "Performance",
+      "texte": "Des entraînements structurés pour progresser à tout niveau."
+    },
+    {
+      "icone": "🤝",
+      "titre": "Convivialité",
+      "texte": "Un esprit club fort, des liens durables entre athlètes."
+    },
+    {
+      "icone": "🌱",
+      "titre": "Inclusion",
+      "texte": "Maddi secrétaire\n✏️"
+    },
+    {
+      "icone": "🏆",
+      "titre": "Excellence",
+      "texte": "Des entraîneurs qualifiés et des méthodes éprouvées."
+    }
   ]
 }
