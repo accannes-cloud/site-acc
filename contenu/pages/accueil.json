@@ -6,11 +6,11 @@
   "hero_bouton2": "Actualités",
   "stats": [
     {
-      "nombre": "420",
+      "nombre": "550",
       "label": "Licenciés"
     },
     {
-      "nombre": "55",
+      "nombre": "56",
       "label": "Années d'existence"
     },
     {
@@ -37,7 +37,7 @@
     },
     {
       "icone": "🤝",
-      "titre": "Apprentissage\n✏️",
+      "titre": "Apprentissage",
       "texte": "Un esprit club fort, des liens durables entre athlètes."
     },
     {
