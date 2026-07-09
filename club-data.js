@@ -281,6 +281,56 @@
     }
   }
 
+  // ========== 5. PAGE HISTOIRE DU CLUB ==========
+  async function injectHistoire() {
+    if (!document.querySelector('[data-histoire], [data-histoire-body], [data-histoire-timeline]')) return;
+    const data = await getJSON('contenu/pages/histoire.json');
+    if (!data) return;
+
+    // Textes simples (eyebrow, titre, intro)
+    document.querySelectorAll('[data-histoire]').forEach(el => {
+      const key = el.getAttribute('data-histoire');
+      if (data[key]) el.textContent = data[key];
+    });
+
+    // Corps : paragraphes + photos + citation, dans l'ordre d'origine
+    const body = document.querySelector('[data-histoire-body]');
+    if (body) {
+      let html = '';
+      const paras = data.paragraphes || [];
+      const photos = data.photos || [];
+
+      if (paras[0]) html += `<p class="reveal visible">${paras[0].texte}</p>`;
+      if (paras[1]) html += `<p class="reveal visible">${paras[1].texte}</p>`;
+      if (paras[2]) html += `<p class="reveal visible">${paras[2].texte}</p>`;
+      if (photos[0]) html += photoHtml(photos[0]);
+      if (data.citation) html += `<div class="pull-quote reveal visible"><p>${data.citation}</p></div>`;
+      if (paras[3]) html += `<p class="reveal visible">${paras[3].texte}</p>`;
+      if (photos[1]) html += photoHtml(photos[1]);
+      for (let i = 4; i < paras.length; i++) html += `<p class="reveal visible">${paras[i].texte}</p>`;
+
+      body.innerHTML = html;
+    }
+
+    // Chronologie
+    const tl = document.querySelector('[data-histoire-timeline]');
+    if (tl && Array.isArray(data.chronologie)) {
+      tl.innerHTML = data.chronologie.map(c => `
+        <div class="tl-item reveal visible">
+          <div class="tl-year">${c.annee || ''}</div>
+          <div class="tl-text">${c.texte || ''}</div>
+        </div>`).join('');
+    }
+  }
+
+  function photoHtml(p) {
+    return `
+      <div class="archive-photo reveal visible">
+        <img src="${p.image}" alt="">
+        ${p.legende ? '<div class="archive-caption">' + p.legende + '</div>' : ''}
+      </div>`;
+  }
+
   // Styles minimaux injectés pour les horaires et l'équipe dynamiques
   function injectStyles() {
     const css = `
@@ -328,6 +378,7 @@
     injectHoraires();
     injectEquipe();
     injectAccueil();
+    injectHistoire();
   }
 
   if (document.readyState === 'loading') {
