@@ -204,39 +204,6 @@
       }).join('');
     }
 
-    // Fond du hero : vidéo (prioritaire) ou image
-    const heroFond = document.querySelector('[data-accueil-herofond]');
-    if (heroFond) {
-      const lignes = heroFond.querySelector('.track-lines');
-      const lignesHtml = lignes ? lignes.outerHTML : '';
-      if (data.hero_fond_video) {
-        heroFond.innerHTML = `<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:0.5;"><source src="${data.hero_fond_video}" type="video/mp4"></video>` + lignesHtml;
-      } else if (data.hero_fond_image) {
-        heroFond.innerHTML = `<img src="${data.hero_fond_image}" alt="Athletic Club de Cannes" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">` + lignesHtml;
-      }
-    }
-
-    // Cartes disciplines (spécifiques à l'accueil)
-    const discBox = document.querySelector('[data-accueil-disciplines]');
-    if (discBox && Array.isArray(data.disciplines) && data.disciplines.length > 0) {
-      discBox.innerHTML = data.disciplines.map((d, i) => {
-        const fond = d.photo
-          ? `<div class="disc-bg" style="background-image:url(${d.photo});background-size:cover;background-position:center;"></div>`
-          : `<div class="disc-bg">${d.emoji || ''}</div>`;
-        return `
-        <a href="${d.lien || '#'}" class="disc-card reveal${i > 0 ? ' reveal-delay-' + i : ''}" data-color="${d.couleur || 'bleu'}">
-          ${fond}
-          <div class="disc-overlay"></div>
-          <div class="disc-content">
-            <span class="disc-tag">${d.tag || ''}</span>
-            <div class="disc-name">${d.nom || ''}</div>
-            <p class="disc-desc">${d.desc || ''}</p>
-            <span class="disc-arrow">Découvrir →</span>
-          </div>
-        </a>`;
-      }).join('');
-    }
-
     // Bande des sponsors / partenaires
     const sponsorsBox = document.querySelector('[data-accueil-sponsors]');
     if (sponsorsBox && Array.isArray(data.sponsors) && data.sponsors.length > 0) {
@@ -248,13 +215,15 @@
       }).join('');
     }
 
-    // Fond du hero : vidéo prioritaire, sinon image personnalisée, sinon rien (garde le défaut)
+    // Fond du hero : vidéo prioritaire, sinon image personnalisée
     const heroFond = document.querySelector('[data-accueil-herofond]');
     if (heroFond) {
+      const lignes = heroFond.querySelector('.track-lines');
+      const lignesHtml = lignes ? lignes.outerHTML : '';
       if (data.hero_fond_video) {
-        heroFond.innerHTML = `<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:0.55;"><source src="${data.hero_fond_video}" type="video/mp4"></video>`;
+        heroFond.innerHTML = `<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:0.5;"><source src="${data.hero_fond_video}" type="video/mp4"></video>` + lignesHtml;
       } else if (data.hero_fond_image) {
-        heroFond.innerHTML = `<img src="${data.hero_fond_image}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">`;
+        heroFond.innerHTML = `<img src="${data.hero_fond_image}" alt="Athletic Club de Cannes" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">` + lignesHtml;
       }
     }
 
@@ -373,6 +342,8 @@
 
   // Lancement quand la page est prête
   function init() {
+    // Si le mode édition est actif, c'est edition.js qui gère l'affichage → on ne fait rien
+    if (sessionStorage.getItem('acc_edit_actif') === '1') return;
     injectStyles();
     injectCoordonnees();
     injectHoraires();
