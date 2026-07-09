@@ -204,6 +204,39 @@
       }).join('');
     }
 
+    // Fond du hero : vidéo (prioritaire) ou image
+    const heroFond = document.querySelector('[data-accueil-herofond]');
+    if (heroFond) {
+      const lignes = heroFond.querySelector('.track-lines');
+      const lignesHtml = lignes ? lignes.outerHTML : '';
+      if (data.hero_fond_video) {
+        heroFond.innerHTML = `<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:0.5;"><source src="${data.hero_fond_video}" type="video/mp4"></video>` + lignesHtml;
+      } else if (data.hero_fond_image) {
+        heroFond.innerHTML = `<img src="${data.hero_fond_image}" alt="Athletic Club de Cannes" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">` + lignesHtml;
+      }
+    }
+
+    // Cartes disciplines (spécifiques à l'accueil)
+    const discBox = document.querySelector('[data-accueil-disciplines]');
+    if (discBox && Array.isArray(data.disciplines) && data.disciplines.length > 0) {
+      discBox.innerHTML = data.disciplines.map((d, i) => {
+        const fond = d.photo
+          ? `<div class="disc-bg" style="background-image:url(${d.photo});background-size:cover;background-position:center;"></div>`
+          : `<div class="disc-bg">${d.emoji || ''}</div>`;
+        return `
+        <a href="${d.lien || '#'}" class="disc-card reveal${i > 0 ? ' reveal-delay-' + i : ''}" data-color="${d.couleur || 'bleu'}">
+          ${fond}
+          <div class="disc-overlay"></div>
+          <div class="disc-content">
+            <span class="disc-tag">${d.tag || ''}</span>
+            <div class="disc-name">${d.nom || ''}</div>
+            <p class="disc-desc">${d.desc || ''}</p>
+            <span class="disc-arrow">Découvrir →</span>
+          </div>
+        </a>`;
+      }).join('');
+    }
+
     // Bande des sponsors / partenaires
     const sponsorsBox = document.querySelector('[data-accueil-sponsors]');
     if (sponsorsBox && Array.isArray(data.sponsors) && data.sponsors.length > 0) {
@@ -212,6 +245,38 @@
           return `<div class="part-logo"><img src="${s.logo}" alt="${s.nom || ''}" style="max-height:44px;max-width:120px;object-fit:contain;"></div>`;
         }
         return `<div class="part-logo">${s.nom || ''}</div>`;
+      }).join('');
+    }
+
+    // Fond du hero : vidéo prioritaire, sinon image personnalisée, sinon rien (garde le défaut)
+    const heroFond = document.querySelector('[data-accueil-herofond]');
+    if (heroFond) {
+      if (data.hero_fond_video) {
+        heroFond.innerHTML = `<video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:0.55;"><source src="${data.hero_fond_video}" type="video/mp4"></video>`;
+      } else if (data.hero_fond_image) {
+        heroFond.innerHTML = `<img src="${data.hero_fond_image}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">`;
+      }
+    }
+
+    // Cartes disciplines (fond photo + textes, modifiables depuis l'accueil)
+    const discGrid = document.querySelector('.disc-grid');
+    if (discGrid && Array.isArray(data.disciplines) && data.disciplines.length > 0) {
+      const couleurs = ['bleu', 'bleu2', 'bleu3', 'navy', 'bleu'];
+      discGrid.innerHTML = data.disciplines.map((d, i) => {
+        const fondStyle = d.photo
+          ? `style="background-image:url('${d.photo}');background-size:cover;background-position:center;font-size:0;"`
+          : '';
+        return `
+        <a href="${d.lien || '#'}" class="disc-card reveal visible" data-color="${couleurs[i % 5]}">
+          <div class="disc-bg" data-disc-index="${i}" ${fondStyle}>${d.photo ? '' : (d.emoji || '')}</div>
+          <div class="disc-overlay"></div>
+          <div class="disc-content">
+            <span class="disc-tag">${d.tag || ''}</span>
+            <div class="disc-name">${d.nom || ''}</div>
+            <p class="disc-desc">${d.desc || ''}</p>
+            <span class="disc-arrow">Découvrir →</span>
+          </div>
+        </a>`;
       }).join('');
     }
   }

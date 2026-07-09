@@ -96,5 +96,54 @@
       "nom": "SPONSOR",
       "logo": ""
     }
+  ],
+  "hero_fond_image": "Club.jpg",
+  "hero_fond_video": "",
+  "disciplines": [
+    {
+      "lien": "athle-jeune.html",
+      "emoji": "👶",
+      "photo": "",
+      "tag": "4-15 ans",
+      "nom": "ATHLÉ JEUNE",
+      "desc": "Baby Athlé, École d'athlétisme, Benjamins & Minimes.",
+      "couleur": "bleu"
+    },
+    {
+      "lien": "athle-piste.html",
+      "emoji": "⚡",
+      "photo": "",
+      "tag": "Compétition · 16+",
+      "nom": "ATHLÉ PISTE",
+      "desc": "Sprint, haies, sauts, lancers, demi-fond sur piste.",
+      "couleur": "bleu2"
+    },
+    {
+      "lien": "athle-running.html",
+      "emoji": "🛣️",
+      "photo": "",
+      "tag": "Route · Trail",
+      "nom": "ATHLÉ RUNNING",
+      "desc": "Course sur route, trail, marathon, sorties encadrées.",
+      "couleur": "bleu3"
+    },
+    {
+      "lien": "athle-sante.html",
+      "emoji": "❤️",
+      "photo": "",
+      "tag": "Bien-être · Tous niveaux",
+      "nom": "ATHLÉ SANTÉ",
+      "desc": "Marche nordique, marche athlétique, Athlé Fit pour tous.",
+      "couleur": "navy"
+    },
+    {
+      "lien": "athle-parasport.html",
+      "emoji": "♿",
+      "photo": "",
+      "tag": "Inclusion · Adapté",
+      "nom": "ATHLÉ PARASPORT",
+      "desc": "Athlétisme adapté pour tous les types de handicap.",
+      "couleur": "bleu"
+    }
   ]
 }

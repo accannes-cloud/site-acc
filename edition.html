@@ -122,6 +122,28 @@
   .sponsor-nom { font-weight: 600; font-size: 14px; color: var(--texte); }
   .ajout-btn { margin-top: 18px; background: var(--bleu); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer; }
   .ajout-btn:hover { background: var(--bleu-fonce); }
+
+  /* Fond du hero (contrôles) */
+  .herofond-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: #E8EEF7; padding: 12px 16px; }
+  .hf-label { font-size: 13px; font-weight: 600; color: var(--texte); }
+  .hf-btn { background: var(--bleu); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .hf-btn:hover { background: var(--bleu-fonce); }
+  .hf-etat { font-size: 13px; color: var(--texte-doux); font-weight: 600; }
+
+  /* Cartes disciplines dans l'éditeur */
+  .disc-cards-edit { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-top: 20px; }
+  .disc-card-edit { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 4px 18px rgba(0,31,92,0.06); }
+  .disc-photo { position: relative; height: 110px; border-radius: 10px; background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu)); display: flex; align-items: center; justify-content: center; font-size: 40px; cursor: pointer; overflow: hidden; background-size: cover; background-position: center; margin-bottom: 12px; }
+  .disc-photo.vide { color: #fff; }
+  .disc-photo .photo-badge { position: absolute; bottom: 6px; right: 6px; background: rgba(0,20,60,0.75); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 6px; }
+  .disc-edit-nom { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.5px; color: var(--bleu); margin-bottom: 4px; }
+  .disc-edit-tag { font-size: 11px; color: var(--jaune); background: var(--bleu-fonce); display: inline-block; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
+  .disc-edit-desc { font-size: 12px; color: var(--texte-doux); line-height: 1.5; margin-bottom: 8px; }
+
+  /* Boutons photo (retirer / actions) */
+  .photo-actions { display: flex; gap: 6px; margin-top: 10px; }
+  .mini-suppr-btn { background: #FBEAEA; border: 1px solid #E5B5B5; color: #A32D2D; border-radius: 8px; padding: 6px 10px; font-size: 11px; font-family: inherit; font-weight: 600; cursor: pointer; width: 100%; margin-top: 6px; }
+  .mini-suppr-btn:hover { background: #F5D5D5; }
 </style>
 </head>
 <body>
@@ -146,8 +168,16 @@
     <button class="btn-save" id="saveBtn" onclick="sauvegarder()" disabled>💾 Enregistrer</button>
   </div>
 
+  <!-- FOND DU HERO (image ou vidéo) -->
+  <div class="herofond-controls" id="herofondControls">
+    <span class="hf-label">🖼️ Fond de la bannière :</span>
+    <button class="hf-btn" onclick="changerHeroImage()">📷 Mettre une image</button>
+    <button class="hf-btn" onclick="changerHeroVideo()">🎬 Mettre une vidéo</button>
+    <span id="hfEtat" class="hf-etat"></span>
+  </div>
+
   <!-- HERO -->
-  <div class="hero">
+  <div class="hero" id="heroBox">
     <div class="hero-badge editable" data-champ="hero_badge"></div>
     <div class="hero-titre editable" data-champ="hero_titre"></div>
     <div class="hero-sub editable" data-champ="hero_sous_titre"></div>
@@ -168,12 +198,13 @@
     <div class="valeurs" id="valeursBox"></div>
   </div>
 
-  <!-- DISCIPLINES (en-tête) -->
+  <!-- DISCIPLINES (en-tête + cartes) -->
   <div class="section-bloc">
     <div class="pres-eyebrow editable" data-champ="disciplines_eyebrow"></div>
     <div class="pres-titre editable" data-champ="disciplines_titre"></div>
     <div class="pres-texte editable" data-champ="disciplines_texte"></div>
-    <div class="note-bloc">Les cartes des disciplines (Athlé Jeune, Piste...) se modifient sur leurs pages respectives.</div>
+    <div class="note-bloc">Tu peux mettre une photo de fond sur chaque carte. Le texte se modifie en cliquant dessus. (Ces modifications n'affectent que la page d'accueil.)</div>
+    <div class="disc-cards-edit" id="disciplinesBox"></div>
   </div>
 
   <!-- BLOG (en-tête) -->
@@ -346,11 +377,17 @@ function afficher() {
     const visuel = v.photo
       ? `<div class="valeur-photo-edit" data-valphoto="${i}"><img src="${imgUrl(v.photo)}" alt=""><span class="photo-badge">📷 Changer</span></div>`
       : `<div class="valeur-icone editable" data-val="${i}-icone">${v.icone || '📷'}</div>`;
+    const boutonsPhoto = v.photo
+      ? `<div class="photo-actions">
+           <button class="mini-photo-btn" data-valphotobtn="${i}">📷 Remplacer</button>
+           <button class="mini-suppr-btn" data-valphotosuppr="${i}">🗑️ Retirer</button>
+         </div>`
+      : `<button class="mini-photo-btn" data-valphotobtn="${i}">📷 Mettre une photo</button>`;
     div.innerHTML = `
       ${visuel}
       <div class="valeur-titre editable" data-val="${i}-titre">${v.titre}</div>
       <div class="valeur-texte editable" data-val="${i}-texte">${v.texte}</div>
-      <button class="mini-photo-btn" data-valphotobtn="${i}">📷 ${v.photo ? 'Remplacer' : 'Mettre'} une photo</button>`;
+      ${boutonsPhoto}`;
     valBox.appendChild(div);
   });
   valBox.querySelectorAll('[data-val]').forEach(el => {
@@ -367,6 +404,77 @@ function afficher() {
       afficher();
     });
   });
+  // Retirer la photo → revient à l'emoji
+  valBox.querySelectorAll('[data-valphotosuppr]').forEach(el => {
+    const i = parseInt(el.getAttribute('data-valphotosuppr'));
+    el.onclick = () => {
+      data.valeurs[i].photo = '';
+      marquerModifie();
+      afficher();
+    };
+  });
+
+  // Fond du hero (état affiché)
+  const hfEtat = document.getElementById('hfEtat');
+  const heroBox = document.getElementById('heroBox');
+  if (hfEtat && heroBox) {
+    if (data.hero_fond_video) {
+      hfEtat.textContent = '🎬 Vidéo active';
+      heroBox.style.backgroundImage = '';
+    } else if (data.hero_fond_image) {
+      hfEtat.textContent = '📷 Image active';
+      heroBox.style.backgroundImage = `linear-gradient(rgba(0,20,60,0.55),rgba(0,20,60,0.55)), url(${imgUrl(data.hero_fond_image)})`;
+      heroBox.style.backgroundSize = 'cover';
+      heroBox.style.backgroundPosition = 'center';
+    }
+  }
+
+  // Cartes disciplines
+  const discBox = document.getElementById('disciplinesBox');
+  if (discBox) {
+    discBox.innerHTML = '';
+    (data.disciplines || []).forEach((d, i) => {
+      const div = document.createElement('div');
+      div.className = 'disc-card-edit';
+      const fond = d.photo
+        ? `<div class="disc-photo" data-discphoto="${i}" style="background-image:url(${imgUrl(d.photo)});"><span class="photo-badge">📷 Changer</span></div>`
+        : `<div class="disc-photo vide" data-discphoto="${i}">${d.emoji || '📷'}<span class="photo-badge">📷 Ajouter</span></div>`;
+      const boutons = d.photo
+        ? `<button class="mini-suppr-btn" data-discsuppr="${i}">🗑️ Retirer la photo</button>`
+        : '';
+      div.innerHTML = `
+        ${fond}
+        <div class="disc-edit-nom editable" data-disc="${i}-nom">${d.nom || ''}</div>
+        <div class="disc-edit-tag editable" data-disc="${i}-tag">${d.tag || ''}</div>
+        <div class="disc-edit-desc editable" data-disc="${i}-desc">${d.desc || ''}</div>
+        ${boutons}`;
+      discBox.appendChild(div);
+    });
+    // Texte éditable des disciplines
+    discBox.querySelectorAll('[data-disc]').forEach(el => {
+      const [i, prop] = el.getAttribute('data-disc').split('-');
+      el.onclick = () => ouvrirModalListe('disciplines', i, prop, el.textContent);
+      ajoutCrayon(el);
+    });
+    // Photo de fond
+    discBox.querySelectorAll('[data-discphoto]').forEach(el => {
+      const i = parseInt(el.getAttribute('data-discphoto'));
+      el.onclick = () => choisirImage(chemin => {
+        data.disciplines[i].photo = chemin;
+        marquerModifie();
+        afficher();
+      });
+    });
+    // Retirer photo
+    discBox.querySelectorAll('[data-discsuppr]').forEach(el => {
+      const i = parseInt(el.getAttribute('data-discsuppr'));
+      el.onclick = () => {
+        data.disciplines[i].photo = '';
+        marquerModifie();
+        afficher();
+      };
+    });
+  }
 
   // Sponsors
   const sponsBox = document.getElementById('sponsorsBox');
@@ -426,6 +534,24 @@ function ajouterSponsor() {
   data.sponsors.push({ nom: 'Nouveau sponsor', logo: '' });
   marquerModifie();
   afficher();
+}
+
+// ====== FOND DU HERO ======
+function changerHeroImage() {
+  choisirImage(chemin => {
+    data.hero_fond_image = chemin;
+    data.hero_fond_video = ''; // l'image remplace la vidéo
+    marquerModifie();
+    afficher();
+  });
+}
+function changerHeroVideo() {
+  choisirVideo(chemin => {
+    data.hero_fond_video = chemin;
+    data.hero_fond_image = ''; // la vidéo remplace l'image
+    marquerModifie();
+    afficher();
+  });
 }
 
 function marquerModifie() {
@@ -569,6 +695,90 @@ async function envoyerImage(base64, ext, callback) {
     toast('✓ Photo ajoutée');
   } catch (e) {
     toast('Erreur lors de l\'envoi de la photo', true);
+  }
+}
+
+// ====== UPLOAD DE VIDÉO ======
+function choisirVideo(callback) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'video/mp4,video/*';
+  input.onchange = () => {
+    const file = input.files[0];
+    if (!file) return;
+    // Limite de sécurité : 25 Mo (au-delà, GitHub refuse souvent)
+    const MAX_MO = 25;
+    if (file.size > MAX_MO * 1024 * 1024) {
+      toast(`Vidéo trop lourde (${Math.round(file.size/1024/1024)} Mo). Maximum ${MAX_MO} Mo.`, true);
+      return;
+    }
+    toast('⏳ Envoi de la vidéo (peut prendre 1 min)...');
+    const reader = new FileReader();
+    reader.onload = async e => {
+      const base64 = e.target.result.split(',')[1];
+      const chemin = 'images/uploads/video-' + Date.now() + '.mp4';
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${chemin}`, {
+          method: 'PUT',
+          headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: 'Ajout d\'une vidéo via l\'éditeur', content: base64 })
+        });
+        if (!res.ok) throw new Error('échec');
+        callback(chemin);
+        toast('✓ Vidéo ajoutée');
+      } catch (err) {
+        toast('Erreur : vidéo peut-être trop lourde pour GitHub', true);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+// ====== UPLOAD DE VIDÉO ======
+// Les vidéos sont lourdes : on limite la taille pour ne pas surcharger le site.
+function choisirVideo(callback) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'video/mp4,video/*';
+  input.onchange = () => {
+    const file = input.files[0];
+    if (!file) return;
+    const tailleMo = file.size / (1024 * 1024);
+    if (tailleMo > 25) {
+      toast('Vidéo trop lourde (' + Math.round(tailleMo) + ' Mo). Maximum 25 Mo.', true);
+      return;
+    }
+    if (tailleMo > 10) {
+      if (!confirm('Cette vidéo fait ' + Math.round(tailleMo) + ' Mo. Une vidéo lourde peut ralentir le site. Continuer ?')) return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const base64 = e.target.result.split(',')[1];
+      envoyerVideo(base64, callback);
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+async function envoyerVideo(base64, callback) {
+  toast('⏳ Envoi de la vidéo (cela peut prendre un moment)...');
+  const chemin = 'images/uploads/video-' + Date.now() + '.mp4';
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${chemin}`, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Ajout d\'une vidéo via l\'éditeur',
+        content: base64
+      })
+    });
+    if (!res.ok) throw new Error('échec upload');
+    callback(chemin);
+    toast('✓ Vidéo ajoutée');
+  } catch (e) {
+    toast('Erreur lors de l\'envoi de la vidéo (trop lourde ?)', true);
   }
 }
 
