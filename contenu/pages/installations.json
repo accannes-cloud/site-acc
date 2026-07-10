@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Installations",
+  "titre_1": "LE STADE",
+  "titre_2": "MAURICE CHEVALIER",
+  "sous_titre": "Le stade Maurice Chevalier, à La Bocca : le cœur battant de l'athlétisme cannois depuis 1986.",
+  "paragraphe_1": "Depuis 1986, l'Athletic Club de Cannes s'entraîne et organise ses compétitions au stade Maurice Chevalier, situé dans le quartier de La Bocca, à l'ouest de Cannes.",
+  "paragraphe_2": "Le site dispose d'une piste d'athlétisme de huit couloirs et de toutes les aires nécessaires à la pratique complète de l'athlétisme.",
+  "equipements": [
+    { "icone": "🏃", "texte": "Piste de 8 couloirs" },
+    { "icone": "🦅", "texte": "Aires de saut (longueur, hauteur, perche)" },
+    { "icone": "🎯", "texte": "Aires de lancers" },
+    { "icone": "📍", "texte": "Avenue Maurice Chevalier, 06150 Cannes la Bocca" }
+  ]
+}
