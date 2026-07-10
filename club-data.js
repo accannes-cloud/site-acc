@@ -250,6 +250,48 @@
     }
   }
 
+  // ========== 6. PAGE ÉQUIPE (en-tête + bureau) ==========
+  async function injectEquipePage() {
+    if (!document.querySelector('[data-equipepage], [data-equipe-bureau]')) return;
+    const data = await getJSON('contenu/pages/equipe.json');
+    if (!data) return;
+
+    // Textes (titre, sous-titre, en-tête bureau)
+    document.querySelectorAll('[data-equipepage]').forEach(el => {
+      const key = el.getAttribute('data-equipepage');
+      if (data[key]) el.textContent = data[key];
+    });
+
+    // Bureau : groupes de membres avec photos
+    const box = document.querySelector('[data-equipe-bureau]');
+    if (box && Array.isArray(data.groupes)) {
+      box.innerHTML = data.groupes.map(g => {
+        const cartes = (g.membres || []).map(m => {
+          const initiales = (m.nom || '?').split(' ').map(x => x[0]).join('').substring(0,2).toUpperCase();
+          const photo = m.photo
+            ? `<div class="person-photo"><img src="${m.photo}" alt="${m.nom}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>`
+            : `<div class="person-photo"><div class="person-photo-initials">${initiales}</div></div>`;
+          return `<div class="person-card">
+            ${photo}
+            <div class="person-body">
+              ${m.poste ? '<span class="person-badge">' + m.poste + '</span>' : ''}
+              <div class="person-name">${m.nom || ''}</div>
+              <div class="person-role">${m.role || ''}</div>
+            </div>
+          </div>`;
+        }).join('');
+        return `<div class="team-group reveal visible">
+          <div class="team-group-head">
+            <div class="team-group-icon">${g.icone || '🏛️'}</div>
+            <div><div class="team-group-title">${g.titre || ''}</div><div class="team-group-sub">${g.sous_titre || ''}</div></div>
+            <div class="team-group-count">${(g.membres||[]).length} membre${(g.membres||[]).length>1?'s':''}</div>
+          </div>
+          <div class="people-grid">${cartes}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
   // ========== 5. PAGE HISTOIRE DU CLUB ==========
   async function injectHistoire() {
     if (!document.querySelector('[data-histoire], [data-histoire-body], [data-histoire-timeline]')) return;
@@ -348,6 +390,7 @@
     injectCoordonnees();
     injectHoraires();
     injectEquipe();
+    injectEquipePage();
     injectAccueil();
     injectHistoire();
   }

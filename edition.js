@@ -211,13 +211,70 @@
     else if (config.type === 'equipe') rendreEquipe();
   }
 
-  // ===== ÉQUIPE (en-tête modifiable ; bureau et entraîneurs gérés à part) =====
+  // ===== ÉQUIPE (en-tête + bureau complet modifiable) =====
   function rendreEquipe() {
     document.querySelectorAll('[data-equipepage]').forEach(node => {
       const key = node.getAttribute('data-equipepage');
       if (data[key] !== undefined) node.textContent = data[key];
       editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
     });
+
+    const box = document.querySelector('[data-equipe-bureau]');
+    if (box && Array.isArray(data.groupes)) {
+      box.innerHTML = data.groupes.map((g, gi) => {
+        const cartes = (g.membres || []).map((m, mi) => {
+          const initiales = (m.nom || '?').split(' ').map(x => x[0]).join('').substring(0,2).toUpperCase();
+          const photo = m.photo
+            ? `<div class="person-photo" data-mphoto="${gi}-${mi}"><img src="${imgUrl(m.photo)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>`
+            : `<div class="person-photo" data-mphoto="${gi}-${mi}"><div class="person-photo-initials">${initiales}</div><span class="person-photo-hint">📷 Photo</span></div>`;
+          return `<div class="person-card" data-mcard="${gi}-${mi}">
+            ${photo}
+            <div class="person-body">
+              <span class="person-badge" data-mposte="${gi}-${mi}">${m.poste || '(poste)'}</span>
+              <div class="person-name" data-mnom="${gi}-${mi}">${m.nom || ''}</div>
+              <div class="person-role" data-mrole="${gi}-${mi}">${m.role || ''}</div>
+            </div>
+          </div>`;
+        }).join('');
+        return `<div class="team-group">
+          <div class="team-group-head">
+            <div class="team-group-icon" data-gicone="${gi}">${g.icone || '🏛️'}</div>
+            <div><div class="team-group-title" data-gtitre="${gi}">${g.titre || ''}</div><div class="team-group-sub" data-gsous="${gi}">${g.sous_titre || ''}</div></div>
+            <div class="team-group-count">${(g.membres||[]).length} membre${(g.membres||[]).length>1?'s':''}</div>
+          </div>
+          <div class="people-grid">${cartes}</div>
+          <button class="acc-ajout" data-maddmembre="${gi}">➕ Ajouter un membre</button>
+        </div>`;
+      }).join('');
+
+      // Titres de groupe
+      box.querySelectorAll('[data-gicone]').forEach(n => { const i=n.dataset.gicone; editable(n, () => modale(data.groupes[i].icone, v => { data.groupes[i].icone=v; n.textContent=v; marquerModifie(); })); });
+      box.querySelectorAll('[data-gtitre]').forEach(n => { const i=n.dataset.gtitre; editable(n, () => modale(data.groupes[i].titre, v => { data.groupes[i].titre=v; n.textContent=v; marquerModifie(); })); });
+      box.querySelectorAll('[data-gsous]').forEach(n => { const i=n.dataset.gsous; editable(n, () => modale(data.groupes[i].sous_titre, v => { data.groupes[i].sous_titre=v; n.textContent=v; marquerModifie(); })); });
+
+      // Membres : nom, poste, rôle, photo, suppression
+      box.querySelectorAll('[data-mnom]').forEach(n => { const [gi,mi]=n.dataset.mnom.split('-'); editable(n, () => modale(data.groupes[gi].membres[mi].nom, v => { data.groupes[gi].membres[mi].nom=v; n.textContent=v; marquerModifie(); })); });
+      box.querySelectorAll('[data-mposte]').forEach(n => { const [gi,mi]=n.dataset.mposte.split('-'); editable(n, () => modale(data.groupes[gi].membres[mi].poste, v => { data.groupes[gi].membres[mi].poste=v; n.textContent=v; marquerModifie(); })); });
+      box.querySelectorAll('[data-mrole]').forEach(n => { const [gi,mi]=n.dataset.mrole.split('-'); editable(n, () => modale(data.groupes[gi].membres[mi].role, v => { data.groupes[gi].membres[mi].role=v; n.textContent=v; marquerModifie(); })); });
+      box.querySelectorAll('[data-mphoto]').forEach(n => {
+        const [gi,mi]=n.dataset.mphoto.split('-');
+        boutonPhoto(n, () => choisirImage(c => { data.groupes[gi].membres[mi].photo=c; marquerModifie(); rendreEquipe(); }, 500), '📷');
+        if (data.groupes[gi].membres[mi].photo) badgeSuppr(n, () => { data.groupes[gi].membres[mi].photo=''; marquerModifie(); rendreEquipe(); });
+      });
+      box.querySelectorAll('[data-mcard]').forEach(n => {
+        const [gi,mi]=n.dataset.mcard.split('-');
+        const del = el('<button class="acc-suppr-badge">✕</button>');
+        del.title = 'Supprimer ce membre';
+        del.onclick = (e) => { e.preventDefault(); e.stopPropagation(); if(confirm('Supprimer ce membre ?')){ data.groupes[gi].membres.splice(mi,1); marquerModifie(); rendreEquipe(); } };
+        if (getComputedStyle(n).position === 'static') n.style.position = 'relative';
+        n.appendChild(del);
+      });
+      // Ajouter un membre
+      box.querySelectorAll('[data-maddmembre]').forEach(n => {
+        const gi = n.dataset.maddmembre;
+        n.onclick = () => { data.groupes[gi].membres.push({nom:'Nouveau membre', poste:'', role:'Membre du Bureau', photo:''}); marquerModifie(); rendreEquipe(); };
+      });
+    }
   }
 
   // ===== INSTALLATIONS =====
