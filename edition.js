@@ -14,8 +14,12 @@
     'le-club.html': { file: 'contenu/pages/histoire.json', type: 'histoire' }
   };
 
-  const pageNom = window.location.pathname.split('/').pop() || 'index.html';
-  const config = PAGES[pageNom] || null;
+  // On récupère le nom de la page, avec ou sans ".html", avec ou sans "/" final
+  let brut = window.location.pathname.split('/').pop() || 'index.html';
+  if (brut === '') brut = 'index.html';
+  // On normalise : si l'URL n'a pas ".html", on l'ajoute pour la reconnaissance
+  const pageNom = brut.indexOf('.html') === -1 ? brut + '.html' : brut;
+  const config = PAGES[pageNom] || PAGES[brut] || null;
 
   let token = sessionStorage.getItem('acc_edit_token') || null;
   let actif = sessionStorage.getItem('acc_edit_actif') === '1';
