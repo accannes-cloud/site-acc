@@ -1,4 +1,126 @@
 {
-  "titre": "ÉQUIPE",
-  "sous_titre": "Le bureau, le conseil d'administration et les entraîneurs qui font vivre l'Athletic Club de Cannes au quotidien."
+  "titre": "NOTRE ÉQUIPE",
+  "sous_titre": "Le bureau, le conseil d'administration et les entraîneurs qui font vivre l'Athletic Club de Cannes au quotidien.",
+  "bureau_eyebrow": "Bureau & Conseil d'Administration",
+  "bureau_titre": "LE BUREAU",
+  "bureau_intro": "L'Athletic Club de Cannes est dirigé par un bureau de bénévoles passionnés, élus par les membres du club, accompagnés d'un conseil d'administration et de membres d'honneur qui font vivre l'association au quotidien.",
+  "groupes": [
+    {
+      "icone": "🏛️",
+      "titre": "BUREAU EXÉCUTIF",
+      "sous_titre": "Direction et gestion du club",
+      "membres": [
+        {
+          "nom": "Frédéric Serrat",
+          "poste": "Président",
+          "role": "Membre du Bureau",
+          "photo": ""
+        },
+        {
+          "nom": "François Dupont",
+          "poste": "Vice-Président",
+          "role": "Membre du Bureau",
+          "photo": ""
+        },
+        {
+          "nom": "Mégane Felt",
+          "poste": "Secrétaire Générale",
+          "role": "Membre du Bureau",
+          "photo": ""
+        },
+        {
+          "nom": "Nathalie Celka",
+          "poste": "Secrétaire Générale Adjointe",
+          "role": "Membre du Bureau",
+          "photo": ""
+        },
+        {
+          "nom": "Pierre Felt",
+          "poste": "Trésorier",
+          "role": "Membre du Bureau",
+          "photo": ""
+        },
+        {
+          "nom": "Soline Schiariti",
+          "poste": "Trésorière Adjointe",
+          "role": "Membre du Bureau",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "👥",
+      "titre": "MEMBRES DU BUREAU",
+      "sous_titre": "Membres élus du bureau associatif",
+      "membres": [
+        {
+          "nom": "Frédéric Raczka",
+          "poste": "",
+          "role": "Membre du Bureau",
+          "photo": ""
+        },
+        {
+          "nom": "Frédéric Taba",
+          "poste": "",
+          "role": "Membre du Bureau",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "🤝",
+      "titre": "CONSEIL D'ADMINISTRATION",
+      "sous_titre": "Bénévoles engagés au quotidien",
+      "membres": [
+        {
+          "nom": "Philippe Berger",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        },
+        {
+          "nom": "Pierre-Benoît Collet",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        },
+        {
+          "nom": "Olivier Boulay",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        },
+        {
+          "nom": "Anne Meleard",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        },
+        {
+          "nom": "Isabel Cassin",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        },
+        {
+          "nom": "Corinne Sauvagnargues",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        },
+        {
+          "nom": "Camille Cayet",
+          "poste": "",
+          "role": "Conseil d'Administration",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "🌟",
+      "titre": "MEMBRES D'HONNEUR",
+      "sous_titre": "Distingués pour leur engagement durable",
+      "membres": []
+    }
+  ]
 }
