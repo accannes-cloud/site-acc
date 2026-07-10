@@ -1,0 +1,19 @@
+{
+  "eyebrow": "Palmarès",
+  "titre": "UN CLUB DE RÉFÉRENCE",
+  "chiffres": [
+    { "nombre": "150+", "label": "Titres de Champion de France" },
+    { "nombre": "1969", "label": "Année de création" },
+    { "nombre": "OR", "label": "Label FFA · 4 catégories" },
+    { "nombre": "∞", "label": "Athlètes internationaux formés" }
+  ],
+  "legendes_titre": "LES LÉGENDES DU MAILLOT JAUNE ET BLEU",
+  "photo_image": "histoire-curtet-1977.jpg",
+  "photo_legende": "1977-1978 — Jacqueline Curtet réalise 6,62 m à Paris en 1978 et devient championne de France en battant le record · Collection Gérard Dupuy",
+  "legendes": [
+    { "icone": "🏅", "nom": "Isabelle Accambray", "desc": "Athlète internationale" },
+    { "icone": "🏅", "nom": "Madely Beaugendre", "desc": "Athlète internationale" },
+    { "icone": "🥇", "nom": "Jacqueline Curtet", "desc": "Championne de France, record en longueur" },
+    { "icone": "🏅", "nom": "William Motti", "desc": "Athlète international" }
+  ]
+}
