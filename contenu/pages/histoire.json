@@ -1,1 +1,22 @@
-
+{
+  "eyebrow": "Depuis 1969",
+  "titre": "UNE AVENTURE CANNOISE",
+  "intro": "L'Athlétic Club de Cannes a été fondé le 10 octobre 1969 par Roger Jaillet, ancien champion de France du 1500 mètres. Il en prit la présidence, entouré d'une nouvelle équipe composée de Lucien Mélano (secrétaire) et Albert Messager (trésorier).",
+  "paragraphes": [
+    { "texte": "Pour rénover l'athlétisme cannois, Roger Jaillet s'entoura d'enseignants sportifs qualifiés et passionnés. Parmi eux : Robert Petiton, Lucien Curtet, Robert Langlois, ainsi que Yvonne Curtet et Monique Ricatto qui veillaient sur les féminines. Alfred Saint-Jours accepta la fonction de Conseiller Technique." },
+    { "texte": "Après des contacts dans les milieux scolaires et universitaires, les inscriptions de bénévoles et d'athlètes — débutants comme confirmés — affluèrent. Cela permit à l'ACC d'étoffer rapidement son équipe et de devenir invincible sur le 3000 mètres, notamment grâce à Jean-Paul Jorge, fils de Lucien, l'un des membres fondateurs du club." },
+    { "texte": "Les responsables organisèrent l'encadrement par spécialités : Petiton, Gimbert, Langlois et Messager prenaient en charge les coureurs, Lucien Curtet les sauteurs, Alfred Saint-Jours les lanceurs, Rudy Hudecek les crossmen, et Yvonne Curtet / Monique Ricatto le groupe féminin." },
+    { "texte": "Au cours de ce demi-siècle d'existence, de nombreux athlètes d'exception ont foulé les pistes cannoises et porté les couleurs jaune et bleu au plus haut niveau de l'athlétisme français. Aujourd'hui, l'ACC évolue depuis de nombreuses années sur le stade Maurice Chevalier, une installation idéale pour la pratique et le développement de l'athlétisme cannois." }
+  ],
+  "citation": "« Le 7 février 1970, la première compétition inter-membres du club, organisée au stade Pierre-de-Coubertin, réunit plus de 500 athlètes : un grand club d'athlétisme venait de naître à Cannes. »",
+  "photos": [
+    { "image": "histoire-coubertin-1978.jpg", "legende": "1978-1980 — Entraînement au stade Pierre-de-Coubertin · Photo Pierre Alain" },
+    { "image": "histoire-interclub-1986.jpg", "legende": "25 mai 1986 — L'équipe de l'ACC lors d'un interclub à Luminy · Photo Dany Charpentier" }
+  ],
+  "chronologie": [
+    { "annee": "10 OCT. 1969", "texte": "Naissance de l'ACC au stade Pierre-de-Coubertin, sous l'impulsion de Roger Jaillet." },
+    { "annee": "7 FÉV. 1970", "texte": "Première compétition inter-membres réunissant plus de 500 athlètes — un succès fondateur." },
+    { "annee": "1986", "texte": "Le club s'installe définitivement au stade Maurice Chevalier, à La Bocca, doté d'une piste de huit couloirs." },
+    { "annee": "AUJOURD'HUI", "texte": "L'ACC figure parmi les meilleurs clubs français avec plus de 150 titres de Champion de France et le Label Or FFA dans ses quatre catégories." }
+  ]
+}
