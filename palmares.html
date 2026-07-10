@@ -227,9 +227,9 @@
 <!-- PALMARES -->
 <section id="palmares">
   <div class="container">
-    <div class="section-eyebrow reveal">Palmarès</div>
-    <h2 class="block-title reveal">UN CLUB DE <span>RÉFÉRENCE</span></h2>
-    <div class="palmares-grid">
+    <div class="section-eyebrow reveal" data-palmares="eyebrow">Palmarès</div>
+    <h2 class="block-title reveal" data-palmares="titre">UN CLUB DE <span>RÉFÉRENCE</span></h2>
+    <div class="palmares-grid" data-palmares-chiffres>
       <div class="palm-card reveal"><div class="palm-num">150+</div><div class="palm-label">Titres de Champion de France</div></div>
       <div class="palm-card reveal"><div class="palm-num">1969</div><div class="palm-label">Année de création</div></div>
       <div class="palm-card reveal"><div class="palm-num">OR</div><div class="palm-label">Label FFA · 4 catégories</div></div>
@@ -237,14 +237,14 @@
     </div>
 
     <div class="legends reveal">
-      <h3 class="block-title" style="font-size:28px;margin-top:8px;">LES <span>LÉGENDES</span> DU MAILLOT JAUNE ET BLEU</h3>
+      <h3 class="block-title" style="font-size:28px;margin-top:8px;" data-palmares="legendes_titre">LES <span>LÉGENDES</span> DU MAILLOT JAUNE ET BLEU</h3>
 
-      <div class="archive-photo" style="max-width:560px;">
+      <div class="archive-photo" style="max-width:560px;" data-palmares-photo>
         <img src="histoire-curtet-1977.jpg" alt="Jacqueline Curtet en plein saut en longueur, championne de France 1978">
         <div class="archive-caption"><strong>1977-1978</strong> — Jacqueline Curtet réalise 6,62 m à Paris en 1978 et devient championne de France en battant le record · Collection Gérard Dupuy</div>
       </div>
 
-      <div class="legends-list">
+      <div class="legends-list" data-palmares-legendes>
         <div class="legend-item"><div class="legend-icon">🏅</div><div><div class="legend-name">Isabelle Accambray</div><div class="legend-desc">Athlète internationale</div></div></div>
         <div class="legend-item"><div class="legend-icon">🏅</div><div><div class="legend-name">Madely Beaugendre</div><div class="legend-desc">Athlète internationale</div></div></div>
         <div class="legend-item"><div class="legend-icon">🥇</div><div><div class="legend-name">Jacqueline Curtet</div><div class="legend-desc">Championne de France, record en longueur</div></div></div>
@@ -318,5 +318,6 @@
   reveals.forEach(r => observer.observe(r));
 </script>
   <script src="club-data.js"></script>
+  <script src="edition.js"></script>
 </body>
 </html>

@@ -11,7 +11,10 @@
   const PAGES = {
     'index.html':   { file: 'contenu/pages/accueil.json', type: 'accueil' },
     '':             { file: 'contenu/pages/accueil.json', type: 'accueil' },
-    'le-club.html': { file: 'contenu/pages/histoire.json', type: 'histoire' }
+    'le-club.html': { file: 'contenu/pages/histoire.json', type: 'histoire' },
+    'installations.html': { file: 'contenu/pages/installations.json', type: 'installations' },
+    'palmares.html': { file: 'contenu/pages/palmares.json', type: 'palmares' },
+    'equipe.html': { file: 'contenu/pages/equipe.json', type: 'equipe' }
   };
 
   // On récupère le nom de la page, avec ou sans ".html", avec ou sans "/" final
@@ -203,6 +206,75 @@
   function rendre() {
     if (config.type === 'accueil') rendreAccueil();
     else if (config.type === 'histoire') rendreHistoire();
+    else if (config.type === 'installations') rendreInstallations();
+    else if (config.type === 'palmares') rendrePalmares();
+    else if (config.type === 'equipe') rendreEquipe();
+  }
+
+  // ===== ÉQUIPE (en-tête modifiable ; bureau et entraîneurs gérés à part) =====
+  function rendreEquipe() {
+    document.querySelectorAll('[data-equipepage]').forEach(node => {
+      const key = node.getAttribute('data-equipepage');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+  }
+
+  // ===== INSTALLATIONS =====
+  function rendreInstallations() {
+    document.querySelectorAll('[data-install]').forEach(node => {
+      const key = node.getAttribute('data-install');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+    const box = document.querySelector('[data-install-equipements]');
+    if (box && Array.isArray(data.equipements)) {
+      box.innerHTML = data.equipements.map(e => `<li><span class="if-icon">${e.icone||''}</span> ${e.texte||''}</li>`).join('');
+      box.querySelectorAll('li').forEach((li, i) => {
+        editable(li, () => modale(data.equipements[i].texte, v => { data.equipements[i].texte = v; marquerModifie(); rendreInstallations(); }));
+        badgeSuppr(li, () => { data.equipements.splice(i,1); marquerModifie(); rendreInstallations(); });
+      });
+      boutonAjout(box, '➕ Ajouter un équipement', () => { data.equipements.push({icone:'✅',texte:'Nouvel équipement'}); marquerModifie(); rendreInstallations(); });
+    }
+  }
+
+  // ===== PALMARÈS =====
+  function rendrePalmares() {
+    document.querySelectorAll('[data-palmares]').forEach(node => {
+      const key = node.getAttribute('data-palmares');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+    // Chiffres
+    const chBox = document.querySelector('[data-palmares-chiffres]');
+    if (chBox && Array.isArray(data.chiffres)) {
+      chBox.innerHTML = data.chiffres.map(c => `<div class="palm-card"><div class="palm-num">${c.nombre}</div><div class="palm-label">${c.label}</div></div>`).join('');
+      chBox.querySelectorAll('.palm-card').forEach((card, i) => {
+        editable(card.querySelector('.palm-num'), () => modale(data.chiffres[i].nombre, v => { data.chiffres[i].nombre = v; card.querySelector('.palm-num').textContent = v; marquerModifie(); }));
+        editable(card.querySelector('.palm-label'), () => modale(data.chiffres[i].label, v => { data.chiffres[i].label = v; card.querySelector('.palm-label').textContent = v; marquerModifie(); }));
+      });
+    }
+    // Photo légende
+    const photo = document.querySelector('[data-palmares-photo]');
+    if (photo) {
+      const img = photo.querySelector('img');
+      if (data.photo_image && img) img.src = imgUrl(data.photo_image);
+      const zone = img;
+      if (zone) boutonPhoto(zone.parentElement, () => choisirImage(c => { data.photo_image = c; marquerModifie(); rendrePalmares(); }, 1200), '📷 Changer');
+      const cap = photo.querySelector('.archive-caption');
+      if (cap) { cap.textContent = data.photo_legende || ''; editable(cap, () => modale(data.photo_legende, v => { data.photo_legende = v; cap.textContent = v; marquerModifie(); })); }
+    }
+    // Légendes (athlètes)
+    const legBox = document.querySelector('[data-palmares-legendes]');
+    if (legBox && Array.isArray(data.legendes)) {
+      legBox.innerHTML = data.legendes.map(l => `<div class="legend-item"><div class="legend-icon">${l.icone||'🏅'}</div><div><div class="legend-name">${l.nom||''}</div><div class="legend-desc">${l.desc||''}</div></div></div>`).join('');
+      legBox.querySelectorAll('.legend-item').forEach((item, i) => {
+        editable(item.querySelector('.legend-name'), () => modale(data.legendes[i].nom, v => { data.legendes[i].nom = v; item.querySelector('.legend-name').textContent = v; marquerModifie(); }));
+        editable(item.querySelector('.legend-desc'), () => modale(data.legendes[i].desc, v => { data.legendes[i].desc = v; item.querySelector('.legend-desc').textContent = v; marquerModifie(); }));
+        badgeSuppr(item, () => { data.legendes.splice(i,1); marquerModifie(); rendrePalmares(); });
+      });
+      boutonAjout(legBox, '➕ Ajouter une légende', () => { data.legendes.push({icone:'🏅',nom:'Nouvel athlète',desc:'Description'}); marquerModifie(); rendrePalmares(); });
+    }
   }
 
   function rendreAccueil() {

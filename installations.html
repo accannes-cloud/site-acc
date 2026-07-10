@@ -227,13 +227,13 @@
 <!-- INSTALLATIONS -->
 <section id="installations">
   <div class="container">
-    <div class="section-eyebrow reveal">Installations</div>
-    <h2 class="block-title reveal">LE STADE <span>MAURICE CHEVALIER</span></h2>
+    <div class="section-eyebrow reveal" data-install="eyebrow">Installations</div>
+    <h2 class="block-title reveal">LE STADE <span data-install="titre_2">MAURICE CHEVALIER</span></h2>
     <div class="install-grid">
       <div class="install-text reveal">
-        <p>Depuis <strong>1986</strong>, l'Athletic Club de Cannes s'entraîne et organise ses compétitions au stade Maurice Chevalier, situé dans le quartier de <strong>La Bocca</strong>, à l'ouest de Cannes.</p>
-        <p>Le site dispose d'une piste d'athlétisme de huit couloirs et de toutes les aires nécessaires à la pratique complète de l'athlétisme.</p>
-        <ul class="install-features">
+        <p data-install="paragraphe_1">Depuis 1986, l'Athletic Club de Cannes s'entraîne et organise ses compétitions au stade Maurice Chevalier, situé dans le quartier de La Bocca, à l'ouest de Cannes.</p>
+        <p data-install="paragraphe_2">Le site dispose d'une piste d'athlétisme de huit couloirs et de toutes les aires nécessaires à la pratique complète de l'athlétisme.</p>
+        <ul class="install-features" data-install-equipements>
           <li><span class="if-icon">🏃</span> Piste de 8 couloirs</li>
           <li><span class="if-icon">🦅</span> Aires de saut (longueur, hauteur, perche)</li>
           <li><span class="if-icon">🎯</span> Aires de lancers</li>
@@ -324,5 +324,6 @@
   reveals.forEach(r => observer.observe(r));
 </script>
   <script src="club-data.js"></script>
+  <script src="edition.js"></script>
 </body>
 </html>
