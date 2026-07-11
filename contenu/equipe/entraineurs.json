@@ -1,9 +1,0 @@
-{
-  "entraineurs": [
-    { "prenom": "Sébastien", "nom": "Franck", "photo": "", "categorie": "BABY ATHLÉ" },
-    { "prenom": "Maddi", "nom": "Larre", "photo": "", "categorie": "BABY ATHLÉ" },
-    { "prenom": "Stella", "nom": "Gnagni", "photo": "", "categorie": "BABY ATHLÉ" },
-    { "prenom": "Hugo", "nom": "Maubert", "photo": "", "categorie": "BABY ATHLÉ" },
-    { "prenom": "Julie", "nom": "Serrat", "photo": "", "categorie": "BABY ATHLÉ" }
-  ]
-}
