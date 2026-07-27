@@ -207,16 +207,16 @@
 <header class="page-header">
   <div class="page-header-content">
     <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Le Club &nbsp;›&nbsp; Inscriptions</div>
-    <h1 class="page-title">INSCRIPTIONS <span>2025-2026</span></h1>
-    <p class="page-subtitle">L'AC Cannes propose différentes activités athlétiques pour tous les âges (dès 7 ans) : Jeunes, Piste, Running et Santé. Chacun y trouvera ce qu'il cherche, encadré par des éducateurs diplômés.</p>
-    <div class="label-or">🏅 Label Or FFA · 4 catégories</div>
+    <h1 class="page-title"><span data-inscription="titre_1" style="color:inherit;">INSCRIPTIONS</span> <span data-inscription="titre_2">2025-2026</span></h1>
+    <p class="page-subtitle" data-inscription="sous_titre">L'AC Cannes propose différentes activités athlétiques pour tous les âges (dès 7 ans) : Jeunes, Piste, Running et Santé. Chacun y trouvera ce qu'il cherche, encadré par des éducateurs diplômés.</p>
+    <div class="label-or" data-inscription="label">🏅 Label Or FFA · 4 catégories</div>
   </div>
 </header>
 
 <!-- INTRO -->
 <section class="intro-block">
   <div class="container">
-    <p>Les inscriptions pour la saison 2025-2026 se font en ligne via la plateforme <strong>HelloAsso</strong>. Préparez votre dossier complet et suivez les étapes ci-dessous pour rejoindre le club.</p>
+    <p data-inscription="intro">Les inscriptions pour la saison 2025-2026 se font en ligne via la plateforme HelloAsso. Préparez votre dossier complet et suivez les étapes ci-dessous pour rejoindre le club.</p>
   </div>
 </section>
 
@@ -225,7 +225,7 @@
   <div class="container">
     <div class="section-eyebrow reveal">Comment s'inscrire</div>
     <h2 class="block-title reveal">LES <span>ÉTAPES</span> DE L'INSCRIPTION</h2>
-    <div class="steps-grid">
+    <div class="steps-grid" data-inscription-steps>
       <div class="step-card reveal">
         <div class="step-num">01</div>
         <div class="step-title">Choisir son activité</div>
@@ -250,7 +250,7 @@
   <div class="container">
     <div class="section-eyebrow reveal">Votre dossier</div>
     <h2 class="block-title reveal">DOCUMENTS <span>NÉCESSAIRES</span></h2>
-    <div class="docs-list">
+    <div class="docs-list" data-inscription-docs>
       <div class="doc-item reveal">
         <div class="doc-check">✓</div>
         <div class="doc-content">
@@ -273,9 +273,7 @@
         </div>
       </div>
     </div>
-    <div class="info-banner reveal">
-      <strong>Paiement :</strong> le règlement s'effectue via HelloAsso – Athletic Club de Cannes. Vous pouvez payer par carte en 1 fois ou en 3 fois. Pour un autre moyen de paiement (chèque, chèque-vacances, Pass Sport…), sélectionnez l'option « Préinscription » : vous serez enregistré dans la base, et l'inscription sera validée une fois le paiement régularisé auprès du club.
-    </div>
+    <div class="info-banner reveal" data-inscription="paiement">Paiement : le règlement s'effectue via HelloAsso – Athletic Club de Cannes. Vous pouvez payer par carte en 1 fois ou en 3 fois. Pour un autre moyen de paiement (chèque, chèque-vacances, Pass Sport…), sélectionnez l'option « Préinscription » : vous serez enregistré dans la base, et l'inscription sera validée une fois le paiement régularisé auprès du club.</div>
   </div>
 </section>
 
@@ -285,8 +283,8 @@
     <div class="promo-wrap reveal">
       <div class="section-eyebrow" style="color:var(--jaune);"><span style="background:var(--jaune);"></span></div>
       <h2 class="block-title">CODES <span>PROMO</span> FAMILLE</h2>
-      <p style="color:rgba(255,255,255,0.75);font-size:15px;line-height:1.7;max-width:640px;">Pensez à utiliser les codes promo suivants si vous êtes concernés lors de votre inscription sur HelloAsso :</p>
-      <div class="promo-grid">
+      <p style="color:rgba(255,255,255,0.75);font-size:15px;line-height:1.7;max-width:640px;" data-inscription="promo_intro">Pensez à utiliser les codes promo suivants si vous êtes concernés lors de votre inscription sur HelloAsso :</p>
+      <div class="promo-grid" data-inscription-promos>
         <div class="promo-card">
           <span class="promo-code">2FAMILLE25</span>
           <p class="promo-desc">Vous êtes le 2ème membre d'une même famille à vous inscrire (le premier paie le tarif plein).</p>
@@ -312,9 +310,9 @@
 <section class="cta-inscription">
   <div class="container">
     <div class="cta-box reveal">
-      <h2 class="block-title">PRÊT À NOUS REJOINDRE ?</h2>
-      <p>Lancez votre inscription en ligne dès maintenant sur la plateforme HelloAsso de l'Athletic Club de Cannes.</p>
-      <a href="https://www.helloasso.com/associations/athletic-club-de-cannes" target="_blank" rel="noopener" class="btn-helloasso">S'inscrire sur HelloAsso →</a>
+      <h2 class="block-title" data-inscription="cta_titre">PRÊT À NOUS REJOINDRE ?</h2>
+      <p data-inscription="cta_texte">Lancez votre inscription en ligne dès maintenant sur la plateforme HelloAsso de l'Athletic Club de Cannes.</p>
+      <a href="https://www.helloasso.com/associations/athletic-club-de-cannes" target="_blank" rel="noopener" class="btn-helloasso" data-inscription-lien>S'inscrire sur HelloAsso →</a>
       <p class="cta-note">Inscription sécurisée · Paiement en 1 ou 3 fois</p>
     </div>
     <div class="contact-mini">
@@ -387,5 +385,6 @@
   reveals.forEach(r => observer.observe(r));
 </script>
   <script src="club-data.js"></script>
+  <script src="edition.js"></script>
 </body>
 </html>

@@ -17,7 +17,8 @@
     'equipe.html': { file: 'contenu/pages/equipe.json', type: 'equipe' },
     'horaires.html': { file: 'contenu/pages/horaires.json', type: 'horaires' },
     'blog.html': { file: 'contenu/pages/actualites.json', type: 'actualites' },
-    'evenements.html': { file: 'contenu/pages/agenda.json', type: 'agenda' }
+    'evenements.html': { file: 'contenu/pages/agenda.json', type: 'agenda' },
+    'inscription.html': { file: 'contenu/pages/inscription.json', type: 'inscription' }
   };
 
   // On récupère le nom de la page, avec ou sans ".html", avec ou sans "/" final
@@ -215,6 +216,68 @@
     else if (config.type === 'horaires') rendreHoraires();
     else if (config.type === 'actualites') rendreActualites();
     else if (config.type === 'agenda') rendreAgenda();
+    else if (config.type === 'inscription') rendreInscription();
+  }
+
+  // ===== INSCRIPTION =====
+  function rendreInscription() {
+    document.querySelectorAll('[data-inscription]').forEach(node => {
+      const key = node.getAttribute('data-inscription');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+    // Lien HelloAsso
+    const lien = document.querySelector('[data-inscription-lien]');
+    if (lien) {
+      if (data.cta_lien) lien.setAttribute('href', data.cta_lien);
+      editable(lien, () => modale(data.cta_lien || lien.getAttribute('href'), v => { data.cta_lien = v; lien.setAttribute('href', v); marquerModifie(); }));
+    }
+
+    // Étapes
+    const steps = document.querySelector('[data-inscription-steps]');
+    if (steps && Array.isArray(data.steps)) {
+      steps.innerHTML = data.steps.map((s, i) => `
+        <div class="step-card" data-scard="${i}">
+          <div class="step-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="step-title" data-stitre="${i}">${s.titre || ''}</div>
+          <div class="step-text" data-stexte="${i}">${s.texte || ''}</div>
+        </div>`).join('');
+      const S = data.steps;
+      steps.querySelectorAll('[data-stitre]').forEach(n => { const i=n.dataset.stitre; editable(n, () => modale(S[i].titre, v => { S[i].titre=v; n.textContent=v; marquerModifie(); })); });
+      steps.querySelectorAll('[data-stexte]').forEach(n => { const i=n.dataset.stexte; editable(n, () => modale(S[i].texte, v => { S[i].texte=v; n.textContent=v; marquerModifie(); })); });
+      steps.querySelectorAll('[data-scard]').forEach(n => { const i=n.dataset.scard; badgeSuppr(n, () => { S.splice(i,1); marquerModifie(); rendreInscription(); }); });
+      boutonAjout(steps, '➕ Ajouter une étape', () => { S.push({titre:'Nouvelle étape', texte:'Description'}); marquerModifie(); rendreInscription(); });
+    }
+
+    // Documents
+    const docs = document.querySelector('[data-inscription-docs]');
+    if (docs && Array.isArray(data.docs)) {
+      docs.innerHTML = data.docs.map((d, i) => `
+        <div class="doc-item" data-dcard="${i}">
+          <div class="doc-check">✓</div>
+          <div class="doc-content"><h4 data-dtitre="${i}">${d.titre || ''}</h4><p data-dtexte="${i}">${d.texte || ''}</p></div>
+        </div>`).join('');
+      const D = data.docs;
+      docs.querySelectorAll('[data-dtitre]').forEach(n => { const i=n.dataset.dtitre; editable(n, () => modale(D[i].titre, v => { D[i].titre=v; n.textContent=v; marquerModifie(); })); });
+      docs.querySelectorAll('[data-dtexte]').forEach(n => { const i=n.dataset.dtexte; editable(n, () => modale(D[i].texte, v => { D[i].texte=v; n.textContent=v; marquerModifie(); })); });
+      docs.querySelectorAll('[data-dcard]').forEach(n => { const i=n.dataset.dcard; badgeSuppr(n, () => { D.splice(i,1); marquerModifie(); rendreInscription(); }); });
+      boutonAjout(docs, '➕ Ajouter un document', () => { D.push({titre:'Nouveau document', texte:'Description'}); marquerModifie(); rendreInscription(); });
+    }
+
+    // Codes promo
+    const promos = document.querySelector('[data-inscription-promos]');
+    if (promos && Array.isArray(data.promos)) {
+      promos.innerHTML = data.promos.map((p, i) => `
+        <div class="promo-card" data-pcard="${i}">
+          <span class="promo-code" data-pcode="${i}">${p.code || ''}</span>
+          <p class="promo-desc" data-pdesc="${i}">${p.desc || ''}</p>
+        </div>`).join('');
+      const P = data.promos;
+      promos.querySelectorAll('[data-pcode]').forEach(n => { const i=n.dataset.pcode; editable(n, () => modale(P[i].code, v => { P[i].code=v; n.textContent=v; marquerModifie(); })); });
+      promos.querySelectorAll('[data-pdesc]').forEach(n => { const i=n.dataset.pdesc; editable(n, () => modale(P[i].desc, v => { P[i].desc=v; n.textContent=v; marquerModifie(); })); });
+      promos.querySelectorAll('[data-pcard]').forEach(n => { const i=n.dataset.pcard; badgeSuppr(n, () => { P.splice(i,1); marquerModifie(); rendreInscription(); }); });
+      boutonAjout(promos, '➕ Ajouter un code promo', () => { P.push({code:'NOUVEAU', desc:'Description'}); marquerModifie(); rendreInscription(); });
+    }
   }
 
   // ===== AGENDA (compétitions modifiables) =====

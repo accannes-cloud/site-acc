@@ -253,6 +253,45 @@
     }
   }
 
+  // ========== PAGE INSCRIPTION ==========
+  async function injectInscription() {
+    if (!document.querySelector('[data-inscription], [data-inscription-steps], [data-inscription-docs], [data-inscription-promos]')) return;
+    const data = await getJSON('contenu/pages/inscription.json');
+    if (!data) return;
+    document.querySelectorAll('[data-inscription]').forEach(el => {
+      const k = el.getAttribute('data-inscription');
+      if (data[k] !== undefined) el.textContent = data[k];
+    });
+    const lien = document.querySelector('[data-inscription-lien]');
+    if (lien && data.cta_lien) lien.setAttribute('href', data.cta_lien);
+
+    const steps = document.querySelector('[data-inscription-steps]');
+    if (steps && Array.isArray(data.steps)) {
+      steps.innerHTML = data.steps.map((s, i) => `
+        <div class="step-card reveal visible">
+          <div class="step-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="step-title">${s.titre || ''}</div>
+          <div class="step-text">${s.texte || ''}</div>
+        </div>`).join('');
+    }
+    const docs = document.querySelector('[data-inscription-docs]');
+    if (docs && Array.isArray(data.docs)) {
+      docs.innerHTML = data.docs.map(d => `
+        <div class="doc-item reveal visible">
+          <div class="doc-check">✓</div>
+          <div class="doc-content"><h4>${d.titre || ''}</h4><p>${d.texte || ''}</p></div>
+        </div>`).join('');
+    }
+    const promos = document.querySelector('[data-inscription-promos]');
+    if (promos && Array.isArray(data.promos)) {
+      promos.innerHTML = data.promos.map(p => `
+        <div class="promo-card">
+          <span class="promo-code">${p.code || ''}</span>
+          <p class="promo-desc">${p.desc || ''}</p>
+        </div>`).join('');
+    }
+  }
+
   // ========== PAGE AGENDA (compétitions) ==========
   async function injectAgenda() {
     const box = document.querySelector('[data-agenda-competitions]');
@@ -655,6 +694,7 @@
     injectHorairesPage();
     injectActualites();
     injectAgenda();
+    injectInscription();
   }
 
   if (document.readyState === 'loading') {
