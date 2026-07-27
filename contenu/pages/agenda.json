@@ -1,0 +1,33 @@
+{
+  "titre": "AGENDA",
+  "sous_titre": "Toutes les compétitions à venir et les inscriptions ouvertes pour les athlètes du club.",
+  "eyebrow": "Compétitions à venir",
+  "titre_section": "ÉCHÉANCES",
+  "intro": "Retrouve ici les compétitions où le club engage ses athlètes. Clique sur « S'inscrire » pour rejoindre la liste des participants avant la date limite.",
+  "competitions": [
+    {
+      "jour": "14",
+      "mois": "Mars",
+      "annee": "2026",
+      "statut": "Inscriptions ouvertes",
+      "nom": "Championnats Régionaux Indoor",
+      "lieu": "Miramas",
+      "info": "Piste couverte",
+      "categories": ["Cadets", "Juniors", "Seniors"],
+      "limite": "1er mars",
+      "lien": "inscription.html"
+    },
+    {
+      "jour": "05",
+      "mois": "Avril",
+      "annee": "2026",
+      "statut": "Inscriptions ouvertes",
+      "nom": "Meeting Départemental sur piste",
+      "lieu": "Cannes la Bocca",
+      "info": "Stade Maurice Chevalier",
+      "categories": ["Benjamins", "Minimes", "Cadets"],
+      "limite": "28 mars",
+      "lien": "inscription.html"
+    }
+  ]
+}
