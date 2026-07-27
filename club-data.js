@@ -253,6 +253,43 @@
     }
   }
 
+  // ========== PAGE ACTUALITÉS ==========
+  async function injectActualites() {
+    const box = document.querySelector('[data-actus-articles]');
+    if (!box) return;
+    const data = await getJSON('contenu/pages/actualites.json');
+    if (!data) return;
+    document.querySelectorAll('[data-actus]').forEach(el => {
+      const k = el.getAttribute('data-actus');
+      if (data[k] !== undefined) el.textContent = data[k];
+    });
+    const gradients = ['gradient-1','gradient-2','gradient-3','gradient-4','gradient-5','gradient-6'];
+    if (Array.isArray(data.articles)) {
+      box.innerHTML = data.articles.map((a, i) => {
+        const img = a.photo
+          ? `<div class="article-img" style="background-image:url('${a.photo}');background-size:cover;background-position:center;"></div>`
+          : `<div class="article-img ${gradients[i % 6]}">📰</div>`;
+        return `<a href="#" class="article-card" onclick="return false;">
+          ${img}
+          <div class="article-body">
+            <div class="article-meta"><span>📅 ${formatDateFr(a.date)}</span></div>
+            <h3 class="article-title">${a.titre || ''}</h3>
+            <p class="article-excerpt">${a.texte || ''}</p>
+          </div>
+        </a>`;
+      }).join('');
+    }
+  }
+
+  function formatDateFr(dateStr) {
+    if (!dateStr) return '';
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return dateStr;
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (e) { return dateStr; }
+  }
+
   // ========== PAGE HORAIRES (par groupe + filtres) ==========
   async function injectHorairesPage() {
     const box = document.querySelector('[data-horaires-groupes]');
@@ -565,6 +602,7 @@
     injectInstallations();
     injectPalmares();
     injectHorairesPage();
+    injectActualites();
   }
 
   if (document.readyState === 'loading') {

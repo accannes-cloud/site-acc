@@ -15,7 +15,8 @@
     'installations.html': { file: 'contenu/pages/installations.json', type: 'installations' },
     'palmares.html': { file: 'contenu/pages/palmares.json', type: 'palmares' },
     'equipe.html': { file: 'contenu/pages/equipe.json', type: 'equipe' },
-    'horaires.html': { file: 'contenu/pages/horaires.json', type: 'horaires' }
+    'horaires.html': { file: 'contenu/pages/horaires.json', type: 'horaires' },
+    'blog.html': { file: 'contenu/pages/actualites.json', type: 'actualites' }
   };
 
   // On récupère le nom de la page, avec ou sans ".html", avec ou sans "/" final
@@ -211,6 +212,52 @@
     else if (config.type === 'palmares') rendrePalmares();
     else if (config.type === 'equipe') rendreEquipe();
     else if (config.type === 'horaires') rendreHoraires();
+    else if (config.type === 'actualites') rendreActualites();
+  }
+
+  // ===== ACTUALITÉS (articles modifiables) =====
+  function rendreActualites() {
+    document.querySelectorAll('[data-actus]').forEach(node => {
+      const key = node.getAttribute('data-actus');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+
+    const box = document.querySelector('[data-actus-articles]');
+    if (!box || !Array.isArray(data.articles)) return;
+    const gradients = ['gradient-1','gradient-2','gradient-3','gradient-4','gradient-5','gradient-6'];
+    box.innerHTML = data.articles.map((a, i) => {
+      const img = a.photo
+        ? `<div class="article-img" data-aphoto="${i}" style="background-image:url('${imgUrl(a.photo)}');background-size:cover;background-position:center;position:relative;"></div>`
+        : `<div class="article-img ${gradients[i % 6]}" data-aphoto="${i}" style="position:relative;">📰</div>`;
+      return `<div class="article-card" data-acard="${i}">
+        ${img}
+        <div class="article-body">
+          <div class="article-meta"><span data-adate="${i}">📅 ${a.date || '(date)'}</span></div>
+          <h3 class="article-title" data-atitre="${i}">${a.titre || ''}</h3>
+          <p class="article-excerpt" data-atexte="${i}">${a.texte || ''}</p>
+        </div>
+      </div>`;
+    }).join('') + `<button class="acc-ajout" data-aadd style="align-self:start;">➕ Ajouter un article</button>`;
+
+    const A = data.articles;
+    box.querySelectorAll('[data-atitre]').forEach(n => { const i=n.dataset.atitre; editable(n, () => modale(A[i].titre, v => { A[i].titre=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-atexte]').forEach(n => { const i=n.dataset.atexte; editable(n, () => modale(A[i].texte, v => { A[i].texte=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-adate]').forEach(n => { const i=n.dataset.adate; editable(n, () => modale(A[i].date, v => { A[i].date=v; n.textContent='📅 '+v; marquerModifie(); })); });
+    box.querySelectorAll('[data-aphoto]').forEach(n => {
+      const i=n.dataset.aphoto;
+      boutonPhoto(n, () => choisirImage(c => { A[i].photo=c; marquerModifie(); rendreActualites(); }, 1000), '📷 Photo');
+      if (A[i].photo) badgeSuppr(n, () => { A[i].photo=''; marquerModifie(); rendreActualites(); });
+    });
+    box.querySelectorAll('[data-acard]').forEach(n => {
+      const i=n.dataset.acard;
+      const del = el('<button class="acc-suppr-badge">✕</button>');
+      del.onclick = (e) => { e.preventDefault(); e.stopPropagation(); if(confirm('Supprimer cet article ?')){ A.splice(i,1); marquerModifie(); rendreActualites(); } };
+      if (getComputedStyle(n).position === 'static') n.style.position = 'relative';
+      n.appendChild(del);
+    });
+    const add = box.querySelector('[data-aadd]');
+    if (add) add.onclick = () => { A.unshift({titre:'Nouvel article', date:new Date().toISOString().slice(0,10), photo:'', texte:'Contenu de l\'article à rédiger.'}); marquerModifie(); rendreActualites(); };
   }
 
   // ===== HORAIRES (blocs par groupe) =====

@@ -207,139 +207,20 @@
 <header class="page-header">
   <div class="page-header-content">
     <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Blog & Actualités</div>
-    <h1 class="page-title">BLOG & <span>ACTUALITÉS</span></h1>
-    <p class="page-subtitle">Toute la vie du club, les performances de nos athlètes, les événements à venir et les coulisses de l'Athletic Club de Cannes.</p>
+    <h1 class="page-title">BLOG & <span data-actus="titre">ACTUALITÉS</span></h1>
+    <p class="page-subtitle" data-actus="sous_titre">Toute la vie du club, les performances de nos athlètes, les événements à venir et les coulisses de l'Athletic Club de Cannes.</p>
   </div>
 </header>
 
-<!-- FILTERS -->
-<div class="filters">
-  <button class="filter-btn active" data-filter="all">Toutes les actus</button>
-  <button class="filter-btn" data-filter="competition">🏆 Compétitions</button>
-  <button class="filter-btn" data-filter="club">🏛️ Vie du club</button>
-  <button class="filter-btn" data-filter="jeunes">👶 Jeunes</button>
-  <button class="filter-btn" data-filter="running">🛣️ Running</button>
-  <button class="filter-btn" data-filter="evenement">📅 Événements</button>
-</div>
-
-<!-- FEATURED ARTICLE -->
-<section style="padding-top:64px;padding-bottom:32px;">
+<!-- PAGE HEADER (titre modifiable) -->
+<!-- ARTICLES -->
+<section style="padding-top:56px;">
   <div class="container">
-    <div class="section-eyebrow reveal">À la une</div>
-    <h2 class="block-title reveal">DERNIÈRE <span>ACTU</span></h2>
+    <div class="section-eyebrow reveal" data-actus="eyebrow">Articles récents</div>
+    <h2 class="block-title reveal">TOUTES LES <span data-actus="titre_section">ACTUALITÉS</span></h2>
 
-    <div id="featured-container">
-    <a href="#" class="featured-article reveal">
-      <div class="featured-img">🏆</div>
-      <div class="featured-body">
-        <span class="article-badge">🏆 Compétition</span>
-        <h3 class="featured-title">Championnats Régionaux : l'ACC brille avec 14 médailles !</h3>
-        <p class="featured-excerpt">Retour sur une journée exceptionnelle lors des championnats régionaux. Nos licenciés ont décroché 14 médailles toutes catégories confondues, un record pour le club. Sprint, sauts, lancers… tous les groupes ont rapporté des podiums.</p>
-        <div class="article-meta">
-          <span>📅 12 mai 2025</span>
-          <span class="author">✍️ Par le Club</span>
-          <span>⏱️ 3 min de lecture</span>
-        </div>
-      </div>
-    </a>
-    </div>
-  </div>
-</section>
-
-<!-- ARTICLES GRID -->
-<section style="padding-top:32px;">
-  <div class="container">
-    <div class="section-eyebrow reveal">Articles récents</div>
-    <h2 class="block-title reveal">TOUS LES <span>ARTICLES</span></h2>
-
-    <div class="articles-grid" id="articles-container">
-
-      <a href="#" class="article-card" data-cat="jeunes">
-        <div class="article-img gradient-1">🌱</div>
-        <div class="article-body">
-          <span class="article-cat">Jeunes</span>
-          <h3 class="article-title">Rentrée Athlé : inscriptions ouvertes 2025/26</h3>
-          <p class="article-excerpt">Les inscriptions pour la nouvelle saison sont lancées ! Toutes les infos pratiques pour rejoindre l'école d'athlétisme.</p>
-          <div class="article-meta-small">
-            <span>📅 5 mai 2025</span>
-            <span>⏱️ 2 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card" data-cat="running">
-        <div class="article-img gradient-2">⛰️</div>
-        <div class="article-body">
-          <span class="article-cat">Running</span>
-          <h3 class="article-title">Trail du dimanche : sortie en montagne réussie</h3>
-          <p class="article-excerpt">30 athlètes, 18 km de sentiers et un panorama à couper le souffle. La section trail était en pleine forme !</p>
-          <div class="article-meta-small">
-            <span>📅 28 avr. 2025</span>
-            <span>⏱️ 2 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card" data-cat="competition">
-        <div class="article-img gradient-3">🥇</div>
-        <div class="article-body">
-          <span class="article-cat">Compétition</span>
-          <h3 class="article-title">Épreuves Combinées : trois podiums pour l'ACC</h3>
-          <p class="article-excerpt">Sacha, Léa et Tatiana ramènent des médailles des départementaux à Miramas. Un grand bravo aux athlètes et à leurs entraîneurs.</p>
-          <div class="article-meta-small">
-            <span>📅 22 avr. 2025</span>
-            <span>⏱️ 3 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card" data-cat="club">
-        <div class="article-img gradient-4">🏛️</div>
-        <div class="article-body">
-          <span class="article-cat">Vie du club</span>
-          <h3 class="article-title">Le nouveau bureau élu pour la saison</h3>
-          <p class="article-excerpt">L'assemblée générale a confirmé Frédéric Serrat à la présidence et renouvelé le bureau pour les deux prochaines années.</p>
-          <div class="article-meta-small">
-            <span>📅 15 avr. 2025</span>
-            <span>⏱️ 2 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card" data-cat="evenement">
-        <div class="article-img gradient-5">📅</div>
-        <div class="article-body">
-          <span class="article-cat">Événement</span>
-          <h3 class="article-title">10 km de la Côte d'Azur : ouverture des inscriptions</h3>
-          <p class="article-excerpt">Notre course phare revient le 12 juillet ! Parcours bord de mer, chronométrage officiel, ambiance familiale garantie.</p>
-          <div class="article-meta-small">
-            <span>📅 10 avr. 2025</span>
-            <span>⏱️ 2 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card" data-cat="jeunes">
-        <div class="article-img gradient-6">👶</div>
-        <div class="article-body">
-          <span class="article-cat">Jeunes</span>
-          <h3 class="article-title">Baby Athlé : la fête de fin de cycle en images</h3>
-          <p class="article-excerpt">Nos tout-petits ont brillé lors de la fête de fin de cycle. Retour en photos sur cette belle journée d'éveil sportif.</p>
-          <div class="article-meta-small">
-            <span>📅 2 avr. 2025</span>
-            <span>⏱️ 1 min</span>
-          </div>
-        </div>
-      </a>
-
-    </div>
-
-    <!-- PAGINATION -->
-    <div class="pagination">
-      <a href="#" class="active">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#" class="next">Suivant →</a>
+    <div class="articles-grid" data-actus-articles>
+      <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des actualités…</p>
     </div>
   </div>
 </section>
@@ -696,5 +577,6 @@
 })();
 </script>
   <script src="club-data.js"></script>
+  <script src="edition.js"></script>
 </body>
 </html>
