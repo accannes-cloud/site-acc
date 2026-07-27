@@ -253,19 +253,105 @@
     }
   }
 
-  // ========== PAGE HORAIRES (par groupe) ==========
+  // ========== PAGE HORAIRES (par groupe + filtres) ==========
   async function injectHorairesPage() {
     const box = document.querySelector('[data-horaires-groupes]');
     if (!box) return;
     const data = await getJSON('contenu/pages/horaires.json');
-    if (!data) return;
+    if (!data || !Array.isArray(data.groupes)) return;
+
     document.querySelectorAll('[data-horaires]').forEach(el => {
       const k = el.getAttribute('data-horaires');
       if (data[k] !== undefined) el.textContent = data[k];
     });
-    if (Array.isArray(data.groupes)) {
-      box.innerHTML = data.groupes.map(g => {
-        const creneaux = (g.creneaux || []).map(c =>
+
+    const groupes = data.groupes;
+    const ordreJours = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+
+    // Valeurs de filtres disponibles
+    const jours = ordreJours.filter(j => groupes.some(g => (g.creneaux||[]).some(c => (c.jour||'').toLowerCase() === j.toLowerCase())));
+    const familles = [...new Set(groupes.map(g => g.famille).filter(Boolean))];
+    // Années de naissance possibles (de la plus récente à la plus ancienne)
+    let anneeMin = 9999, anneeMax = 0;
+    groupes.forEach(g => { if (g.annee_min) anneeMin = Math.min(anneeMin, g.annee_min); if (g.annee_max) anneeMax = Math.max(anneeMax, g.annee_max); });
+    const annees = [];
+    if (anneeMax >= anneeMin) for (let a = anneeMax; a >= Math.max(anneeMin, anneeMax - 25); a--) annees.push(a);
+
+    // État des filtres
+    let fJour = null, fFamille = null, fAnnee = null;
+
+    // Construire l'interface de filtres
+    const filtresBox = document.querySelector('[data-horaires-filtres]');
+    if (filtresBox) {
+      filtresBox.innerHTML = `
+        <div class="filtre-groupe">
+          <div class="filtre-label">Par jour</div>
+          <div class="filtre-chips" data-f="jour">
+            <button class="filtre-chip actif" data-val="">Tous</button>
+            ${jours.map(j => `<button class="filtre-chip" data-val="${j}">${j}</button>`).join('')}
+          </div>
+        </div>
+        <div class="filtre-groupe">
+          <div class="filtre-label">Par discipline</div>
+          <div class="filtre-chips" data-f="famille">
+            <button class="filtre-chip actif" data-val="">Toutes</button>
+            ${familles.map(f => `<button class="filtre-chip" data-val="${f}">${f}</button>`).join('')}
+          </div>
+        </div>
+        <div class="filtre-groupe">
+          <div class="filtre-label">Par année de naissance</div>
+          <div class="filtre-annee">
+            <select data-f-annee>
+              <option value="">Toutes les années</option>
+              ${annees.map(a => `<option value="${a}">${a}</option>`).join('')}
+            </select>
+            <button class="filtre-reset" data-reset>↺ Réinitialiser les filtres</button>
+          </div>
+        </div>`;
+
+      // Clics sur les chips jour et famille
+      filtresBox.querySelectorAll('[data-f] .filtre-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const type = chip.parentElement.getAttribute('data-f');
+          chip.parentElement.querySelectorAll('.filtre-chip').forEach(c => c.classList.remove('actif'));
+          chip.classList.add('actif');
+          const val = chip.getAttribute('data-val') || null;
+          if (type === 'jour') fJour = val; else fFamille = val;
+          afficher();
+        });
+      });
+      // Sélecteur année
+      const sel = filtresBox.querySelector('[data-f-annee]');
+      if (sel) sel.addEventListener('change', () => { fAnnee = sel.value ? parseInt(sel.value) : null; afficher(); });
+      // Réinitialiser
+      const reset = filtresBox.querySelector('[data-reset]');
+      if (reset) reset.addEventListener('click', () => {
+        fJour = null; fFamille = null; fAnnee = null;
+        filtresBox.querySelectorAll('[data-f]').forEach(grp => { grp.querySelectorAll('.filtre-chip').forEach((c, i) => c.classList.toggle('actif', i === 0)); });
+        if (sel) sel.value = '';
+        afficher();
+      });
+    }
+
+    // Affichage filtré
+    function afficher() {
+      const filtres = groupes.filter(g => {
+        if (fJour && !(g.creneaux||[]).some(c => (c.jour||'').toLowerCase() === fJour.toLowerCase())) return false;
+        if (fFamille && g.famille !== fFamille) return false;
+        if (fAnnee && !(g.annee_min && g.annee_max && fAnnee >= g.annee_min && fAnnee <= g.annee_max)) return false;
+        return true;
+      });
+
+      if (filtres.length === 0) {
+        box.innerHTML = '<div class="horaires-vide">Aucun groupe ne correspond à ces critères. Essaie d\'élargir ta recherche.</div>';
+        return;
+      }
+
+      box.innerHTML = filtres.map(g => {
+        // Si un jour est filtré, on n'affiche que les créneaux de ce jour
+        let creneaux = g.creneaux || [];
+        if (fJour) creneaux = creneaux.filter(c => (c.jour||'').toLowerCase() === fJour.toLowerCase());
+        const creneauxHtml = creneaux.map(c =>
           `<div class="grp-creneau"><span class="grp-jour">${c.jour || ''}</span><span class="grp-heure">${c.horaire || ''}</span></div>`
         ).join('');
         return `<div class="grp-card" data-c="${g.couleur || 'bleu'}">
@@ -274,10 +360,12 @@
             ${g.categorie ? '<div class="grp-cat">' + g.categorie + '</div>' : ''}
             ${g.reprise ? '<div class="grp-reprise">📅 Reprise le ' + g.reprise + '</div>' : ''}
           </div>
-          <div class="grp-creneaux">${creneaux}</div>
+          <div class="grp-creneaux">${creneauxHtml}</div>
         </div>`;
       }).join('');
     }
+
+    afficher();
   }
 
   // ========== PAGE INSTALLATIONS ==========

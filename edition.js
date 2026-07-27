@@ -215,6 +215,10 @@
 
   // ===== HORAIRES (blocs par groupe) =====
   function rendreHoraires() {
+    // En édition, on masque la zone de filtres (inutile ici)
+    const filtres = document.querySelector('[data-horaires-filtres]');
+    if (filtres) filtres.style.display = 'none';
+
     document.querySelectorAll('[data-horaires]').forEach(node => {
       const key = node.getAttribute('data-horaires');
       if (data[key] !== undefined) node.textContent = data[key];

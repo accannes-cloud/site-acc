@@ -267,6 +267,17 @@
 <section style="padding-top:48px;">
   <div class="container">
     <style>
+      .horaires-filtres { margin-bottom: 32px; }
+      .filtre-groupe { margin-bottom: 16px; }
+      .filtre-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--texte-doux, #455A7A); margin-bottom: 8px; }
+      .filtre-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+      .filtre-chip { border: 1.5px solid #D5DEEC; background: #fff; color: var(--bleu, #003DA5); border-radius: 100px; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+      .filtre-chip:hover { border-color: var(--bleu, #003DA5); }
+      .filtre-chip.actif { background: var(--bleu, #003DA5); color: #fff; border-color: var(--bleu, #003DA5); }
+      .filtre-annee { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .filtre-annee select { font-family: inherit; font-size: 14px; padding: 8px 14px; border: 1.5px solid #D5DEEC; border-radius: 10px; color: var(--texte, #0D1B3E); background: #fff; cursor: pointer; }
+      .filtre-reset { background: none; border: none; color: var(--texte-doux, #455A7A); font-size: 13px; text-decoration: underline; cursor: pointer; font-family: inherit; padding: 7px 4px; }
+      .horaires-vide { text-align: center; color: var(--texte-doux, #455A7A); padding: 50px 20px; font-size: 15px; grid-column: 1 / -1; }
       .horaires-groupes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
       .grp-card { background: var(--blanc, #fff); border-radius: 16px; box-shadow: 0 6px 24px rgba(0,31,92,0.07); overflow: hidden; border-top: 4px solid var(--bleu, #003DA5); display: flex; flex-direction: column; }
       .grp-card[data-c="vert"] { border-top-color: #7F9E3F; }
@@ -280,6 +291,9 @@
       .grp-jour { font-weight: 600; color: var(--bleu, #003DA5); font-size: 14px; }
       .grp-heure { font-size: 14px; color: var(--texte, #0D1B3E); text-align: right; }
     </style>
+
+    <div class="horaires-filtres" data-horaires-filtres></div>
+
     <div class="horaires-groupes" data-horaires-groupes>
       <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des horaires…</p>
     </div>
