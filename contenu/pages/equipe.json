@@ -122,5 +122,252 @@
       "sous_titre": "Distingués pour leur engagement durable",
       "membres": []
     }
-  ]
+  ],
+  "entraineurs_eyebrow": "Équipe d'entraîneurs",
+  "entraineurs_titre": "NOS ENTRAÎNEURS",
+  "entraineurs_intro": "Nos groupes d'entraînement sont encadrés par des entraîneurs diplômés qui planifient leurs entraînements sur la saison athlétique et les différents objectifs à atteindre.",
+  "entraineurs_groupes": [
+    {
+      "icone": "👶",
+      "titre": "BABY ATHLÉ",
+      "sous_titre": "Les tout-petits, premiers pas dans l'athlétisme",
+      "membres": [
+        {
+          "nom": "Sébastien Franck",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Maddi Larre",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Stella Gnagni",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Hugo Maubert",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Julie Serrat",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Manon Villalard",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "🌱",
+      "titre": "ÉVEIL ATHLÉTISME",
+      "sous_titre": "Découverte ludique et motricité",
+      "membres": [
+        {
+          "nom": "Frédéric Raczka",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Marc-Ange Antoine",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Camille Eschmann",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Shaden Mokadem",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Line Nakkara",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Lauryne Fayard",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "🏃",
+      "titre": "POUSSINS",
+      "sous_titre": "Premières disciplines athlétiques",
+      "membres": [
+        {
+          "nom": "Bérangère Pontabry",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Joachim Berland",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Yannis Lam",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "⚡",
+      "titre": "BENJAMINS / MINIMES",
+      "sous_titre": "Vers la spécialisation et la compétition",
+      "membres": [
+        {
+          "nom": "Sébastien Franck",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Hugo Maubert",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Joachim Berland",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Yannis Lam",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Bérangère Pontabry",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Stella Gnagni",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Laurent Ferrachat",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "🥇",
+      "titre": "CADETS ET +",
+      "sous_titre": "Spécialisation par discipline & haut niveau",
+      "membres": [
+        {
+          "nom": "Sébastien Franck",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Anthony Santerre",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Jean-Michel Maurin",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Philippe Berger",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Yannis Lam",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Joachim Berland",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        }
+      ]
+    },
+    {
+      "icone": "❤️",
+      "titre": "ATHLÉ SANTÉ & BIEN-ÊTRE",
+      "sous_titre": "Marche, fitness et pratique santé pour tous",
+      "membres": [
+        {
+          "nom": "Corinne Rousseau",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Laurent Ferrachat",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Matthieu Das Neves",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Stella Gnagni",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        },
+        {
+          "nom": "Mathilde Derepas",
+          "poste": "",
+          "role": "Entraîneur",
+          "photo": ""
+        }
+      ]
+    }
+  ],
+  "philo_citation": "Notre objectif n'est pas seulement de former des Champions de France ou du Monde, mais de permettre à chaque athlète d'atteindre ses objectifs, quel que soit son niveau. À l'AC Cannes, chacun peut devenir le Champion de son Monde.",
+  "philo_auteur": "— La philosophie de l'encadrement ACC"
 }
