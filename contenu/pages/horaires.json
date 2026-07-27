@@ -1,0 +1,201 @@
+{
+  "titre": "HORAIRES",
+  "sous_titre": "Retrouvez les créneaux d'entraînement de chaque groupe pour la saison 2026-2027. Les dates de reprise sont indiquées pour chaque groupe.",
+  "groupes": [
+    {
+      "nom": "ACCUEIL / BUREAUX",
+      "categorie": "Secrétariat & inscriptions",
+      "reprise": "",
+      "couleur": "orange",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "15h00 - 19h00" },
+        { "jour": "Mardi", "horaire": "15h00 - 19h00" },
+        { "jour": "Mercredi", "horaire": "13h00 - 18h00" },
+        { "jour": "Jeudi", "horaire": "15h00 - 19h00" },
+        { "jour": "Vendredi", "horaire": "15h00 - 18h00" },
+        { "jour": "Samedi", "horaire": "09h30 - 14h30" }
+      ]
+    },
+    {
+      "nom": "ATHLÉ BABY",
+      "categorie": "Né(e)s en 2021-2022",
+      "reprise": "09/09/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Mercredi", "horaire": "14h30 - 15h30" }
+      ]
+    },
+    {
+      "nom": "ÉVEIL ATHLÉTIQUE",
+      "categorie": "Né(e)s en 2018-2020",
+      "reprise": "05/09/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Samedi", "horaire": "10h00 - 12h00" }
+      ]
+    },
+    {
+      "nom": "POUSSIN(E)S",
+      "categorie": "Né(e)s en 2016-2017",
+      "reprise": "05/09/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Mercredi", "horaire": "14h00 - 16h00" },
+        { "jour": "Samedi", "horaire": "10h00 - 12h00" }
+      ]
+    },
+    {
+      "nom": "BENJAMIN(E)S / MINIMES",
+      "categorie": "Né(e)s en 2012-2015",
+      "reprise": "05/09/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Mercredi", "horaire": "16h00 - 18h00" },
+        { "jour": "Samedi", "horaire": "14h30 - 16h30" }
+      ]
+    },
+    {
+      "nom": "ATHLÉ FIT",
+      "categorie": "2011 et avant",
+      "reprise": "01/09/26",
+      "couleur": "vert",
+      "creneaux": [
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
+      ]
+    },
+    {
+      "nom": "ATHLÉ-SANTÉ",
+      "categorie": "2011 et avant",
+      "reprise": "05/09/26",
+      "couleur": "vert",
+      "creneaux": [
+        { "jour": "Jeudi", "horaire": "18h30 - 20h00" },
+        { "jour": "Samedi", "horaire": "10h15 - 12h00" }
+      ]
+    },
+    {
+      "nom": "MARCHE NORDIQUE",
+      "categorie": "2011 et avant",
+      "reprise": "01/09/26",
+      "couleur": "vert",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h30 - 20h30" },
+        { "jour": "Mardi", "horaire": "08h30 - 10h30" },
+        { "jour": "Jeudi", "horaire": "18h15 - 19h15" },
+        { "jour": "Vendredi", "horaire": "08h30 - 10h30" }
+      ]
+    },
+    {
+      "nom": "DEMI-FOND / RUNNING / MARCHE ATHLÉTIQUE",
+      "categorie": "2011 et avant",
+      "reprise": "01/09/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Mardi", "horaire": "18h30 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h30 - 20h00" },
+        { "jour": "Dimanche", "horaire": "Matin — sortie nature" }
+      ]
+    },
+    {
+      "nom": "SPRINT LONG / DEMI-FOND COURT",
+      "categorie": "2011 et avant",
+      "reprise": "31/08/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Samedi", "horaire": "12h00 - 14h00" },
+        { "jour": "Dimanche", "horaire": "Matin — sortie nature" }
+      ]
+    },
+    {
+      "nom": "SPRINT COURT / HAIES",
+      "categorie": "2011 et avant",
+      "reprise": "31/08/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Samedi", "horaire": "12h15 - 14h15" }
+      ]
+    },
+    {
+      "nom": "LANCERS",
+      "categorie": "2011 et avant",
+      "reprise": "31/08/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
+      ]
+    },
+    {
+      "nom": "SAUT EN HAUTEUR",
+      "categorie": "2011 et avant",
+      "reprise": "31/08/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
+      ]
+    },
+    {
+      "nom": "SAUT À LA PERCHE",
+      "categorie": "2011 et avant",
+      "reprise": "31/08/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Samedi", "horaire": "12h00 - 14h00" }
+      ]
+    },
+    {
+      "nom": "LONGUEUR / TRIPLE SAUT",
+      "categorie": "2011 et avant",
+      "reprise": "31/08/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
+        { "jour": "Samedi", "horaire": "12h00 - 14h00" }
+      ]
+    },
+    {
+      "nom": "ÉPREUVES COMBINÉES",
+      "categorie": "2011 et avant",
+      "reprise": "01/09/26",
+      "couleur": "bleu",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Samedi", "horaire": "10h00 - 12h00" }
+      ]
+    },
+    {
+      "nom": "ATHLÉ MASTERS",
+      "categorie": "1992 et avant",
+      "reprise": "01/09/26",
+      "couleur": "orange",
+      "creneaux": [
+        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
+        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
+        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
+      ]
+    }
+  ]
+}
