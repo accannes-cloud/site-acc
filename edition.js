@@ -14,7 +14,8 @@
     'le-club.html': { file: 'contenu/pages/histoire.json', type: 'histoire' },
     'installations.html': { file: 'contenu/pages/installations.json', type: 'installations' },
     'palmares.html': { file: 'contenu/pages/palmares.json', type: 'palmares' },
-    'equipe.html': { file: 'contenu/pages/equipe.json', type: 'equipe' }
+    'equipe.html': { file: 'contenu/pages/equipe.json', type: 'equipe' },
+    'horaires.html': { file: 'contenu/pages/horaires.json', type: 'horaires' }
   };
 
   // On récupère le nom de la page, avec ou sans ".html", avec ou sans "/" final
@@ -209,6 +210,61 @@
     else if (config.type === 'installations') rendreInstallations();
     else if (config.type === 'palmares') rendrePalmares();
     else if (config.type === 'equipe') rendreEquipe();
+    else if (config.type === 'horaires') rendreHoraires();
+  }
+
+  // ===== HORAIRES (blocs par groupe) =====
+  function rendreHoraires() {
+    document.querySelectorAll('[data-horaires]').forEach(node => {
+      const key = node.getAttribute('data-horaires');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+
+    const box = document.querySelector('[data-horaires-groupes]');
+    if (!box || !Array.isArray(data.groupes)) return;
+    box.innerHTML = data.groupes.map((g, gi) => {
+      const creneaux = (g.creneaux || []).map((c, ci) => `
+        <div class="grp-creneau" data-cr="${gi}-${ci}">
+          <span class="grp-jour" data-crjour="${gi}-${ci}">${c.jour || ''}</span>
+          <span class="grp-heure" data-crheure="${gi}-${ci}">${c.horaire || ''}</span>
+        </div>`).join('');
+      return `<div class="grp-card" data-c="${g.couleur || 'bleu'}" data-gcard="${gi}">
+        <div class="grp-head">
+          <div class="grp-nom" data-gnom="${gi}">${g.nom || ''}</div>
+          <div class="grp-cat" data-gcat="${gi}">${g.categorie || '(catégorie)'}</div>
+          ${g.reprise
+            ? `<div class="grp-reprise" data-grep="${gi}">📅 Reprise le ${g.reprise}</div> <button class="acc-suppr-mini" data-grepdel="${gi}">🗑️ Retirer la date</button>`
+            : `<button class="acc-suppr-mini" style="background:#EAF3EA;border-color:#B5D4B5;color:#2E6B2E;" data-grepadd="${gi}">📅 Ajouter une date de reprise</button>`}
+        </div>
+        <div class="grp-creneaux">${creneaux}
+          <button class="acc-ajout" data-craddjour="${gi}" style="font-size:12px;padding:6px 12px;margin:6px 0 0;">➕ Ajouter un créneau</button>
+        </div>
+      </div>`;
+    }).join('') + `<button class="acc-ajout" data-gaddgroupe style="background:#0F6E56;">➕ Ajouter un groupe</button>`;
+
+    const L = data.groupes;
+    box.querySelectorAll('[data-gnom]').forEach(n => { const i=n.dataset.gnom; editable(n, () => modale(L[i].nom, v => { L[i].nom=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-gcat]').forEach(n => { const i=n.dataset.gcat; editable(n, () => modale(L[i].categorie, v => { L[i].categorie=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-grep]').forEach(n => { const i=n.dataset.grep; editable(n, () => modale(L[i].reprise, v => { L[i].reprise=v; marquerModifie(); rendreHoraires(); })); });
+    box.querySelectorAll('[data-grepdel]').forEach(n => { const i=n.dataset.grepdel; n.onclick = () => { L[i].reprise=''; marquerModifie(); rendreHoraires(); }; });
+    box.querySelectorAll('[data-grepadd]').forEach(n => { const i=n.dataset.grepadd; n.onclick = () => { L[i].reprise='JJ/MM/AA'; marquerModifie(); rendreHoraires(); }; });
+    box.querySelectorAll('[data-crjour]').forEach(n => { const [gi,ci]=n.dataset.crjour.split('-'); editable(n, () => modale(L[gi].creneaux[ci].jour, v => { L[gi].creneaux[ci].jour=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-crheure]').forEach(n => { const [gi,ci]=n.dataset.crheure.split('-'); editable(n, () => modale(L[gi].creneaux[ci].horaire, v => { L[gi].creneaux[ci].horaire=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-cr]').forEach(n => {
+      const [gi,ci]=n.dataset.cr.split('-');
+      badgeSuppr(n, () => { L[gi].creneaux.splice(ci,1); marquerModifie(); rendreHoraires(); });
+    });
+    box.querySelectorAll('[data-craddjour]').forEach(n => { const i=n.dataset.craddjour; n.onclick = () => { L[i].creneaux.push({jour:'Jour', horaire:'00h00 - 00h00'}); marquerModifie(); rendreHoraires(); }; });
+    box.querySelectorAll('[data-gcard]').forEach(n => {
+      const i=n.dataset.gcard;
+      const del = el('<button class="acc-suppr-badge">✕</button>');
+      del.onclick = (e) => { e.preventDefault(); e.stopPropagation(); if(confirm('Supprimer ce groupe entier ?')){ L.splice(i,1); marquerModifie(); rendreHoraires(); } };
+      if (getComputedStyle(n).position === 'static') n.style.position = 'relative';
+      n.appendChild(del);
+    });
+    const gadd = box.querySelector('[data-gaddgroupe]');
+    if (gadd) gadd.onclick = () => { L.push({nom:'NOUVEAU GROUPE', categorie:'', reprise:'', couleur:'bleu', creneaux:[]}); marquerModifie(); rendreHoraires(); };
   }
 
   // ===== ÉQUIPE (en-tête + bureau + entraîneurs modifiables) =====

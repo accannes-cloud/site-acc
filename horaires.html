@@ -258,34 +258,29 @@
 <header class="page-header">
   <div class="page-header-content">
     <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Horaires</div>
-    <h1 class="page-title">LES <span>HORAIRES</span></h1>
-    <p class="page-subtitle">Tous les créneaux d'entraînement du club, en un coup d'œil. Choisis ton affichage : par discipline ou par jour de la semaine.</p>
+    <h1 class="page-title">LES <span data-horaires="titre">HORAIRES</span></h1>
+    <p class="page-subtitle" data-horaires="sous_titre">Retrouvez les créneaux d'entraînement de chaque groupe pour la saison.</p>
   </div>
 </header>
 
-<!-- TOGGLE VUES -->
-<section style="padding:48px 0 0;">
+<!-- HORAIRES PAR GROUPE -->
+<section style="padding-top:48px;">
   <div class="container">
-    <div class="vue-toggle">
-      <button class="vue-btn active" id="btn-discipline" onclick="switchVue('discipline')">🏃 Par discipline</button>
-      <button class="vue-btn" id="btn-jour" onclick="switchVue('jour')">📅 Par jour</button>
-    </div>
-  </div>
-</section>
-
-<!-- VUE PAR DISCIPLINE -->
-<section id="vue-discipline" style="padding-top:40px;">
-  <div class="container">
-    <div id="horaires-par-discipline">
-      <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des horaires…</p>
-    </div>
-  </div>
-</section>
-
-<!-- VUE PAR JOUR (cachée par défaut) -->
-<section id="vue-jour" style="padding-top:40px;display:none;">
-  <div class="container">
-    <div id="horaires-par-jour">
+    <style>
+      .horaires-groupes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+      .grp-card { background: var(--blanc, #fff); border-radius: 16px; box-shadow: 0 6px 24px rgba(0,31,92,0.07); overflow: hidden; border-top: 4px solid var(--bleu, #003DA5); display: flex; flex-direction: column; }
+      .grp-card[data-c="vert"] { border-top-color: #7F9E3F; }
+      .grp-card[data-c="orange"] { border-top-color: #E08A3C; }
+      .grp-head { padding: 20px 22px 14px; }
+      .grp-nom { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.5px; color: var(--bleu-fonce, #001F5C); line-height: 1.1; }
+      .grp-cat { font-size: 13px; color: var(--texte-doux, #455A7A); margin-top: 4px; }
+      .grp-reprise { display: inline-block; margin-top: 10px; background: rgba(255,214,0,0.22); color: #8A6D00; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; }
+      .grp-creneaux { padding: 6px 22px 20px; display: flex; flex-direction: column; gap: 8px; }
+      .grp-creneau { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 14px; background: var(--gris-clair, #F4F6FB); border-radius: 10px; }
+      .grp-jour { font-weight: 600; color: var(--bleu, #003DA5); font-size: 14px; }
+      .grp-heure { font-size: 14px; color: var(--texte, #0D1B3E); text-align: right; }
+    </style>
+    <div class="horaires-groupes" data-horaires-groupes>
       <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des horaires…</p>
     </div>
   </div>
@@ -363,105 +358,6 @@
   reveals.forEach(r => observer.observe(r));
 </script>
   <script src="club-data.js"></script>
-<script>
-  function switchVue(vue) {
-    document.getElementById('vue-discipline').style.display = (vue === 'discipline') ? 'block' : 'none';
-    document.getElementById('vue-jour').style.display = (vue === 'jour') ? 'block' : 'none';
-    document.getElementById('btn-discipline').classList.toggle('active', vue === 'discipline');
-    document.getElementById('btn-jour').classList.toggle('active', vue === 'jour');
-  }
-
-  (async function chargerTousHoraires() {
-    const REPO = 'accannes-cloud/site-acc';
-    const RAW = `https://raw.githubusercontent.com/${REPO}/main`;
-    const API = `https://api.github.com/repos/${REPO}/contents/contenu/horaires`;
-    const ordreJours = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
-
-    async function getJSON(url) {
-      try { const r = await fetch(`${url}?t=${Date.now()}`); if (!r.ok) return null; return await r.json(); }
-      catch(e) { return null; }
-    }
-
-    // 1. Liste tous les fichiers de disciplines (y compris ceux créés par le club)
-    let fichiers = [];
-    try {
-      const res = await fetch(API);
-      if (res.ok) {
-        const liste = await res.json();
-        fichiers = liste.filter(f => f.name.endsWith('.json'));
-      }
-    } catch(e) {}
-
-    // 2. Charge chaque discipline
-    const blocsDiscipline = [];
-    let tous = [];
-    for (const f of fichiers) {
-      const data = await getJSON(f.download_url);
-      if (!data || !data.creneaux || data.creneaux.length === 0) continue;
-      const nom = data.discipline || f.name.replace('.json', '');
-      const icone = data.icone || '🏃';
-      const ordre = (typeof data.ordre === 'number') ? data.ordre : 99;
-      blocsDiscipline.push({ nom, icone, ordre, creneaux: data.creneaux });
-      data.creneaux.forEach(c => tous.push({ ...c, discipline: nom, disciplineIcone: icone }));
-    }
-
-    // Trie les disciplines par ordre d'affichage
-    blocsDiscipline.sort((a, b) => a.ordre - b.ordre);
-
-    function ligneDetails(c) {
-      const parts = [];
-      if (c.categorie) parts.push(c.categorie);
-      if (c.lieu) parts.push('📍 ' + c.lieu);
-      if (c.coach) parts.push('👤 ' + c.coach);
-      return parts.join(' · ');
-    }
-
-    // ===== VUE PAR DISCIPLINE =====
-    const contDisc = document.getElementById('horaires-par-discipline');
-    if (blocsDiscipline.length === 0) {
-      contDisc.innerHTML = '<p style="text-align:center;color:var(--texte-doux);padding:40px;">Les horaires seront bientôt disponibles. Contacte le club pour plus d\'informations.</p>';
-    } else {
-      contDisc.innerHTML = blocsDiscipline.map(b => `
-        <div class="disc-horaire-block">
-          <div class="disc-horaire-head">
-            <div class="disc-horaire-icon">${b.icone}</div>
-            <div class="disc-horaire-title">${b.nom}</div>
-          </div>
-          ${b.creneaux.map(c => `
-            <div class="creneau-card">
-              <div class="creneau-heure">📅 ${c.jour || ''}<br>${c.horaire || ''}</div>
-              <div class="creneau-groupe">${c.groupe || ''}</div>
-              <div class="creneau-lieu">${ligneDetails(c)}</div>
-            </div>`).join('')}
-        </div>`).join('');
-    }
-
-    // ===== VUE PAR JOUR =====
-    const contJour = document.getElementById('horaires-par-jour');
-    if (tous.length === 0) {
-      contJour.innerHTML = '<p style="text-align:center;color:var(--texte-doux);padding:40px;">Les horaires seront bientôt disponibles.</p>';
-    } else {
-      let html = '';
-      ordreJours.forEach(jour => {
-        const duJour = tous.filter(c => (c.jour || '').toLowerCase() === jour.toLowerCase());
-        if (duJour.length === 0) return;
-        html += `<div class="jour-block"><div class="jour-head">${jour}</div>`;
-        duJour.forEach(c => {
-          const extra = [c.groupe, ligneDetails(c)].filter(Boolean).join(' · ');
-          html += `
-            <div class="creneau-card">
-              <div class="creneau-heure">${c.horaire || ''}</div>
-              <div class="creneau-disc">${c.disciplineIcone} ${c.discipline}</div>
-              <div class="creneau-lieu">${extra}</div>
-            </div>`;
-        });
-        html += `</div>`;
-      });
-      contJour.innerHTML = html;
-    }
-  })();
-</script>
-
-<script src="club-data.js"></script>
+  <script src="edition.js"></script>
 </body>
 </html>

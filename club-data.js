@@ -253,6 +253,33 @@
     }
   }
 
+  // ========== PAGE HORAIRES (par groupe) ==========
+  async function injectHorairesPage() {
+    const box = document.querySelector('[data-horaires-groupes]');
+    if (!box) return;
+    const data = await getJSON('contenu/pages/horaires.json');
+    if (!data) return;
+    document.querySelectorAll('[data-horaires]').forEach(el => {
+      const k = el.getAttribute('data-horaires');
+      if (data[k] !== undefined) el.textContent = data[k];
+    });
+    if (Array.isArray(data.groupes)) {
+      box.innerHTML = data.groupes.map(g => {
+        const creneaux = (g.creneaux || []).map(c =>
+          `<div class="grp-creneau"><span class="grp-jour">${c.jour || ''}</span><span class="grp-heure">${c.horaire || ''}</span></div>`
+        ).join('');
+        return `<div class="grp-card" data-c="${g.couleur || 'bleu'}">
+          <div class="grp-head">
+            <div class="grp-nom">${g.nom || ''}</div>
+            ${g.categorie ? '<div class="grp-cat">' + g.categorie + '</div>' : ''}
+            ${g.reprise ? '<div class="grp-reprise">📅 Reprise le ' + g.reprise + '</div>' : ''}
+          </div>
+          <div class="grp-creneaux">${creneaux}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
   // ========== PAGE INSTALLATIONS ==========
   async function injectInstallations() {
     if (!document.querySelector('[data-install], [data-install-equipements]')) return;
@@ -449,6 +476,7 @@
     injectHistoire();
     injectInstallations();
     injectPalmares();
+    injectHorairesPage();
   }
 
   if (document.readyState === 'loading') {
