@@ -8,13 +8,32 @@
       "reprise": "",
       "couleur": "orange",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "15h00 - 19h00" },
-        { "jour": "Mardi", "horaire": "15h00 - 19h00" },
-        { "jour": "Mercredi", "horaire": "13h00 - 18h00" },
-        { "jour": "Jeudi", "horaire": "15h00 - 19h00" },
-        { "jour": "Vendredi", "horaire": "15h00 - 18h00" },
-        { "jour": "Samedi", "horaire": "09h30 - 14h30" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "15h00 - 19h00"
+        },
+        {
+          "jour": "Mardi",
+          "horaire": "15h00 - 19h00"
+        },
+        {
+          "jour": "Mercredi",
+          "horaire": "13h00 - 18h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "15h00 - 19h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "15h00 - 18h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "09h30 - 14h30"
+        }
+      ],
+      "famille": "Accueil"
     },
     {
       "nom": "ATHLÉ BABY",
@@ -22,8 +41,14 @@
       "reprise": "09/09/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Mercredi", "horaire": "14h30 - 15h30" }
-      ]
+        {
+          "jour": "Mercredi",
+          "horaire": "14h30 - 15h30"
+        }
+      ],
+      "famille": "Jeunes",
+      "annee_min": 2021,
+      "annee_max": 2022
     },
     {
       "nom": "ÉVEIL ATHLÉTIQUE",
@@ -31,8 +56,14 @@
       "reprise": "05/09/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Samedi", "horaire": "10h00 - 12h00" }
-      ]
+        {
+          "jour": "Samedi",
+          "horaire": "10h00 - 12h00"
+        }
+      ],
+      "famille": "Jeunes",
+      "annee_min": 2018,
+      "annee_max": 2020
     },
     {
       "nom": "POUSSIN(E)S",
@@ -40,9 +71,18 @@
       "reprise": "05/09/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Mercredi", "horaire": "14h00 - 16h00" },
-        { "jour": "Samedi", "horaire": "10h00 - 12h00" }
-      ]
+        {
+          "jour": "Mercredi",
+          "horaire": "14h00 - 16h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "10h00 - 12h00"
+        }
+      ],
+      "famille": "Jeunes",
+      "annee_min": 2016,
+      "annee_max": 2017
     },
     {
       "nom": "BENJAMIN(E)S / MINIMES",
@@ -50,9 +90,18 @@
       "reprise": "05/09/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Mercredi", "horaire": "16h00 - 18h00" },
-        { "jour": "Samedi", "horaire": "14h30 - 16h30" }
-      ]
+        {
+          "jour": "Mercredi",
+          "horaire": "16h00 - 18h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "14h30 - 16h30"
+        }
+      ],
+      "famille": "Jeunes",
+      "annee_min": 2012,
+      "annee_max": 2015
     },
     {
       "nom": "ATHLÉ FIT",
@@ -60,10 +109,22 @@
       "reprise": "01/09/26",
       "couleur": "vert",
       "creneaux": [
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
-      ]
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        }
+      ],
+      "famille": "Santé & Forme",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "ATHLÉ-SANTÉ",
@@ -71,9 +132,18 @@
       "reprise": "05/09/26",
       "couleur": "vert",
       "creneaux": [
-        { "jour": "Jeudi", "horaire": "18h30 - 20h00" },
-        { "jour": "Samedi", "horaire": "10h15 - 12h00" }
-      ]
+        {
+          "jour": "Jeudi",
+          "horaire": "18h30 - 20h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "10h15 - 12h00"
+        }
+      ],
+      "famille": "Santé & Forme",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "MARCHE NORDIQUE",
@@ -81,11 +151,26 @@
       "reprise": "01/09/26",
       "couleur": "vert",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h30 - 20h30" },
-        { "jour": "Mardi", "horaire": "08h30 - 10h30" },
-        { "jour": "Jeudi", "horaire": "18h15 - 19h15" },
-        { "jour": "Vendredi", "horaire": "08h30 - 10h30" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h30 - 20h30"
+        },
+        {
+          "jour": "Mardi",
+          "horaire": "08h30 - 10h30"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h15 - 19h15"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "08h30 - 10h30"
+        }
+      ],
+      "famille": "Marche",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "DEMI-FOND / RUNNING / MARCHE ATHLÉTIQUE",
@@ -93,10 +178,22 @@
       "reprise": "01/09/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Mardi", "horaire": "18h30 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h30 - 20h00" },
-        { "jour": "Dimanche", "horaire": "Matin — sortie nature" }
-      ]
+        {
+          "jour": "Mardi",
+          "horaire": "18h30 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h30 - 20h00"
+        },
+        {
+          "jour": "Dimanche",
+          "horaire": "Matin — sortie nature"
+        }
+      ],
+      "famille": "Demi-fond & Running",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "SPRINT LONG / DEMI-FOND COURT",
@@ -104,13 +201,34 @@
       "reprise": "31/08/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Samedi", "horaire": "12h00 - 14h00" },
-        { "jour": "Dimanche", "horaire": "Matin — sortie nature" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mercredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "12h00 - 14h00"
+        },
+        {
+          "jour": "Dimanche",
+          "horaire": "Matin — sortie nature"
+        }
+      ],
+      "famille": "Sprint & Haies",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "SPRINT COURT / HAIES",
@@ -118,11 +236,26 @@
       "reprise": "31/08/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Samedi", "horaire": "12h15 - 14h15" }
-      ]
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mercredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "12h15 - 14h15"
+        }
+      ],
+      "famille": "Sprint & Haies",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "LANCERS",
@@ -130,11 +263,26 @@
       "reprise": "31/08/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        }
+      ],
+      "famille": "Lancers",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "SAUT EN HAUTEUR",
@@ -142,11 +290,26 @@
       "reprise": "31/08/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        }
+      ],
+      "famille": "Sauts",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "SAUT À LA PERCHE",
@@ -154,11 +317,26 @@
       "reprise": "31/08/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Samedi", "horaire": "12h00 - 14h00" }
-      ]
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mercredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "12h00 - 14h00"
+        }
+      ],
+      "famille": "Sauts",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "LONGUEUR / TRIPLE SAUT",
@@ -166,11 +344,26 @@
       "reprise": "31/08/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
-        { "jour": "Samedi", "horaire": "12h00 - 14h00" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "12h00 - 14h00"
+        }
+      ],
+      "famille": "Sauts",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "ÉPREUVES COMBINÉES",
@@ -178,13 +371,34 @@
       "reprise": "01/09/26",
       "couleur": "bleu",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mardi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Jeudi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Samedi", "horaire": "10h00 - 12h00" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mardi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mercredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Jeudi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Samedi",
+          "horaire": "10h00 - 12h00"
+        }
+      ],
+      "famille": "Épreuves combinées",
+      "annee_min": 1930,
+      "annee_max": 2011
     },
     {
       "nom": "ATHLÉ MASTERS",
@@ -192,10 +406,22 @@
       "reprise": "01/09/26",
       "couleur": "orange",
       "creneaux": [
-        { "jour": "Lundi", "horaire": "18h00 - 20h00" },
-        { "jour": "Mercredi", "horaire": "18h00 - 20h00" },
-        { "jour": "Vendredi", "horaire": "18h00 - 20h00" }
-      ]
+        {
+          "jour": "Lundi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Mercredi",
+          "horaire": "18h00 - 20h00"
+        },
+        {
+          "jour": "Vendredi",
+          "horaire": "18h00 - 20h00"
+        }
+      ],
+      "famille": "Masters",
+      "annee_min": 1930,
+      "annee_max": 1992
     }
   ]
 }
