@@ -279,6 +279,19 @@
         </a>`;
       }).join('');
     }
+
+    // Résultats sportifs
+    const resBox = document.querySelector('[data-actus-resultats]');
+    if (resBox && Array.isArray(data.resultats)) {
+      resBox.innerHTML = data.resultats.map(r => {
+        const cls = r.medaille === '🥇' ? 'medal-gold' : r.medaille === '🥈' ? 'medal-silver' : r.medaille === '🥉' ? 'medal-bronze' : 'medal-info';
+        return `<div class="result-item">
+          <div class="result-medal ${cls}">${r.medaille || '🏅'}</div>
+          <div class="result-content"><h4>${r.titre || ''}</h4><p>${r.desc || ''}</p></div>
+          <div class="result-date">${r.date || ''}</div>
+        </div>`;
+      }).join('');
+    }
   }
 
   function formatDateFr(dateStr) {

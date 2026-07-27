@@ -258,6 +258,34 @@
     });
     const add = box.querySelector('[data-aadd]');
     if (add) add.onclick = () => { A.unshift({titre:'Nouvel article', date:new Date().toISOString().slice(0,10), photo:'', texte:'Contenu de l\'article à rédiger.'}); marquerModifie(); rendreActualites(); };
+
+    // Résultats sportifs
+    const resBox = document.querySelector('[data-actus-resultats]');
+    if (resBox && Array.isArray(data.resultats)) {
+      const R = data.resultats;
+      resBox.innerHTML = R.map((r, i) => {
+        const cls = r.medaille === '🥇' ? 'medal-gold' : r.medaille === '🥈' ? 'medal-silver' : r.medaille === '🥉' ? 'medal-bronze' : 'medal-info';
+        return `<div class="result-item" data-rcard="${i}">
+          <div class="result-medal ${cls}" data-rmed="${i}">${r.medaille || '🏅'}</div>
+          <div class="result-content"><h4 data-rtitre="${i}">${r.titre || ''}</h4><p data-rdesc="${i}">${r.desc || ''}</p></div>
+          <div class="result-date" data-rdate="${i}">${r.date || ''}</div>
+        </div>`;
+      }).join('') + `<button class="acc-ajout" data-radd style="align-self:start;">➕ Ajouter un résultat</button>`;
+
+      resBox.querySelectorAll('[data-rmed]').forEach(n => { const i=n.dataset.rmed; editable(n, () => modale(R[i].medaille, v => { R[i].medaille=v; marquerModifie(); rendreActualites(); })); });
+      resBox.querySelectorAll('[data-rtitre]').forEach(n => { const i=n.dataset.rtitre; editable(n, () => modale(R[i].titre, v => { R[i].titre=v; n.textContent=v; marquerModifie(); })); });
+      resBox.querySelectorAll('[data-rdesc]').forEach(n => { const i=n.dataset.rdesc; editable(n, () => modale(R[i].desc, v => { R[i].desc=v; n.textContent=v; marquerModifie(); })); });
+      resBox.querySelectorAll('[data-rdate]').forEach(n => { const i=n.dataset.rdate; editable(n, () => modale(R[i].date, v => { R[i].date=v; n.textContent=v; marquerModifie(); })); });
+      resBox.querySelectorAll('[data-rcard]').forEach(n => {
+        const i=n.dataset.rcard;
+        const del = el('<button class="acc-suppr-badge">✕</button>');
+        del.onclick = (e) => { e.preventDefault(); e.stopPropagation(); if(confirm('Supprimer ce résultat ?')){ R.splice(i,1); marquerModifie(); rendreActualites(); } };
+        if (getComputedStyle(n).position === 'static') n.style.position = 'relative';
+        n.appendChild(del);
+      });
+      const radd = resBox.querySelector('[data-radd]');
+      if (radd) radd.onclick = () => { R.push({medaille:'🥇', titre:'Nouveau résultat', desc:'Description', date:'JJ MOIS'}); marquerModifie(); rendreActualites(); };
+    }
   }
 
   // ===== HORAIRES (blocs par groupe) =====
