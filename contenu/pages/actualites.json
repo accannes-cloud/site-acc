@@ -1,0 +1,26 @@
+{
+  "titre": "ACTUALITÉS",
+  "sous_titre": "Toute la vie du club, les performances de nos athlètes, les événements à venir et les coulisses de l'Athletic Club de Cannes.",
+  "eyebrow": "Articles récents",
+  "titre_section": "ACTUALITÉS",
+  "articles": [
+    {
+      "titre": "Championnats Régionaux : l'ACC brille avec 14 médailles !",
+      "date": "2025-05-12",
+      "photo": "",
+      "texte": "Retour sur une journée exceptionnelle lors des championnats régionaux. Nos licenciés ont décroché 14 médailles toutes catégories confondues, un record pour le club. Sprint, sauts, lancers… tous les groupes ont rapporté des podiums."
+    },
+    {
+      "titre": "Reprise des entraînements : la saison 2026-2027 est lancée !",
+      "date": "2026-09-01",
+      "photo": "",
+      "texte": "C'est la rentrée pour tous nos groupes ! Retrouvez les créneaux de votre catégorie sur la page Horaires. Bienvenue aux nouveaux licenciés et bon retour à tous les anciens."
+    },
+    {
+      "titre": "Nos jeunes pousses à l'honneur",
+      "date": "2026-06-15",
+      "photo": "",
+      "texte": "Les groupes Baby Athlé et Éveil ont clôturé la saison par une belle fête de l'athlétisme. Jeux, parcours et médailles pour tous les enfants : un moment de partage et de convivialité."
+    }
+  ]
+}
