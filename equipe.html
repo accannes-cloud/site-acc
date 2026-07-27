@@ -333,15 +333,14 @@
   <a href="palmares.html">Palmarès</a>
 </div>
 
-<!-- INTRA-PAGE NAV -->
+<!-- INTRA-PAGE NAV (onglets basculants) -->
 <div style="background:var(--gris-clair);padding:18px 20px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #E8EBF5;">
-  <a href="#bureau" style="font-size:14px;font-weight:600;color:var(--bleu);text-decoration:none;padding:8px 18px;border-radius:8px;background:var(--blanc);box-shadow:0 2px 8px rgba(0,31,92,0.06);transition:transform 0.2s;">🏛️ Bureau & CA</a>
-  <a href="#entraineurs" style="font-size:14px;font-weight:600;color:var(--bleu);text-decoration:none;padding:8px 18px;border-radius:8px;background:var(--blanc);box-shadow:0 2px 8px rgba(0,31,92,0.06);transition:transform 0.2s;">👥 Entraîneurs</a>
+  <button class="equipe-tab equipe-tab-active" data-tab="bureau" style="font-size:14px;font-weight:600;color:var(--bleu);border:none;cursor:pointer;padding:8px 18px;border-radius:8px;background:var(--blanc);box-shadow:0 2px 8px rgba(0,31,92,0.06);font-family:inherit;">🏛️ Bureau & CA</button>
+  <button class="equipe-tab" data-tab="entraineurs" style="font-size:14px;font-weight:600;color:var(--bleu);border:none;cursor:pointer;padding:8px 18px;border-radius:8px;background:var(--blanc);box-shadow:0 2px 8px rgba(0,31,92,0.06);font-family:inherit;">👥 Entraîneurs</button>
 </div>
 
 <!-- BUREAU -->
-<!-- BUREAU -->
-<section id="bureau">
+<section id="bureau" class="equipe-section">
   <div class="container" style="padding-top:80px;padding-bottom:40px;">
     <div class="section-eyebrow reveal" data-equipepage="bureau_eyebrow">Bureau & Conseil d'Administration</div>
     <h2 class="block-title reveal" data-equipepage="bureau_titre">LE BUREAU</h2>
@@ -351,24 +350,40 @@
   </div>
 </section>
 
-
-
 <!-- ENTRAINEURS -->
-<section id="entraineurs">
-  <div class="container">
-    <div class="section-eyebrow reveal">Équipe d'entraîneurs</div>
-    <h2 class="block-title reveal">NOS <span>ENTRAÎNEURS</span></h2>
-    <p class="equipe-text reveal">Nos groupes d'entraînement sont encadrés par des entraîneurs diplômés qui planifient leurs entraînements sur la saison athlétique et les différents objectifs à atteindre.</p>
-    <p class="equipe-text reveal">Les entraînements sont variés et progressifs, dans l'objectif d'un développement optimal des aptitudes techniques, physiques et mentales liées aux exigences de l'athlétisme.</p>
+<section id="entraineurs" class="equipe-section" style="display:none;">
+  <div class="container" style="padding-top:80px;">
+    <div class="section-eyebrow reveal" data-equipepage="entraineurs_eyebrow">Équipe d'entraîneurs</div>
+    <h2 class="block-title reveal" data-equipepage="entraineurs_titre">NOS ENTRAÎNEURS</h2>
+    <p class="equipe-text reveal" data-equipepage="entraineurs_intro">Nos groupes d'entraînement sont encadrés par des entraîneurs diplômés.</p>
 
-    <div data-equipe-entraineurs></div>
+    <div data-equipe-entraineurs-groupes></div>
 
     <div class="philo-box reveal">
-      <p class="philo-quote">Notre objectif n'est pas seulement de former des Champions de France ou du Monde, mais de permettre à <span>chaque athlète d'atteindre ses objectifs</span>, quel que soit son niveau. À l'AC Cannes, chacun peut devenir le Champion de son Monde.</p>
-      <div class="philo-author">— La philosophie de l'encadrement ACC</div>
+      <p class="philo-quote" data-equipepage="philo_citation">Notre objectif n'est pas seulement de former des Champions de France ou du Monde, mais de permettre à chaque athlète d'atteindre ses objectifs, quel que soit son niveau. À l'AC Cannes, chacun peut devenir le Champion de son Monde.</p>
+      <div class="philo-author" data-equipepage="philo_auteur">— La philosophie de l'encadrement ACC</div>
     </div>
   </div>
 </section>
+
+<script>
+  // Onglets basculants Bureau / Entraîneurs
+  document.querySelectorAll('.equipe-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var cible = tab.getAttribute('data-tab');
+      document.querySelectorAll('.equipe-tab').forEach(function(t) {
+        t.classList.remove('equipe-tab-active');
+        t.style.background = 'var(--blanc)';
+        t.style.color = 'var(--bleu)';
+      });
+      tab.classList.add('equipe-tab-active');
+      tab.style.background = 'var(--bleu)';
+      tab.style.color = '#fff';
+      document.getElementById('bureau').style.display = (cible === 'bureau') ? 'block' : 'none';
+      document.getElementById('entraineurs').style.display = (cible === 'entraineurs') ? 'block' : 'none';
+    });
+  });
+</script>
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">

@@ -93,7 +93,7 @@
   // Bureau : <div data-equipe="bureau"></div>
   // Entraîneurs par catégorie : <div data-equipe-entraineurs></div>
   async function injectEquipe() {
-    // --- Bureau (liste simple) ---
+    // --- Bureau (ancien système, liste simple) ---
     const conteneursBureau = document.querySelectorAll('[data-equipe="bureau"]');
     for (const conteneur of conteneursBureau) {
       const data = await getJSON('contenu/equipe/bureau.json');
@@ -113,8 +113,11 @@
       conteneur.innerHTML = html;
     }
 
-    // --- Entraîneurs (liste simple regroupée par catégorie à l'affichage) ---
+    // --- Entraîneurs (ancien système par catégorie) ---
+    // Ne s'exécute que si un ancien conteneur [data-equipe-entraineurs] existe encore.
+    // La page équipe utilise désormais [data-equipe-entraineurs-groupes] (voir injectEquipePage).
     const conteneursCoachs = document.querySelectorAll('[data-equipe-entraineurs]');
+    if (conteneursCoachs.length === 0) return; // rien à faire : nouveau système en place
     for (const conteneur of conteneursCoachs) {
       const data = await getJSON('contenu/equipe/entraineurs.json');
       if (!data || !data.entraineurs || data.entraineurs.length === 0) continue;
@@ -250,6 +253,47 @@
     }
   }
 
+  // ========== PAGE INSTALLATIONS ==========
+  async function injectInstallations() {
+    if (!document.querySelector('[data-install], [data-install-equipements]')) return;
+    const data = await getJSON('contenu/pages/installations.json');
+    if (!data) return;
+    document.querySelectorAll('[data-install]').forEach(el => {
+      const k = el.getAttribute('data-install');
+      if (data[k] !== undefined) el.textContent = data[k];
+    });
+    const box = document.querySelector('[data-install-equipements]');
+    if (box && Array.isArray(data.equipements)) {
+      box.innerHTML = data.equipements.map(e => `<li><span class="if-icon">${e.icone||''}</span> ${e.texte||''}</li>`).join('');
+    }
+  }
+
+  // ========== PAGE PALMARÈS ==========
+  async function injectPalmares() {
+    if (!document.querySelector('[data-palmares], [data-palmares-chiffres]')) return;
+    const data = await getJSON('contenu/pages/palmares.json');
+    if (!data) return;
+    document.querySelectorAll('[data-palmares]').forEach(el => {
+      const k = el.getAttribute('data-palmares');
+      if (data[k] !== undefined) el.textContent = data[k];
+    });
+    const chBox = document.querySelector('[data-palmares-chiffres]');
+    if (chBox && Array.isArray(data.chiffres)) {
+      chBox.innerHTML = data.chiffres.map(c => `<div class="palm-card reveal visible"><div class="palm-num">${c.nombre}</div><div class="palm-label">${c.label}</div></div>`).join('');
+    }
+    const photo = document.querySelector('[data-palmares-photo]');
+    if (photo) {
+      const img = photo.querySelector('img');
+      if (data.photo_image && img) img.src = data.photo_image;
+      const cap = photo.querySelector('.archive-caption');
+      if (cap && data.photo_legende) cap.textContent = data.photo_legende;
+    }
+    const legBox = document.querySelector('[data-palmares-legendes]');
+    if (legBox && Array.isArray(data.legendes)) {
+      legBox.innerHTML = data.legendes.map(l => `<div class="legend-item"><div class="legend-icon">${l.icone||'🏅'}</div><div><div class="legend-name">${l.nom||''}</div><div class="legend-desc">${l.desc||''}</div></div></div>`).join('');
+    }
+  }
+
   // ========== 6. PAGE ÉQUIPE (en-tête + bureau) ==========
   async function injectEquipePage() {
     if (!document.querySelector('[data-equipepage], [data-equipe-bureau]')) return;
@@ -265,31 +309,41 @@
     // Bureau : groupes de membres avec photos
     const box = document.querySelector('[data-equipe-bureau]');
     if (box && Array.isArray(data.groupes)) {
-      box.innerHTML = data.groupes.map(g => {
-        const cartes = (g.membres || []).map(m => {
-          const initiales = (m.nom || '?').split(' ').map(x => x[0]).join('').substring(0,2).toUpperCase();
-          const photo = m.photo
-            ? `<div class="person-photo"><img src="${m.photo}" alt="${m.nom}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>`
-            : `<div class="person-photo"><div class="person-photo-initials">${initiales}</div></div>`;
-          return `<div class="person-card">
-            ${photo}
-            <div class="person-body">
-              ${m.poste ? '<span class="person-badge">' + m.poste + '</span>' : ''}
-              <div class="person-name">${m.nom || ''}</div>
-              <div class="person-role">${m.role || ''}</div>
-            </div>
-          </div>`;
-        }).join('');
-        return `<div class="team-group reveal visible">
-          <div class="team-group-head">
-            <div class="team-group-icon">${g.icone || '🏛️'}</div>
-            <div><div class="team-group-title">${g.titre || ''}</div><div class="team-group-sub">${g.sous_titre || ''}</div></div>
-            <div class="team-group-count">${(g.membres||[]).length} membre${(g.membres||[]).length>1?'s':''}</div>
+      box.innerHTML = rendreGroupesPublic(data.groupes);
+    }
+    // Entraîneurs : mêmes groupes
+    const boxE = document.querySelector('[data-equipe-entraineurs-groupes]');
+    if (boxE && Array.isArray(data.entraineurs_groupes)) {
+      boxE.innerHTML = rendreGroupesPublic(data.entraineurs_groupes);
+    }
+  }
+
+  // Génère le HTML public d'une liste de groupes de personnes
+  function rendreGroupesPublic(groupes) {
+    return groupes.map(g => {
+      const cartes = (g.membres || []).map(m => {
+        const initiales = (m.nom || '?').split(' ').map(x => x[0]).join('').substring(0,2).toUpperCase();
+        const photo = m.photo
+          ? `<div class="person-photo"><img src="${m.photo}" alt="${m.nom}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>`
+          : `<div class="person-photo"><div class="person-photo-initials">${initiales}</div></div>`;
+        return `<div class="person-card">
+          ${photo}
+          <div class="person-body">
+            ${m.poste ? '<span class="person-badge">' + m.poste + '</span>' : ''}
+            <div class="person-name">${m.nom || ''}</div>
+            <div class="person-role">${m.role || ''}</div>
           </div>
-          <div class="people-grid">${cartes}</div>
         </div>`;
       }).join('');
-    }
+      return `<div class="team-group reveal visible">
+        <div class="team-group-head">
+          <div class="team-group-icon">${g.icone || '🏛️'}</div>
+          <div><div class="team-group-title">${g.titre || ''}</div><div class="team-group-sub">${g.sous_titre || ''}</div></div>
+          <div class="team-group-count">${(g.membres||[]).length} membre${(g.membres||[]).length>1?'s':''}</div>
+        </div>
+        <div class="people-grid">${cartes}</div>
+      </div>`;
+    }).join('');
   }
 
   // ========== 5. PAGE HISTOIRE DU CLUB ==========
@@ -393,6 +447,8 @@
     injectEquipePage();
     injectAccueil();
     injectHistoire();
+    injectInstallations();
+    injectPalmares();
   }
 
   if (document.readyState === 'loading') {
