@@ -1,0 +1,27 @@
+{
+  "titre_1": "INSCRIPTIONS",
+  "titre_2": "2025-2026",
+  "sous_titre": "L'AC Cannes propose différentes activités athlétiques pour tous les âges (dès 7 ans) : Jeunes, Piste, Running et Santé. Chacun y trouvera ce qu'il cherche, encadré par des éducateurs diplômés.",
+  "label": "🏅 Label Or FFA · 4 catégories",
+  "intro": "Les inscriptions pour la saison 2025-2026 se font en ligne via la plateforme HelloAsso. Préparez votre dossier complet et suivez les étapes ci-dessous pour rejoindre le club.",
+  "steps": [
+    { "titre": "Choisir son activité", "texte": "Sélectionnez la catégorie adaptée : Athlé Jeune, Piste, Running ou Santé, selon votre âge et vos objectifs." },
+    { "titre": "Préparer son dossier", "texte": "Rassemblez le formulaire d'adhésion signé, la photo et les justificatifs de réduction éventuels." },
+    { "titre": "Payer en ligne", "texte": "Réglez votre adhésion via HelloAsso, en 1 ou 3 fois, ou choisissez une préinscription pour un autre moyen de paiement." }
+  ],
+  "docs": [
+    { "titre": "Formulaire d'adhésion 2025-2026", "texte": "Le formulaire renseigné et signé, accompagné d'une photo. Les tarifs sont indiqués directement sur le formulaire selon la catégorie." },
+    { "titre": "Parcours Prévention Santé (PPS)", "texte": "Le certificat médical est remplacé par le Parcours Prévention Santé, à renseigner sur votre Espace Personnel du licencié FFA pour que la licence soit validée par le club." },
+    { "titre": "Justificatifs de réduction", "texte": "Les justificatifs donnant droit à une réduction : carte étudiant, code Pass-Sport, ou code promo famille (voir ci-dessous)." }
+  ],
+  "paiement": "Paiement : le règlement s'effectue via HelloAsso – Athletic Club de Cannes. Vous pouvez payer par carte en 1 fois ou en 3 fois. Pour un autre moyen de paiement (chèque, chèque-vacances, Pass Sport…), sélectionnez l'option « Préinscription » : vous serez enregistré dans la base, et l'inscription sera validée une fois le paiement régularisé auprès du club.",
+  "promo_intro": "Pensez à utiliser les codes promo suivants si vous êtes concernés lors de votre inscription sur HelloAsso :",
+  "promos": [
+    { "code": "2FAMILLE25", "desc": "Vous êtes le 2ème membre d'une même famille à vous inscrire (le premier paie le tarif plein)." },
+    { "code": "3FAMILLE25", "desc": "Vous êtes le 3ème membre d'une même famille (le 1er paie le tarif plein, le 2ème utilise 2FAMILLE25)." },
+    { "code": "SUPERMAMAN", "desc": "Vous êtes la maman d'un jeune du club : votre 1ère licence loisir vous est offerte." },
+    { "code": "MAMAN2", "desc": "Vous avez bénéficié de la gratuité via SUPERMAMAN : profitez de 50% de réduction sur la licence loisir." }
+  ],
+  "cta_titre": "PRÊT À NOUS REJOINDRE ?",
+  "cta_texte": "Lancez votre inscription en ligne dès maintenant sur la plateforme HelloAsso de l'Athletic Club de Cannes."
+}
