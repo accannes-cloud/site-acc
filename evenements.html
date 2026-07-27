@@ -159,44 +159,20 @@
 <header class="page-header">
   <div class="page-header-content">
     <div class="page-breadcrumb"><a href="index.html">Accueil</a> &nbsp;›&nbsp; Agenda</div>
-    <h1 class="page-title">L'<span>AGENDA</span></h1>
-    <p class="page-subtitle">Toutes les compétitions à venir et les inscriptions ouvertes pour les athlètes du club.</p>
+    <h1 class="page-title">L'<span data-agenda="titre">AGENDA</span></h1>
+    <p class="page-subtitle" data-agenda="sous_titre">Toutes les compétitions à venir et les inscriptions ouvertes pour les athlètes du club.</p>
   </div>
 </header>
 
 <!-- COMPETITIONS -->
 <section>
   <div class="container">
-    <div class="section-eyebrow reveal">Compétitions à venir</div>
-    <h2 class="block-title reveal">PROCHAINES <span>ÉCHÉANCES</span></h2>
-    <p class="intro-text reveal">Retrouve ici les compétitions où le club engage ses athlètes. Clique sur "S'inscrire" pour rejoindre la liste des participants avant la date limite.</p>
+    <div class="section-eyebrow reveal" data-agenda="eyebrow">Compétitions à venir</div>
+    <h2 class="block-title reveal">PROCHAINES <span data-agenda="titre_section">ÉCHÉANCES</span></h2>
+    <p class="intro-text reveal" data-agenda="intro">Retrouve ici les compétitions où le club engage ses athlètes. Clique sur "S'inscrire" pour rejoindre la liste des participants avant la date limite.</p>
 
-    <div class="competitions-list" id="competitions-container">
-      <!-- Exemple affiché tant qu'aucune compétition n'est publiée dans le CMS -->
-      <div class="competition-card reveal">
-        <div class="comp-date-box">
-          <div class="comp-date-day">14</div>
-          <div class="comp-date-month">Mars</div>
-          <div class="comp-date-year">2026</div>
-        </div>
-        <div class="comp-body">
-          <span class="comp-statut statut-ouvert">Inscriptions ouvertes</span>
-          <div class="comp-nom">Championnats Régionaux Indoor</div>
-          <div class="comp-infos">
-            <span>📍 Miramas</span>
-            <span>🏃 Piste couverte</span>
-          </div>
-          <div class="comp-categories">
-            <span class="comp-cat-tag">Cadets</span>
-            <span class="comp-cat-tag">Juniors</span>
-            <span class="comp-cat-tag">Seniors</span>
-          </div>
-        </div>
-        <div class="comp-action">
-          <div class="comp-limite">Limite : <strong>1er mars</strong></div>
-          <a href="#" class="comp-btn">S'inscrire</a>
-        </div>
-      </div>
+    <div class="competitions-list" data-agenda-competitions>
+      <p style="text-align:center;color:var(--texte-doux);padding:40px;">Chargement des compétitions…</p>
     </div>
   </div>
 </section>
@@ -377,5 +353,6 @@
 })();
 </script>
   <script src="club-data.js"></script>
+  <script src="edition.js"></script>
 </body>
 </html>

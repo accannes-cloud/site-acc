@@ -253,6 +253,44 @@
     }
   }
 
+  // ========== PAGE AGENDA (compétitions) ==========
+  async function injectAgenda() {
+    const box = document.querySelector('[data-agenda-competitions]');
+    if (!box) return;
+    const data = await getJSON('contenu/pages/agenda.json');
+    if (!data) return;
+    document.querySelectorAll('[data-agenda]').forEach(el => {
+      const k = el.getAttribute('data-agenda');
+      if (data[k] !== undefined) el.textContent = data[k];
+    });
+    if (Array.isArray(data.competitions)) {
+      box.innerHTML = data.competitions.map(c => {
+        const cats = (c.categories || []).map(cat => `<span class="comp-cat-tag">${cat}</span>`).join('');
+        const statutClass = (c.statut || '').toLowerCase().indexOf('ferm') !== -1 ? 'statut-ferme' : 'statut-ouvert';
+        return `<div class="competition-card">
+          <div class="comp-date-box">
+            <div class="comp-date-day">${c.jour || ''}</div>
+            <div class="comp-date-month">${c.mois || ''}</div>
+            <div class="comp-date-year">${c.annee || ''}</div>
+          </div>
+          <div class="comp-body">
+            ${c.statut ? '<span class="comp-statut ' + statutClass + '">' + c.statut + '</span>' : ''}
+            <div class="comp-nom">${c.nom || ''}</div>
+            <div class="comp-infos">
+              ${c.lieu ? '<span>📍 ' + c.lieu + '</span>' : ''}
+              ${c.info ? '<span>🏃 ' + c.info + '</span>' : ''}
+            </div>
+            <div class="comp-categories">${cats}</div>
+          </div>
+          <div class="comp-action">
+            ${c.limite ? '<div class="comp-limite">Limite : <strong>' + c.limite + '</strong></div>' : ''}
+            <a href="${c.lien || 'inscription.html'}" class="comp-btn">S'inscrire</a>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
+
   // ========== PAGE ACTUALITÉS ==========
   async function injectActualites() {
     const box = document.querySelector('[data-actus-articles]');
@@ -616,6 +654,7 @@
     injectPalmares();
     injectHorairesPage();
     injectActualites();
+    injectAgenda();
   }
 
   if (document.readyState === 'loading') {

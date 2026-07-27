@@ -16,7 +16,8 @@
     'palmares.html': { file: 'contenu/pages/palmares.json', type: 'palmares' },
     'equipe.html': { file: 'contenu/pages/equipe.json', type: 'equipe' },
     'horaires.html': { file: 'contenu/pages/horaires.json', type: 'horaires' },
-    'blog.html': { file: 'contenu/pages/actualites.json', type: 'actualites' }
+    'blog.html': { file: 'contenu/pages/actualites.json', type: 'actualites' },
+    'evenements.html': { file: 'contenu/pages/agenda.json', type: 'agenda' }
   };
 
   // On récupère le nom de la page, avec ou sans ".html", avec ou sans "/" final
@@ -213,6 +214,72 @@
     else if (config.type === 'equipe') rendreEquipe();
     else if (config.type === 'horaires') rendreHoraires();
     else if (config.type === 'actualites') rendreActualites();
+    else if (config.type === 'agenda') rendreAgenda();
+  }
+
+  // ===== AGENDA (compétitions modifiables) =====
+  function rendreAgenda() {
+    document.querySelectorAll('[data-agenda]').forEach(node => {
+      const key = node.getAttribute('data-agenda');
+      if (data[key] !== undefined) node.textContent = data[key];
+      editable(node, () => modale(data[key], v => { data[key] = v; node.textContent = v; marquerModifie(); }));
+    });
+
+    const box = document.querySelector('[data-agenda-competitions]');
+    if (!box || !Array.isArray(data.competitions)) return;
+    box.innerHTML = data.competitions.map((c, i) => {
+      const cats = (c.categories || []).map((cat, ci) => `<span class="comp-cat-tag" data-ccat="${i}-${ci}">${cat}</span>`).join('');
+      return `<div class="competition-card" data-ccard="${i}">
+        <div class="comp-date-box">
+          <div class="comp-date-day" data-cjour="${i}">${c.jour || ''}</div>
+          <div class="comp-date-month" data-cmois="${i}">${c.mois || ''}</div>
+          <div class="comp-date-year" data-cannee="${i}">${c.annee || ''}</div>
+        </div>
+        <div class="comp-body">
+          <span class="comp-statut statut-ouvert" data-cstatut="${i}">${c.statut || '(statut)'}</span>
+          <div class="comp-nom" data-cnom="${i}">${c.nom || ''}</div>
+          <div class="comp-infos">
+            <span data-clieu="${i}">📍 ${c.lieu || ''}</span>
+            <span data-cinfo="${i}">🏃 ${c.info || ''}</span>
+          </div>
+          <div class="comp-categories">${cats} <button class="acc-mini-add" data-caddcat="${i}">➕ catégorie</button></div>
+        </div>
+        <div class="comp-action">
+          <div class="comp-limite">Limite : <strong data-climite="${i}">${c.limite || ''}</strong></div>
+          <span class="comp-btn" data-clien="${i}" style="cursor:pointer;">🔗 Lien : ${c.lien || 'inscription.html'}</span>
+        </div>
+      </div>`;
+    }).join('') + `<button class="acc-ajout" data-caddcomp>➕ Ajouter une compétition</button>`;
+
+    const C = data.competitions;
+    const champ = (sel, prop, prefix) => box.querySelectorAll(sel).forEach(n => {
+      const i = n.getAttribute(n.attributes[1].name);
+      editable(n, () => modale(C[i][prop], v => { C[i][prop]=v; n.textContent = (prefix||'')+v; marquerModifie(); }));
+    });
+    box.querySelectorAll('[data-cjour]').forEach(n => { const i=n.dataset.cjour; editable(n, () => modale(C[i].jour, v => { C[i].jour=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-cmois]').forEach(n => { const i=n.dataset.cmois; editable(n, () => modale(C[i].mois, v => { C[i].mois=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-cannee]').forEach(n => { const i=n.dataset.cannee; editable(n, () => modale(C[i].annee, v => { C[i].annee=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-cstatut]').forEach(n => { const i=n.dataset.cstatut; editable(n, () => modale(C[i].statut, v => { C[i].statut=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-cnom]').forEach(n => { const i=n.dataset.cnom; editable(n, () => modale(C[i].nom, v => { C[i].nom=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-clieu]').forEach(n => { const i=n.dataset.clieu; editable(n, () => modale(C[i].lieu, v => { C[i].lieu=v; n.textContent='📍 '+v; marquerModifie(); })); });
+    box.querySelectorAll('[data-cinfo]').forEach(n => { const i=n.dataset.cinfo; editable(n, () => modale(C[i].info, v => { C[i].info=v; n.textContent='🏃 '+v; marquerModifie(); })); });
+    box.querySelectorAll('[data-climite]').forEach(n => { const i=n.dataset.climite; editable(n, () => modale(C[i].limite, v => { C[i].limite=v; n.textContent=v; marquerModifie(); })); });
+    box.querySelectorAll('[data-clien]').forEach(n => { const i=n.dataset.clien; editable(n, () => modale(C[i].lien, v => { C[i].lien=v; n.textContent='🔗 Lien : '+v; marquerModifie(); })); });
+    box.querySelectorAll('[data-ccat]').forEach(n => {
+      const [i,ci]=n.dataset.ccat.split('-');
+      editable(n, () => modale(C[i].categories[ci], v => { C[i].categories[ci]=v; n.textContent=v; marquerModifie(); }));
+      badgeSuppr(n, () => { C[i].categories.splice(ci,1); marquerModifie(); rendreAgenda(); });
+    });
+    box.querySelectorAll('[data-caddcat]').forEach(n => { const i=n.dataset.caddcat; n.onclick=(e)=>{e.preventDefault();C[i].categories.push('Catégorie');marquerModifie();rendreAgenda();}; });
+    box.querySelectorAll('[data-ccard]').forEach(n => {
+      const i=n.dataset.ccard;
+      const del = el('<button class="acc-suppr-badge">✕</button>');
+      del.onclick = (e) => { e.preventDefault(); e.stopPropagation(); if(confirm('Supprimer cette compétition ?')){ C.splice(i,1); marquerModifie(); rendreAgenda(); } };
+      if (getComputedStyle(n).position === 'static') n.style.position = 'relative';
+      n.appendChild(del);
+    });
+    const add = box.querySelector('[data-caddcomp]');
+    if (add) add.onclick = () => { C.push({jour:'01',mois:'Janvier',annee:'2026',statut:'Inscriptions ouvertes',nom:'Nouvelle compétition',lieu:'Lieu',info:'',categories:['Toutes'],limite:'',lien:'inscription.html'}); marquerModifie(); rendreAgenda(); };
   }
 
   // ===== ACTUALITÉS (articles modifiables) =====
@@ -627,6 +694,7 @@
       .acc-photo-fab { position: absolute; top: 6px; right: 6px; z-index: 20; background: rgba(0,20,60,0.82); color: #fff; border: none; border-radius: 8px; padding: 5px 10px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'DM Sans',sans-serif; }
       .acc-suppr-badge { position: absolute; top: -8px; right: -8px; z-index: 21; width: 22px; height: 22px; border-radius: 50%; background: #A32D2D; color: #fff; border: none; font-size: 11px; cursor: pointer; }
       .acc-ajout { display: inline-block; background: #003DA5; color: #fff; border: none; border-radius: 10px; padding: 10px 18px; font-family: 'DM Sans',sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; margin: 16px auto; }
+      .acc-mini-add { background: #EEF2F9; border: 1px dashed #003DA5; color: #003DA5; border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'DM Sans',sans-serif; }
       #acc-herofond-ctrl { position: absolute; top: 12px; left: 12px; z-index: 30; display: flex; gap: 8px; }
       #acc-herofond-ctrl button { background: rgba(0,20,60,0.82); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'DM Sans',sans-serif; }
       .acc-photo-zone { position: relative; height: 220px; background: linear-gradient(135deg,#001F5C,#003DA5); display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; overflow: hidden; border-radius: 10px; }
